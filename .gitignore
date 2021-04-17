@@ -1,0 +1,6 @@
+# python folders
+venv/*
+__pycache__/
+
+# File types
+*.code-workspace
