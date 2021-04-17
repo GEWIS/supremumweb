@@ -6,7 +6,7 @@ from app.supremum import supremum_bp
 
 
 def create_app():
-    app = Flask(__name__, static_folder="static", template_folder="templates")
+    app = Flask(__name__, static_folder=None, template_folder=None)
 
     register_blueprints(app)
 

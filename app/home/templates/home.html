@@ -1,0 +1,25 @@
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="{{url_for('home.static', filename='home.css')}}">
+    </head>
+    <body>
+        <div id="home-banner">
+        </div>
+        <div id="container">
+            <div class="home-page-item flex-centered">
+                <div id="latest-edition-box" class="flex-column flex-centered">
+                    <div id="latest-edition-title" class="flex-column flex-centered">
+                        <p>{{ edition.name }}</p>
+                        <h1>{{ edition.title }}</h1>
+                    </div>
+                    <img id="latest-edition-cover" src='{{edition.img_url}}'>                    
+                    <a class="flex-centered" href='{{edition.pdf_url}}'>
+                        <button id="latest-edition-read">
+                            <span>Read it now!</span>
+                        </button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
