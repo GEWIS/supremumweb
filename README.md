@@ -12,6 +12,7 @@ If you wish to run this website locally, do the following:
 
 ### Start
 After you have everything set up, run the following commands on the command line each time you want to start the server locally:
+
 0. Run `source venv/bin/activate` (Linux, OS X) or `venv\Scripts\activate.bat` (Windows).
     - This activates the virtual environment we created in the setup.
     - It can be deactivated by running `source venv/bin/deactivate` (Linux, OS X) or `venv\Scripts\deactivate.bat` (Windows).
