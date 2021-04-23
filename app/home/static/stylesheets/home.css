@@ -15,15 +15,29 @@ h1, h2, h3, p {
 h1 {
     font-size: 5rem;
 }
-
-p, span {
+h3 {
     font-size: 3.5rem;
 }
 
+p, span {
+    font-size: 2rem;
+}
+
 #home-banner {
+    display: flex;
+    align-items: center;
+
     background-color: white;
-    min-height: 50px;
-    height: 8vh;
+    min-height: 8vh;    
+}
+
+#home-banner h3 {
+    color: #D40026
+}
+
+#banner-logo {
+    height: 5vh;
+    margin: 1.5vh 0 1.5vh 1.5vh;
 }
 
 .home-page-item {
@@ -71,4 +85,39 @@ p, span {
     padding: 75px 0;
 
     margin: 5vh 0vw;
+}
+
+#read-now {
+    width: 100%;
+    margin: 3vh 0;
+}
+
+#chevron {
+    width: 10%;
+    max-width: 100px;
+}
+
+#home-about {
+    padding: 5vh 0;    
+    align-self: center;
+}
+
+#home-about h3{
+    margin: 2vh 0;
+}
+
+#home-about p {
+    line-height: 1.6;
+}
+
+#about-container {
+    max-width: 1000px;
+    width: 90%;
+}
+
+#about-banner {
+    width: 700px;
+    max-width: 80%;
+    align-self: center;
+    border-radius: 25px;
 }

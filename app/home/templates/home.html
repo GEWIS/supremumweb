@@ -1,23 +1,42 @@
 <html>
     <head>
-        <link rel="stylesheet" type="text/css" href="{{url_for('home.static', filename='home.css')}}">
+        <link rel="stylesheet" type="text/css" href="{{url_for('home.static', filename='stylesheets/home.css')}}">
     </head>
     <body>
         <div id="home-banner">
+            <img id="banner-logo" src="{{url_for('home.static', filename='icons/supremum.svg')}}">
+            <h3>upremum</h3>
         </div>
         <div id="container">
+            <!-- Edition section -->
             <div class="home-page-item flex-centered">
                 <div id="latest-edition-box" class="flex-column flex-centered">
                     <div id="latest-edition-title" class="flex-column flex-centered">
-                        <p>{{ edition.name }}</p>
+                        <h3>{{ edition.name }}</h3>
                         <h1>{{ edition.title }}</h1>
                     </div>
-                    <img id="latest-edition-cover" src='{{edition.img_url}}'>                    
                     <a class="flex-centered" href='{{edition.pdf_url}}'>
-                        <button id="latest-edition-read">
-                            <span>Read it now!</span>
-                        </button>
+                        <img id="latest-edition-cover" src='{{edition.img_url}}'>                    
                     </a>
+                    <div id="read-now" class="flex-centered flex-column">
+                        <img id="chevron" src="{{url_for('home.static', filename='icons/chevron.svg')}}">
+                        <p>Read it now!</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- About section -->
+            <div id="home-about" class="flex-centered">
+                <div id="about-container" class="flex-column">
+                    <img id="about-banner" src="{{url_for('home.static', filename='img/banner.png')}}">
+                    <h3>What is Supremum?</h3>
+                    <p>Supremum is the magazine of GEWIS, the study association for 
+                        computer science and mathematics students at Eindhoven 
+                        University of Technology.</p>
+                    <p>Having been around longer than GEWIS itself, Supremum has been
+                        a place for students to express themselves, read up on the latest
+                        in-house research, great recipes and much more.</p>
+                    <!-- TODO: write more -->
                 </div>
             </div>
         </div>
