@@ -1,0 +1,25 @@
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="{{url_for('supremum.static', filename='stylesheets/archive.css')}}">
+    </head>
+    
+    <body>
+        <div id="home-banner">
+            <img id="banner-logo" src="{{url_for('home.static', filename='icons/supremum.svg')}}">
+            <h3>upremum</h3>
+        </div>
+        <div id="container">
+            <div class="page-item flex-centered">
+                {% for edition in editions %}
+                <div id="edition-archive">
+                    <a class="flex-centered" href='{{edition.pdf_url}}'>
+                        <img id="edition-cover" class="gray-hover" src='{{edition.img_url}}'>                    
+                    </a>
+                    <p>{{ edition.name }}</p>
+                    <p>{{ edition.title }}</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </body>
+</html>

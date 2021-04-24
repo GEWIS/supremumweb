@@ -1,0 +1,87 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+a {
+    text-decoration: none;
+}
+
+h1, h2, h3, p {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
+h1 {
+    font-size: 5rem;
+}
+h3 {
+    font-size: 3.5rem;
+}
+
+p, span {
+    font-size: 1.5rem;
+}
+
+#home-banner {
+    display: flex;
+    align-items: center;
+
+    background-color: white;
+    min-height: 8vh;    
+}
+
+#home-banner h3 {
+    color: #D40026
+}
+
+#banner-logo {
+    height: 5vh;
+    margin: 1.5vh 0 1.5vh 1.5vh;
+}
+
+.page-item {
+    min-height: calc(max(50px, 80vh));    
+    background-color: #D40026
+}
+
+.flex-centered {
+    display: flex;
+    align-items: center;
+}
+
+.flex-centered {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+#edition-archive {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+    margin: 2.5vh 0;
+}
+
+#edition-cover {
+    width: 300px;
+    max-width: 90%;
+}
+
+/* Only apply the fancy colour overlay if you can hover on your device */
+/* --> all images will be coloured on mobile */
+@media (hover) {
+    .gray-hover {
+        /* https://stackoverflow.com/questions/7273927/image-greyscale-with-css-re-color-on-mouse-over */
+        filter: url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\'><filter id=\'grayscale\'><feColorMatrix type=\'matrix\' values=\'0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0\'/></filter></svg>#grayscale"); /* Firefox 3.5+ */
+        filter: gray; /* IE6-9 */
+        -webkit-filter: grayscale(100%); /* Chrome 19+ & Safari 6+ */
+    }
+
+    .gray-hover:hover {
+        filter: none;
+        -webkit-filter: grayscale(0%);
+    }
+}
