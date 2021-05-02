@@ -9,11 +9,11 @@
             <h3>upremum</h3>
         </div>
         <div id="container">
-            <div class="page-item flex-centered">
+            <div class="flex-centered">
                 {% for edition in editions %}
                 <div id="edition-archive">
-                    <a class="flex-centered" href='{{edition.pdf_url}}'>
-                        <img id="edition-cover" class="gray-hover" src='{{edition.img_url}}'>                    
+                    <a class="flex-centered" id="edition" href='{{edition.pdf_url}}'>
+                        <img class="gray-hover" id="edition-cover" src='{{edition.img_url}}'>                    
                     </a>
                     <p>{{ edition.name }}</p>
                     <p>{{ edition.title }}</p>

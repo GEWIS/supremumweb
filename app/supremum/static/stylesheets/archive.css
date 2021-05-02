@@ -40,14 +40,8 @@ p, span {
     margin: 1.5vh 0 1.5vh 1.5vh;
 }
 
-.page-item {
-    min-height: calc(max(50px, 80vh));    
+#container {
     background-color: #D40026
-}
-
-.flex-centered {
-    display: flex;
-    align-items: center;
 }
 
 .flex-centered {
@@ -62,12 +56,15 @@ p, span {
     flex-direction: column;
     align-items: center;
     color: white;
-    margin: 2.5vh 0;
+    margin: 2.5%;
+}
+
+#edition {
+    max-width: 300px;
 }
 
 #edition-cover {
-    width: 300px;
-    max-width: 90%;
+    width: 100%;
 }
 
 /* Only apply the fancy colour overlay if you can hover on your device */
