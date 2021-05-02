@@ -18,7 +18,7 @@ After you have everything set up, run the following commands on the command line
     - It can be deactivated by running `source venv/bin/deactivate` (Linux, OS X) or `venv\Scripts\deactivate.bat` (Windows).
 1. Execute `python3 wsgi.py`
     - This starts the development server.
-2. Open `http://localhost:5000/` on your web browser to view the website.
+2. Open `http://localhost:8080/` on your web browser to view the website.
 
 ### Automatic reload
 This development server has been setup in such a way that when changing and saving a python file (`.py`), the server automatically restarts. Simply (force-)refresh your browser to view the update version: `ctrl+shift+r` (Windows, Linux) or `cmd+shift+r` (OS X).
