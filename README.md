@@ -26,5 +26,13 @@ This also works when updating a `.css` file.
 
 When you have updated an `.html` file, you have to restart the 
 
+## Docker environment
+If you wish to run this website in a docker setting, do the following:
+
+0. Install docker
+1. Run `bash start.sh` (Linux)
+    - This creates and starts a docker container of the website. This can be accessed on `http://localhost:9500`.
+
+
 ## Documentation
 The documentation for this repository is continued in the `app` folder.
