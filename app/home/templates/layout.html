@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>{% block title %}Supremum - GEWIS{% endblock %}</title>
+    <link rel="stylesheet" type="text/css" href="{{url_for('home.static', filename='stylesheets/home.css')}}">
+    <link href="https://gewis.nl/corporateidentity/public/cdn/gewisicons/v1.1/style.css" rel="stylesheet">
+    {% block links %}{% endblock %}
+</head>
+<body>
+    {% include 'components/menu.html' %}
+    <div class="container">
+        {% block body %}{% endblock %}
+    </div>
+    {% include 'components/footer.html' %}
+</body>
+</html>

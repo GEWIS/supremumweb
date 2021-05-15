@@ -1,102 +1,88 @@
-<html>
-    <head>
-        <link rel="stylesheet" type="text/css" href="{{url_for('home.static', filename='stylesheets/home.css')}}">
-        <link href="https://gewis.nl/corporateidentity/public/cdn/gewisicons/v1.1/style.css" rel="stylesheet">
-    </head>
-    <body>
-        <div id="container">
-            <div id="home-banner">
-                <div class="gi gewis-s" id="banner-logo"></div>
-                <h3>upremum</h3>
-            </div>
-            <!-- Edition section -->
-            <div id="latest-edition-container" class="flex-centered">
-                <div id="latest-edition-box" class="flex-column flex-centered">
-                    <div id="latest-edition-title" class="flex-column flex-centered">
-                        <h3>{{ edition.name }}</h3>
-                        <h1>{{ edition.title }}</h1>
-                    </div>
-                    <a class="flex-centered" href='{{edition.pdf_url}}'>
-                        <img id="latest-edition-cover" src='{{edition.img_url}}'>                    
-                    </a>
-                    <div id="read-now" class="flex-centered flex-column">
-                        <img id="chevron" src="{{url_for('home.static', filename='icons/chevron.svg')}}">
-                        <p>Read it now!</p>
-                    </div>
-                </div>
-            </div>
+{% extends 'layout.html' %}
 
-            <!-- About section -->
-            <div id="home-about" class="flex-centered element-section">
-                <div id="about-container" class="flex-column element-container">
-                    <img id="about-banner" src="{{url_for('home.static', filename='img/banner.png')}}">
-                    <h3>What is Supremum?</h3>
-                    <p>
-                        Supremum is the magazine of GEWIS, the study association for 
-                        computer science and mathematics students at Eindhoven 
-                        University of Technology.
-                        Having been around longer than GEWIS itself, Supremum has been
-                        a place for students to express themselves, read up on the latest
-                        research within the faculty, learn great recipes and much more. 
-                        Honoring its name, Supremum sets the ceiling of what is possible
-                        for its more than 800 readers. Every. Single. Time.
-                    </p>
-                    <a id="start-reading" class="flex flex-right" href='./supremum'>
-                        <button class="red-text"><p>> Start reading</p></button>
-                    </a>
-                </div>
-            </div>
 
-            <!-- Infima section -->
-            <div id="home-infima" class="flex-centered element-section">
-                <div id="infima-container" class="flex-column element-container">
-                    <img id="about-banner" src="{{url_for('home.static', filename='img/infima-banner.png')}}">
-                    <h3>The Infima.</h3>
-                    <p>
-                        Introduced as "a strange or funny quotation from a teacher, student,
-                        or faculty member" in each edition, no Supremum is complete without
-                        its infima.
-                    </p>                        
-                    <a id="to-submit-infima" class="flex" href='./infima/submit'>
-                        <button class="white-text"><p>> Submit an infima</p></button>
-                    </a>
-                    <a id="to-infima-archive" class="flex" href='./infima'>
-                        <button class="white-text"><p>> Visit the archive</p></button>
-                    </a>
-                </div>
+{% block body %}
+    <!-- Edition section -->
+    <div id="latest-edition-container" class="flex-centered">
+        <div id="latest-edition-box" class="flex-column flex-centered">
+            <div id="latest-edition-title" class="flex-column flex-centered">
+                <h3>{{ edition.name }}</h3>
+                <h1>{{ edition.title }}</h1>
             </div>
-
-            <!-- Writing section -->
-            <div id="home-writing" class="flex-centered element-section">
-                <div id="writing-container" class="flex-column element-container">
-                    <h3>Play a part.</h3>
-                    <p>
-                        At Supremum, the doors are always open to collaborate with
-                        our members and faculty and have them reach the GEWIS members
-                        with their own message. Do you have an article, recipe, 
-                        photo series, funny story - or something completely different 
-                        - in mind that you would like to share with GEWIS through
-                        the magazine? Get in contact with us, so we can see together
-                        how we can make this happen!
-                    </p>
-                    <a id="contact-supremum" class="flex flex-right" href='mailto:supremum@gewis.nl'>
-                        <button class="red-text"><p>> Contact Supremum</p></button>
-                    </a>
-                    <p>
-                        Not a (former) member, but still think you or your company
-                        can add something to the magazine? Get in contact with 
-                        GEWIS's External Affairs Officer to discuss what is possible.
-                    </p>
-                    <a id="contact-gewis" class="flex flex-right" href='mailto:ceb@gewis.nl'>
-                        <button class="red-text"><p>> Contact GEWIS</p></button>
-                    </a>
-                </div>
-            </div>
-
-            <!-- Footer -->
-            <div id="footer">
-                <!-- <p>Hi!</p> -->
+            <a class="flex-centered" href='{{edition.pdf_url}}'>
+                <img id="latest-edition-cover" src='{{edition.img_url}}'>                    
+            </a>
+            <div id="read-now" class="flex-centered flex-column">
+                <img id="chevron" src="{{url_for('home.static', filename='icons/chevron.svg')}}">
+                <p>Read it now!</p>
             </div>
         </div>
-    </body>
-</html>
+    </div>
+
+    <!-- About section -->
+    <div id="home-about" class="flex-centered element-section">
+        <div id="about-container" class="flex-column element-container">
+            <img id="about-banner" src="{{url_for('home.static', filename='img/banner.png')}}">
+            <h3>What is Supremum?</h3>
+            <p>
+                Supremum is the magazine of GEWIS, the study association for 
+                computer science and mathematics students at Eindhoven 
+                University of Technology.
+                Having been around longer than GEWIS itself, Supremum has been
+                a place for students to express themselves, read up on the latest
+                research within the faculty, learn great recipes and much more. 
+                Honoring its name, Supremum sets the ceiling of what is possible
+                for its more than 800 readers. Every. Single. Time.
+            </p>
+            <a id="start-reading" class="flex flex-right" href='./supremum'>
+                <button class="red-text"><p>> Start reading</p></button>
+            </a>
+        </div>
+    </div>
+
+    <!-- Infima section -->
+    <div id="home-infima" class="flex-centered element-section">
+        <div id="infima-container" class="flex-column element-container">
+            <img id="about-banner" src="{{url_for('home.static', filename='img/infima-banner.png')}}">
+            <h3>The Infima.</h3>
+            <p>
+                Introduced as "a strange or funny quotation from a teacher, student,
+                or faculty member" in each edition, no Supremum is complete without
+                its infima.
+            </p>                        
+            <a id="to-submit-infima" class="flex" href='./infima/submit'>
+                <button class="white-text"><p>> Submit an infima</p></button>
+            </a>
+            <a id="to-infima-archive" class="flex" href='./infima'>
+                <button class="white-text"><p>> Visit the archive</p></button>
+            </a>
+        </div>
+    </div>
+
+    <!-- Writing section -->
+    <div id="home-writing" class="flex-centered element-section">
+        <div id="writing-container" class="flex-column element-container">
+            <h3>Play a part.</h3>
+            <p>
+                At Supremum, the doors are always open to collaborate with
+                our members and faculty and have them reach the GEWIS members
+                with their own message. Do you have an article, recipe, 
+                photo series, funny story - or something completely different 
+                - in mind that you would like to share with GEWIS through
+                the magazine? Get in contact with us, so we can see together
+                how we can make this happen!
+            </p>
+            <a id="contact-supremum" class="flex flex-right" href='mailto:supremum@gewis.nl'>
+                <button class="red-text"><p>> Contact Supremum</p></button>
+            </a>
+            <p>
+                Not a (former) member, but still think you or your company
+                can add something to the magazine? Get in contact with 
+                GEWIS's External Affairs Officer to discuss what is possible.
+            </p>
+            <a id="contact-gewis" class="flex flex-right" href='mailto:ceb@gewis.nl'>
+                <button class="red-text"><p>> Contact GEWIS</p></button>
+            </a>
+        </div>
+    </div>
+{% endblock %}
