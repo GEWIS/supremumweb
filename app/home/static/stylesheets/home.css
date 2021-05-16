@@ -9,12 +9,17 @@
 }
 
 #edition-title {
-    margin: 3.5rem 0;
+    margin: 3rem 0;
+}
+
+#edition-title h2 {
+    margin: .25rem 0;
 }
 
 #edition-title h3 {
-    margin: 0;
+    margin: .25rem 0;
 }
+
 
 .edition-cover {
     width: 750px;

@@ -31,6 +31,10 @@ body, html, div {
     html {
         font-size: 8px;
     }
+
+    .accomodate-shrink {
+        display: none;
+    }
 }
 
 a {
@@ -73,20 +77,30 @@ p, span {
 
 /* Menu */
 
-#home-banner {
+#menu {
     display: flex;
-    align-items: center;
+    flex-direction: row;
+    
+    width: 100%;
+    height: 7rem;
+    overflow: hidden;
     background-color: white;
+    
+    top: 0;
+    position: fixed;
 }
 
-#home-banner h3 {
-    color: #D40026
-}
-
-#banner-logo {
+.menu-logo {
+    display: flex;
+    flex-direction: row;
     color: #D40026;
     font-size: 3.5rem;
     margin: 2rem 0 2rem 2rem;
+}
+
+.logo-text {
+    margin: 0;
+    margin-left: 3px;
 }
 
 /* Layout & Basic components */
@@ -95,6 +109,9 @@ p, span {
     display: flex;
     flex-direction: column;
     max-width: 100vw;
+
+    /* Prevent content overflow */
+    margin-top: 7rem;
 }
 
 .content-item {
@@ -160,4 +177,16 @@ p, span {
 
 .section-title {
     margin: 1.25em 0 0 0;
+}
+
+/* Footer */
+#footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    
+    width: 100%;
+    height: 7remx;
+    background-color: #D40026;
+    color: white;
 }
