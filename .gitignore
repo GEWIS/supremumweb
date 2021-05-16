@@ -4,3 +4,6 @@ __pycache__/
 
 # File types
 *.code-workspace
+
+# Environment files
+*.env

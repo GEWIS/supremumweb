@@ -1,0 +1,35 @@
+{% extends 'layout.html' %}
+
+{% from 'components/field.html' import render_field %}
+
+{% block links %}
+<link rel="stylesheet" type="text/css" href="{{url_for('infima.static', filename='stylesheets/infima.css')}}">
+{% endblock %}
+
+{% block body %}
+<div class="content-item center">
+    <div class="content-container submit-container">
+        {% if form %}
+        <h3>Submit an infimum!</h3>
+        <form method="POST" action="{{ request.url }}">
+            <div class="panel panel-default">
+                <div>
+                    {{ form.csrf_token }}
+                    {{ render_field(form.infimum_text) }}
+                </div>
+                <button type="submit" class="submit-btn" style="margin-right: 1em;">
+                    <i class="fa fa-sign-in"></i><p>> Submit</p>
+                </button>
+            </div>
+        </form>
+        {% else %}
+        <div id="submission-succesfull">
+            <h3>Your infimum has been submitted!</h3>
+            <a href="">
+                <p>> Submit another</p>
+            </a>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

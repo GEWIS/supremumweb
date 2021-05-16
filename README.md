@@ -36,3 +36,22 @@ If you wish to run this website in a docker setting, do the following:
 
 ## Documentation
 The documentation for this repository is continued in the `app` folder.
+
+## Configuration
+
+The following environment variables should be provided:
+
+| Name             | Purpose                                          |
+|------------------|--------------------------------------------------|
+| `SECRET_KEY`     | A secret key required to provide authentication. |
+| `MYSQL_HOST`     | The hostname of a MYSQL database server.         |
+| `MYSQL_PASS`     | The password of a MYSQL database user.           |
+| `MYSQL_PORT`     | The port number of a MYSQL database server.      |
+| `MYSQL_USER`     | The name of a MYSQL database user.               |
+
+The following environment variables are *optional*:
+
+| Name             | Purpose                                          |
+|------------------|--------------------------------------------------|
+| `APP_NAME`       | The name of the application. i.e Flask Bones     |
+| `SERVER_NAME`    | The hostname and port number of the server.      |

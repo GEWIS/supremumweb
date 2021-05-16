@@ -1,0 +1,26 @@
+.submit-container {
+    /* Account for header and footer */
+    min-height: calc(100vh - 14rem - 9vh);
+}
+
+#infimum_text {
+    border: none;
+    width: 80%;
+    min-width: 100px;
+    max-width: 500px;
+    min-height: 15rem;
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 15px;
+}
+
+.submit {
+    text-decoration: underline;
+}
+
+.submit-btn {
+    border: none;
+    background-color: transparent;
+    text-decoration: underline;
+    color: white;
+    cursor: pointer;
+}
