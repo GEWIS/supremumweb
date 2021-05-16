@@ -1,0 +1,163 @@
+body, html, div {
+    padding: 0;
+    margin: 0;
+}
+
+@media (min-width: 858px) {
+    html {
+        font-size: 12px;
+    }
+}
+
+@media (min-width: 780px) {
+    html {
+        font-size: 11px;
+    }
+}
+
+@media (min-width: 702px) {
+    html {
+        font-size: 10px;
+    }
+}
+
+@media (min-width: 624px) {
+    html {
+        font-size: 9px;
+    }
+}
+
+@media (max-width: 623px) {
+    html {
+        font-size: 8px;
+    }
+}
+
+a {
+    text-decoration: none;
+}
+
+h1, h2, h3, p {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+h1 {
+    font-size: 4.5rem;
+}
+
+h2 {
+    font-size: 3.75rem;
+}
+
+h3 {
+    font-size: 2.75rem;
+}
+
+p, span {
+    font-size: 2rem;
+    line-height: 1.6;
+}
+
+/* Common classes */
+
+.flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.flex-column {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Menu */
+
+#home-banner {
+    display: flex;
+    align-items: center;
+    background-color: white;
+}
+
+#home-banner h3 {
+    color: #D40026
+}
+
+#banner-logo {
+    color: #D40026;
+    font-size: 3.5rem;
+    margin: 2rem 0 2rem 2rem;
+}
+
+/* Layout & Basic components */
+
+.container {
+    display: flex;
+    flex-direction: column;
+    max-width: 100vw;
+}
+
+.content-item {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.content-item a {
+    text-decoration: underline;
+}
+
+.content-item a p {
+    margin: .5rem;
+}
+
+.content-item:nth-child(2n) {
+    background: white;
+    color: black;
+}
+
+.content-item:nth-child(2n) a {
+    color: red;
+}
+
+.content-item:nth-child(2n) .content-container {
+    text-align: left;
+}
+
+.content-item:nth-child(2n) .counter-align {
+    text-align: right;
+}
+
+.content-item:nth-child(2n+1) {
+    background: #D40026;
+    color: white;
+}
+
+.content-item:nth-child(2n+1) a {
+    color: white;
+}
+
+.content-item:nth-child(2n+1) .content-container {
+    text-align: right;
+}
+
+.content-item:nth-child(2n+1) .counter-align {
+    text-align: left;
+}
+
+.content-container {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    max-width: 750px;
+    padding: 2.5vh 0;
+}
+
+.section-banner {
+    max-width: 100%;
+    border-radius: 15px;
+}
+
+.section-title {
+    margin: 1.25em 0 0 0;
+}
