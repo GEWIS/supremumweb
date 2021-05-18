@@ -3,7 +3,7 @@ from . import home_bp as home
 
 
 @home.route('/')
-def landing_page():
+def index():
     temp_edition = {
         'title': 'The Earth Edition',
         'img_url' : url_for("home.static", filename="latest_edition.png"),

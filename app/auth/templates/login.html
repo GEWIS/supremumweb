@@ -1,0 +1,29 @@
+{% extends 'layout.html' %}
+
+{% from 'components/field.html' import render_field %}
+
+{% block links %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('auth.static', filename='/stylesheets/log.css')}}">
+{% endblock %}
+
+{% block body %}
+<div class="full-page">
+    <div class="login-container">
+        <div class="login-box">
+            <h3>Login to Supremum</h3>
+            <form method="POST" action="{{ request.url }}">
+                <div class="panel panel-default">
+                    <div>
+                        {{ form.csrf_token }}
+                        {{ render_field(form.username) }}
+                        {{ render_field(form.password) }}
+                    </div>
+                    <button type="submit" class="submit-btn" style="margin-right: 1em;">
+                        <p>> Login</p>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

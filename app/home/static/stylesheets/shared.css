@@ -64,6 +64,15 @@ p, span {
 
 /* Common classes */
 
+.full-page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    /* Account for height of menu and footer */
+    min-height: calc(100vh - 14rem)
+}
+
 .flex-center {
     display: flex;
     justify-content: center;

@@ -1,7 +1,9 @@
 from flask import Flask
 
 from app import config
+from app.auth import auth_bp
 from app.database import db
+from app.extensions import lm
 from app.home import home_bp
 from app.infima import infima_bp
 from app.supremum import supremum_bp
@@ -19,9 +21,11 @@ def create_app(config=config.base_config):
 
 def register_extensions(app):
     db.init_app(app)
+    lm.init_app(app)
 
 
 def register_blueprints(app):
+    app.register_blueprint(auth_bp, url_prefix='/auth')
     app.register_blueprint(home_bp)
     app.register_blueprint(infima_bp, url_prefix='/infima')
     app.register_blueprint(supremum_bp, url_prefix='/supremum')
