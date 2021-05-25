@@ -27,10 +27,33 @@
                     <td>
                         <p>{{ edition.title }}</p>
                     </td>
-                    <td><input type="radio" checked></button></td>
+                    <td>
+                        {% if edition.visible %}
+                        <img src="{{url_for('admin.static', filename='img/visible.svg')}}">
+                        {% else %}
+                        <img src="{{url_for('admin.static', filename='img/invisible.svg')}}">
+                        {% endif %}
+                    </td>
                     <td><button>Edit</button></td>
-                    <td><button>pdf</button></td>
-                    <td><button>pic</button></td>                    
+                    <td>
+                        {% if edition.pdf_url %}
+                        <a href="{{edition.pdf_url}}">
+                            <img src="{{url_for('admin.static', filename='img/document.svg')}}">
+                        </a>
+                        {% else %}
+                        <img src="{{url_for('admin.static', filename='img/no_document.svg')}}">
+                        {% endif %}
+                    </td>
+                    <td>
+
+                        {% if edition.img_url %}
+                        <a href="{{edition.img_url}}">
+                            <img src="{{url_for('admin.static', filename='img/image.svg')}}">
+                        </a>
+                        {% else %}
+                        <img src="{{url_for('admin.static', filename='img/no_image.svg')}}">
+                        {% endif %}
+                    </td>
                 </tr>
                 {% endfor %}
             </table>
