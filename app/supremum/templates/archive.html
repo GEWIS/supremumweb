@@ -1,26 +1,29 @@
-<html>
-    <head>
-        <link rel="stylesheet" type="text/css" href="{{url_for('supremum.static', filename='stylesheets/archive.css')}}">
-        <link href="https://gewis.nl/corporateidentity/public/cdn/gewisicons/v1.1/style.css" rel="stylesheet">
-    </head>
-    
-    <body>
-        <div id="home-banner">
-            <div class="gi gewis-s" id="banner-logo"></div>
-            <h3>upremum</h3>
-        </div>
-        <div id="container">
-            <div class="flex-centered">
+{% extends 'layout.html' %}
+
+{% block links %}
+<link rel="stylesheet" type="text/css" href="{{url_for('supremum.static', filename='stylesheets/archive.css')}}">
+{% endblock%}
+
+
+{% block body %}
+<div class="flex-centered">
+    {% for volume, editions in volumes.items() %}
+    <div class="archive-item">
+        <div class="archive-container">
+            <h3 class="volume-title">Volume {{volume}}</h3>
+            <div class="volume-box">
                 {% for edition in editions %}
-                <div id="edition-archive">
+                <div class="edition-box">
+                    <!-- <p><b>#{{volume}}.{{edition.edition}}</b></p> -->
                     <a class="flex-centered" id="edition" href='{{edition.pdf_url}}'>
-                        <img class="gray-hover" id="edition-cover" src='{{edition.img_url}}'>                    
+                        <img class="gray-hover" id="edition-cover" src='{{edition.img_url}}' loading="lazy">
                     </a>
-                    <p>{{ edition.name }}</p>
-                    <p>{{ edition.title }}</p>
+                    <p><b>{{ edition.title }}</b></p>
                 </div>
                 {% endfor %}
             </div>
         </div>
-    </body>
-</html>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
