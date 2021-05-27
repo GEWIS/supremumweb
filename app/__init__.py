@@ -25,7 +25,7 @@ def register_extensions(app):
 
 
 def register_blueprints(app):
-    app.register_blueprint(auth_bp, url_prefix='/auth')
+    app.register_blueprint(auth_bp, url_prefix="/auth")
     app.register_blueprint(home_bp)
     app.register_blueprint(infima_bp, url_prefix='/infima')
     app.register_blueprint(supremum_bp, url_prefix='/supremum')
