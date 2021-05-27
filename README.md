@@ -33,12 +33,10 @@ If you wish to run this website in a docker setting, do the following:
 1. Run `bash start.sh` (Linux)
     - This creates and starts a docker container of the website. This can be accessed on `http://localhost:9500`.
 
-
 ## Documentation
 The documentation for this repository is continued in the `app` folder.
 
 ## Configuration
-
 The following environment variables should be provided:
 
 | Name             | Purpose                                          |
@@ -55,3 +53,11 @@ The following environment variables are *optional*:
 |------------------|--------------------------------------------------|
 | `APP_NAME`       | The name of the application. i.e Flask Bones     |
 | `SERVER_NAME`    | The hostname and port number of the server.      |
+
+## Updating production website
+In order to update the live website, you need to push a new image of the docker container to the repository.
+
+0. Run `docker build . -t supremum.docker-registry.gewis.nl/site:v<tag>`, where `<tag>` is the version number.
+1. Run `docker push supremum.docker-registry.gewis.nl/site:v<tag>`.
+2. Edit the stack at `docker.gewis.nl` to use the new version number provided in `<tag>`.
+3. Congrats, you should now see your new image being used and the container to be newly created!

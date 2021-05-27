@@ -2,7 +2,7 @@
 FROM tiangolo/uwsgi-nginx-flask:python3.8-alpine
 
 # In case we don't want to use VIM?
-RUN apk --update add bash nano
+RUN apk --update add bash nano gcc g++ libffi-dev
 
 # Set constant environment
 # TODO: Configure nginx to use multiple static folders
