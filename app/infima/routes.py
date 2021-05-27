@@ -1,14 +1,15 @@
 from flask import render_template, jsonify
-from . import infima_bp
-from .forms import SubmitForm
+from . import infima_bp as infima
 
+from app.infima.forms import SubmitForm
+from app.infima.models import Infimum
 
-@infima_bp.route('/')
+@infima.route('/')
 def infima_overview():
     return render_template('infima.html'), 200
 
 
-@infima_bp.route('/submit', methods=['GET', 'POST'])
+@infima.route('/submit', methods=['GET', 'POST'])
 def submit():
     form = SubmitForm()
     form.infimum_text(placeholder="testtestestestse")
@@ -17,3 +18,8 @@ def submit():
         return render_template('submit.html', success=True), 200
     return render_template('submit.html', form=form), 200
     # return render_template('submit.html', form=None), 200
+
+@infima.route('/random_infimum')
+def get_random_infimum():
+    first_infimum = dict(Infimum.query.first())
+    return jsonify(first_infimum), 200
