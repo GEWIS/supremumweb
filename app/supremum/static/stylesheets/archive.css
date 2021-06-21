@@ -10,7 +10,7 @@
 }
 
 .archive-item:nth-child(2n+1) {
-    background: #D40026;
+    background: var(--clr-accent-700);
     color: white;
 }
 

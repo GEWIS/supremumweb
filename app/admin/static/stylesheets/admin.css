@@ -13,7 +13,7 @@
 /* Button */
 
 .cta-button {
-    background-color: #D40026;
+    background-color: var(--clr-accent-700);
     color: #fff;
     border: none;
     border-radius: 5px;
@@ -62,7 +62,7 @@ td {
 }
 
 tr:first-child {
-    background-color: #D40026 !important;
+    background-color: var(--clr-accent-700) !important;
     color: #fff;
 }
 
