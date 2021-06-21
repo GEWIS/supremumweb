@@ -1,26 +1,48 @@
-.submit-container {
-    /* Account for header and footer */
-    min-height: calc(100vh - 14rem - 9vh);
+a {
+    text-decoration: none;
+    display: block;
 }
 
-#infimum_text {
-    border: none;
-    width: 80%;
-    min-width: 100px;
-    max-width: 500px;
-    min-height: 15rem;
-    font-family: Arial, Helvetica, sans-serif;
-    padding: 15px;
+.infima-overview {
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    min-height: var(--window-height);
+    width: min(500px, 90%);
 }
 
-.submit {
-    text-decoration: underline;
+.edition-list {
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: flex-end;
+    gap: 1rem;
 }
 
-.submit-btn {
-    border: none;
-    background-color: transparent;
-    text-decoration: underline;
-    color: white;
-    cursor: pointer;
+.edition-link {
+    padding: 3rem 2.5rem;
+    border-radius: 5px;
+    background-color: var(--clr-accent-700);
+    color: #ffffff;
+    font-weight: 700;
+}
+
+.edition-link:hover,
+.edition-link:active {
+    background-color: #0f0f0f;
+}
+
+.title {
+    color: var(--clr-accent-700);
+    margin-left: 3rem;
+}
+
+.infima-list {
+    display: grid;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.infima-card {
+    border: 1px solid #aaaaaa;
+    padding: 0 1rem;
 }

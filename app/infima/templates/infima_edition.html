@@ -1,0 +1,19 @@
+{% extends 'layout.html' %}
+
+{% block links %}
+<link rel="stylesheet" type="text/css" href="{{url_for('infima.static', filename='stylesheets/infima.css')}}">
+{% endblock %}
+
+
+{% block body %}
+<div class="infima-overview">
+    <h2 class="title">The infima of Supremum {{volume_nr}}.{{edition_nr}}</h2>
+    <div class="infima-list">
+        {% for infimum in infima %}
+        <div class="infima-card">
+            <p>{{infimum.content}}</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
