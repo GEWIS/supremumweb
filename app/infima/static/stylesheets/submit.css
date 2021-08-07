@@ -1,6 +1,6 @@
 .submit-container {
     /* Account for header and footer */
-    min-height: --window-height;
+    min-height: var(--window-height);
 }
 
 #infimum_text {

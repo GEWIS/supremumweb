@@ -23,7 +23,7 @@ class SubmitForm(Form):
     def validate(self):
         rv = Form.validate(self)
 
-        infimum = Infimum.query.filter_by(text=self.infimum_text.data).first()
+        infimum = Infimum.query.filter_by(content=self.infimum_text.data).first()
 
         if infimum:
             self.infimum.errors.append(

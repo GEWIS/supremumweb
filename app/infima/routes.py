@@ -69,12 +69,10 @@ def infima_for_edition(edition):
 @infima.route('/submit', methods=['GET', 'POST'])
 def submit():
     form = SubmitForm()
-    form.infimum_text(placeholder="testtestestestse")
     if form.validate_on_submit():
         print("infimum:", form.infimum_text, form.infimum)
         return render_template('submit.html', success=True), 200
-    return render_template('submit.html', form=form), 200
-    # return render_template('submit.html', form=None), 200
+    return render_template('submit.html', form=form), 200    
 
 @infima.route('/random_infimum')
 def get_random_infimum():
