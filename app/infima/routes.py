@@ -1,13 +1,29 @@
 from flask import render_template, jsonify, abort
 from . import infima_bp as infima
 
-from app.infima.forms import SubmitForm
+from app.infima.forms import SubmitForm, SearchForm
 from app.infima.models import Infimum
 
 import re
 
-@infima.route('/')
+@infima.route('/', methods=['GET', 'POST'])
 def infima_overview():
+    form = SearchForm()
+    if form.validate_on_submit():
+        print(form.search_term.data)
+        # TODO: search for the term
+        search_results = [{
+            "self": "/infima/53.0#50",
+            "id": 50,
+            "content": 'This... this is a test haha and now Im just writing a long string for testing purposes.',
+            "volume_nr": 53,
+            "edition_nr": 0,
+            "theme": "The Earth Edition"
+        }]
+    else:
+        search_results = []
+        
+    # TODO: get editions.
     temp_editions = [
         {
             "volume_nr": 53,
@@ -20,7 +36,12 @@ def infima_overview():
             "theme": "The Wind Edition"
         }
     ]
-    return render_template('infima_overview.html', editions=temp_editions), 200
+    
+    return render_template(
+        'infima_overview.html', 
+        editions=temp_editions,
+        form=form,
+        search_results=search_results), 200
 
 
 @infima.route('/<string:edition>')

@@ -1,6 +1,11 @@
+.module {
+    box-sizing: border-box;
+    padding-top: 1rem;
+}
+
 a {
-    text-decoration: none;
     display: block;
+    text-decoration: none;
 }
 
 .infima-overview {
@@ -45,4 +50,55 @@ a {
 .infima-card {
     border: 1px solid #aaaaaa;
     padding: 0 1rem;
+}
+
+/* Search form */
+
+.form input {
+    box-sizing: border-box;
+    padding: 1rem .5rem;
+    width: 100% ;
+}
+
+.form .submit-btn {
+    margin-left: auto;
+    margin-right: 0;
+}
+
+
+.submit {
+    text-decoration: underline;
+}
+
+.submit-btn {
+    display: block;
+    border: none;
+    background-color: transparent;
+    text-decoration: underline;
+    color: var(--clr-accent-700);
+    cursor: pointer;
+    margin-top: 1rem;
+}
+
+.submit-btn p {
+    margin: 0;
+}
+
+/* Infimum */
+.infimum {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 1rem;
+    border: solid 1px #0f0f0f;
+    border-radius: .5rem;    
+}
+
+.infimum-content {
+    margin: .5rem 0 1rem;
+}
+
+.infimum-link {
+    display: block;
+    color: var(--clr-accent-700);
+    font-size: 1.5rem;
 }

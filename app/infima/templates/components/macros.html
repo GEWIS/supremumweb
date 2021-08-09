@@ -10,3 +10,12 @@
         </div>
     {% endwith %}
 {% endmacro %}
+
+{% macro infimum(infimum) %}
+    {% with i = infimum %}
+        <div class="infimum" id="{{ i.id }}">
+            <p class="infimum-content">{{ i.content }}</p>
+            <a class="infimum-link" href="{{ i.self }}">- Supremum {{ i.volume_nr}}.{{ i.edition_nr }}, {{i.theme}}</a>
+        </div>
+    {% endwith %}
+{% endmacro %}

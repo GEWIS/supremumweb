@@ -1,5 +1,5 @@
 from flask_wtf import Form
-from wtforms import StringField
+from wtforms import StringField, TextField
 from wtforms.validators import DataRequired
 from wtforms.widgets import TextArea
 
@@ -33,3 +33,17 @@ class SubmitForm(Form):
 
         self.infimum = infimum
         return True
+
+class SearchForm(Form):
+    search_term = TextField(
+        'search_term',
+        validators = [DataRequired()],
+        render_kw = {
+            'placeholder': 'Search for...',
+            'autocomplete': 'off',
+        }
+    )
+    
+    def __init__(self, *args, **kwargs):
+        Form.__init__(self, *args, **kwargs)
+        self.term = None
