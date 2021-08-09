@@ -7,9 +7,9 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="210mm"
-   height="297mm"
-   viewBox="0 0 210 297"
+   width="124.44076mm"
+   height="178.86948mm"
+   viewBox="0 0 124.44076 178.86948"
    version="1.1"
    id="svg1542"
    sodipodi:docname="document.svg"
@@ -26,9 +26,9 @@
        inkscape:collect="always"
        style="color-interpolation-filters:sRGB"
        id="filter2176"
-       x="-8.3735388e-07"
+       x="-8.3735387e-07"
        width="1.0000017"
-       y="-2.1167226e-06"
+       y="-2.1167225e-06"
        height="1.0000042">
       <feGaussianBlur
          inkscape:collect="always"
@@ -43,16 +43,16 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.99279435"
-     inkscape:cx="153.32849"
-     inkscape:cy="660.16603"
+     inkscape:zoom="0.49639718"
+     inkscape:cx="-165.5892"
+     inkscape:cy="595.64072"
      inkscape:document-units="mm"
      inkscape:current-layer="g2150"
      inkscape:document-rotation="0"
      showgrid="false"
-     inkscape:window-width="1858"
+     inkscape:window-width="2498"
      inkscape:window-height="1057"
-     inkscape:window-x="54"
+     inkscape:window-x="1974"
      inkscape:window-y="-8"
      inkscape:window-maximized="1"
      inkscape:snap-text-baseline="false" />
@@ -70,7 +70,8 @@
   <g
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
-     id="layer1">
+     id="layer1"
+     transform="translate(-43.612953,-58.731924)">
     <g
        id="g2150"
        style="display:inline">
@@ -87,7 +88,7 @@
          sodipodi:nodetypes="cccc" />
       <text
          xml:space="preserve"
-         style="font-style:normal;font-weight:bold;font-size:10.5833px;line-height:1.25;font-family:'Century Gothic';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;filter:url(#filter2176);-inkscape-font-specification:'Century Gothic Bold';font-stretch:normal;font-variant:normal;"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:10.5833px;line-height:1.25;font-family:'Century Gothic';-inkscape-font-specification:'Century Gothic Bold';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;filter:url(#filter2176)"
          x="85.258972"
          y="204.72845"
          id="text2154"><tspan
@@ -95,10 +96,10 @@
            id="tspan2152"
            x="85.258972"
            y="204.72845"
-           style="stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;-inkscape-font-specification:'Century Gothic Bold';font-family:'Century Gothic';font-weight:bold;font-style:normal;font-stretch:normal;font-variant:normal;" /></text>
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'Century Gothic';-inkscape-font-specification:'Century Gothic Bold';stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none" /></text>
       <text
          xml:space="preserve"
-         style="font-style:normal;font-weight:bold;font-size:10.5833px;line-height:1.25;font-family:'Century Gothic';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583;-inkscape-font-specification:'Century Gothic Bold';font-stretch:normal;font-variant:normal;"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:10.5833px;line-height:1.25;font-family:'Century Gothic';-inkscape-font-specification:'Century Gothic Bold';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
          x="102.36423"
          y="203.39211"
          id="text2182"><tspan
@@ -106,14 +107,14 @@
            id="tspan2180"
            x="102.36423"
            y="203.39211"
-           style="stroke-width:0.264583;-inkscape-font-specification:'Century Gothic Bold';font-family:'Century Gothic';font-weight:bold;font-style:normal;font-stretch:normal;font-variant:normal;" /></text>
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'Century Gothic';-inkscape-font-specification:'Century Gothic Bold';stroke-width:0.264583" /></text>
       <text
          xml:space="preserve"
          id="text2184"
-         style="font-style:normal;font-weight:bold;font-size:10.5833px;line-height:1.25;font-family:'Century Gothic';letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect2186);fill:#000000;fill-opacity:1;stroke:none;-inkscape-font-specification:'Century Gothic Bold';font-stretch:normal;font-variant:normal;" />
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:10.5833px;line-height:1.25;font-family:'Century Gothic';-inkscape-font-specification:'Century Gothic Bold';letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect2186);fill:#000000;fill-opacity:1;stroke:none;" />
       <text
          xml:space="preserve"
-         style="font-style:normal;font-weight:bold;font-size:10.5833px;line-height:1.25;font-family:'Century Gothic';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583;-inkscape-font-specification:'Century Gothic Bold';font-stretch:normal;font-variant:normal;"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:10.5833px;line-height:1.25;font-family:'Century Gothic';-inkscape-font-specification:'Century Gothic Bold';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
          x="140.58376"
          y="210.34111"
          id="text2192"><tspan
@@ -121,7 +122,7 @@
            id="tspan2190"
            x="140.58376"
            y="210.34111"
-           style="stroke-width:0.264583;-inkscape-font-specification:'Century Gothic Bold';font-family:'Century Gothic';font-weight:bold;font-style:normal;font-stretch:normal;font-variant:normal;"></tspan></text>
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'Century Gothic';-inkscape-font-specification:'Century Gothic Bold';stroke-width:0.264583" /></text>
       <text
          xml:space="preserve"
          style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:24.6944px;line-height:1.25;font-family:'Century Gothic';-inkscape-font-specification:'Century Gothic Bold';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
@@ -135,7 +136,7 @@
            style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:24.6944px;font-family:'Century Gothic';-inkscape-font-specification:'Century Gothic Bold';fill:#4a4a4a;fill-opacity:1;stroke-width:0.264583">PDF</tspan></text>
     </g>
     <path
-       style="fill:none;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
+       style="fill:none;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="m 128.55664,50.51394 c 55.05752,58.26476 54.79025,58.26476 54.79025,58.26476"
        id="path2109" />
   </g>

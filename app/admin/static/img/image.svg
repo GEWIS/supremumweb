@@ -7,9 +7,9 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="210mm"
-   height="297mm"
-   viewBox="0 0 210 297"
+   width="159.21739mm"
+   height="101.765mm"
+   viewBox="0 0 159.21739 101.765"
    version="1.1"
    id="svg2265"
    inkscape:version="1.0.2-2 (e86c870879, 2021-01-15)"
@@ -24,15 +24,15 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.49497475"
-     inkscape:cx="8.8171697"
-     inkscape:cy="728.14978"
+     inkscape:cx="-91.013864"
+     inkscape:cy="445.46161"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      inkscape:document-rotation="0"
      showgrid="false"
-     inkscape:window-width="1858"
+     inkscape:window-width="2498"
      inkscape:window-height="1057"
-     inkscape:window-x="54"
+     inkscape:window-x="1974"
      inkscape:window-y="-8"
      inkscape:window-maximized="1" />
   <metadata
@@ -43,23 +43,24 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
   <g
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
-     id="layer1">
+     id="layer1"
+     transform="translate(-26.413628,-74.794579)">
     <rect
-       style="fill:#ffffff;fill-opacity:1;stroke:#4a4a4a;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;paint-order:fill markers stroke;stroke-miterlimit:4;stroke-dasharray:none"
+       style="fill:#ffffff;fill-opacity:1;stroke:#4a4a4a;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;paint-order:fill markers stroke"
        id="rect2828"
        width="154.21739"
        height="96.764999"
        x="28.913628"
        y="77.294579" />
     <path
-       style="fill:#4a4a4a;stroke:#4a4a4a;stroke-width:5;stroke-linecap:butt;stroke-linejoin:round;stroke-opacity:1;fill-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
+       style="fill:#4a4a4a;fill-opacity:1;stroke:#4a4a4a;stroke-width:5;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="M 40.443451,159.88393 H 171.60119 L 136.07143,98.462797 103.75446,130.77976 80.130951,114.14881 Z"
        id="path2830" />
     <circle

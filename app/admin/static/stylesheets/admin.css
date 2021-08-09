@@ -73,3 +73,8 @@ tr:nth-child(2n) {
 tr:nth-child(2n+1) {
     background-color: #FEEDEE;
 }
+
+img {
+    max-width: 50px;
+    max-height: 35px;
+}
