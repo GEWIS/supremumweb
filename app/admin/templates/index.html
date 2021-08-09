@@ -16,26 +16,25 @@
                 <tr>
                     <th><span>Name</span></th>
                     <th><span>Title</span></th>
-                    <th><span>Released</span></th>
-                    <th colspan="3"><span>Edit</span></th>
+                    <th colspan="3"><span>Status</span></th>
+                    <th></th>
                 </tr>
                 {% for edition in editions %}
                 <tr>
-                    <td>
+                    <td class="name">
                         <p>{{ edition.name }}</p>
                     </td>
-                    <td>
+                    <td class="title">
                         <p>{{ edition.title }}</p>
                     </td>
-                    <td>
+                    <td class="icon">
                         {% if edition.visible %}
                         <img src="{{url_for('admin.static', filename='img/visible.svg')}}">
                         {% else %}
                         <img src="{{url_for('admin.static', filename='img/invisible.svg')}}">
                         {% endif %}
                     </td>
-                    <td><button>Edit</button></td>
-                    <td>
+                    <td class="icon">
                         {% if edition.pdf_url %}
                         <a href="{{edition.pdf_url}}">
                             <img src="{{url_for('admin.static', filename='img/document.svg')}}">
@@ -44,8 +43,7 @@
                         <img src="{{url_for('admin.static', filename='img/no_document.svg')}}">
                         {% endif %}
                     </td>
-                    <td>
-
+                    <td class="icon">
                         {% if edition.img_url %}
                         <a href="{{edition.img_url}}">
                             <img src="{{url_for('admin.static', filename='img/image.svg')}}">
@@ -53,6 +51,11 @@
                         {% else %}
                         <img src="{{url_for('admin.static', filename='img/no_image.svg')}}">
                         {% endif %}
+                    </td>
+                    <td class="edit">
+                        <a class="edit-btn" href="supremum/edit/{{edition.id}}">
+                            <img src="{{url_for('admin.static', filename='img/pencil.svg')}}">
+                        </a>
                     </td>
                 </tr>
                 {% endfor %}

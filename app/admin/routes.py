@@ -11,31 +11,40 @@ def index():
             'title': 'The Wind Edition',
             'img_url' : url_for("home.static", filename="latest_edition.png"),
             'pdf_url' : url_for("home.static", filename="latest_supremum.pdf"),
-            'name': 'Supremum 53.1'
+            'name': 'Supremum 53.1',
+            'id': 4
         },
         {
             'title': 'The Earth Edition',
             'img_url' : url_for("home.static", filename="latest_edition.png"),
             'pdf_url' : url_for("home.static", filename="latest_supremum.pdf"),
-            'name': 'Supremum 53.0'
+            'name': 'Supremum 53.0',
+            'id': 3
         },
         {
             'title': 'The Default Edition',
             'img_url' : url_for("home.static", filename="latest_edition.png"),
             'pdf_url' : url_for("home.static", filename="latest_supremum.pdf"),
-            'name': 'Supremum 52.2'
+            'name': 'Supremum 52.2',
+            'id': 2
         },
         {
             'title': 'The Miracle Edition',
             'img_url' : url_for("home.static", filename="latest_edition.png"),
             'pdf_url' : url_for("home.static", filename="latest_supremum.pdf"),
-            'name': 'Supremum 52.1'
+            'name': 'Supremum 52.1',
+            'id': 1
         },
         {
             'title': 'The Disaster Edition',
             'img_url' : url_for("home.static", filename="latest_edition.png"),
             'pdf_url' : url_for("home.static", filename="latest_supremum.pdf"),
-            'name': 'Supremum 52.0'
+            'name': 'Supremum 52.0',
+            'id': 0
         }
     ]
     return render_template('index.html', editions=temp_editions), 200
+
+@admin.route('/supremum/edit/<int:sid>')
+def edit_supremum(sid: int):
+    return "Not yet implemented", 404

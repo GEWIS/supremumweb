@@ -57,8 +57,18 @@ tr {
     width: 100%;
 }
 
-td {
+td.name p {
+    min-width: 16ch;
+    padding-left: 2ch
+}
+
+td.title p {
+    min-width: 16ch;
+}
+
+td.icon, td.edit-btn {
     padding: 0 3rem;
+    text-align: center;
 }
 
 tr:first-child {
@@ -75,6 +85,25 @@ tr:nth-child(2n+1) {
 }
 
 img {
-    max-width: 50px;
-    max-height: 35px;
+    width: 50px;
+    height: 35px;
+}
+
+.edit-btn {
+    display: inline-block;
+    box-sizing: border-box;
+    background: var(--clr-accent-700);
+    padding: 1rem;
+    margin: 0 2rem;
+    border-radius: .75rem;
+    width: 35px;
+    height: 35px;
+}
+
+.edit-btn img {
+    display: block;
+    margin: auto;
+    filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(122deg) brightness(109%) contrast(101%);
+    max-width: 100%;
+    max-height: 100%;
 }
