@@ -60,10 +60,6 @@ th {
     padding: .75rem 0;
 }
 
-tr {
-    width: 100%;
-}
-
 td.name p {
     min-width: 16ch;
     padding-left: 2ch
@@ -73,9 +69,14 @@ td.title p {
     min-width: 16ch;
 }
 
-td.icon, td.edit-btn {
+td.icon, td.edit-btn, td.id, td.date, td.rejected {
     padding: 0 3rem;
     text-align: center;
+}
+
+td.content p {
+    min-width: 30ch;
+    max-width: 95%;
 }
 
 tr:first-child {

@@ -1,4 +1,6 @@
 .form-group {
+    display: flex;
+    align-items: center;
     margin: 1.5rem 0;
 }
 
@@ -11,6 +13,18 @@
 .form-group input {
     box-sizing: border-box;
     padding: .5rem;
+}
+
+.form-group textarea {
+    min-width: 50ch;
+    min-height: 20rem;
+}
+
+.form-group select {
+    min-width: 25ch;
+    background-color: transparent;
+    padding: .5rem 0;
+    border: solid 1px;
 }
 
 .submit-btn {

@@ -1,23 +1,33 @@
 from flask import render_template, url_for, redirect
 from flask_login import login_required
+from datetime import datetime
 
 from app.admin import admin_bp as admin
-from app.admin.forms import SupremumForm
+from app.admin.forms import SupremumForm, InfimumEditForm
 
 @admin.route('/')
 # @login_required
 def index():
     temp_editions = [
         {
+            'title': 'The Fire Edition',
+            'img_url' : url_for("home.static", filename="latest_edition.png"),
+            'pdf_url' : url_for("home.static", filename="latest_supremum.pdf"),
+            'name': 'Supremum 53.1',
+            'id': 5,
+            'published': True
+        },
+        {
             'title': 'The Wind Edition',
             'img_url' : url_for("home.static", filename="latest_edition.png"),
             'pdf_url' : url_for("home.static", filename="latest_supremum.pdf"),
             'name': 'Supremum 53.1',
-            'id': 4
+            'id': 4,
+            'published': True
         },
         {
             'title': 'The Earth Edition',
-            'img_url' : url_for("home.static", filename="latest_edition.png"),
+            # 'img_url' : url_for("home.static", filename="latest_edition.png"),
             'pdf_url' : url_for("home.static", filename="latest_supremum.pdf"),
             'name': 'Supremum 53.0',
             'id': 3
@@ -25,7 +35,7 @@ def index():
         {
             'title': 'The Default Edition',
             'img_url' : url_for("home.static", filename="latest_edition.png"),
-            'pdf_url' : url_for("home.static", filename="latest_supremum.pdf"),
+            # 'pdf_url' : url_for("home.static", filename="latest_supremum.pdf"),
             'name': 'Supremum 52.2',
             'id': 2
         },
@@ -45,7 +55,23 @@ def index():
         }
     ]
     # TODO: retrieve from database.
-    return render_template('index.html', editions=temp_editions), 200
+    
+    temp_infima = [
+        {
+            'id': 1,
+            'content': "Hahah wat een grap! Ik ga even testen hoe lang ik deze zin kan maken.\n Wat denken we eravn?",
+            'submission_date': "2021-08-11",
+            'rejected': False
+        },
+        {
+            'id': 2,
+            'content': "Blarb blarb!",
+            'submission_date': "2021-08-11",
+            'rejected': True
+        }
+        ]
+    
+    return render_template('index.html', editions=temp_editions, infima=temp_infima), 200
 
 @admin.route('/supremum/new', methods=["GET", "POST"])
 def new_supremum():
@@ -79,3 +105,22 @@ def edit_supremum(sid: int):
         # Return to admin panel
         return redirect(url_for("admin.index"))
     return render_template("edit_supremum_form.html", form=form), 200
+
+@admin.route('/infimum/edit/<int:iid>', methods=["GET", "POST"])
+def edit_infimum(iid: int):
+     # Retrieve the infimum with iid
+    temp_infimum = {
+        'id': iid,
+        'content': 'Haha, this is a test :D\n What do we think?\nOk, this is just to check the overflow...\nHaha, this is a test :D\n What do we think?\nOk, this is just to check the overflow...\nHaha, this is a test :D\n What do we think?\nOk, this is just to check the overflow...\nHaha, this is a test :D\n What do we think?\nOk, this is just to check the overflow...\nHaha, this is a test :D\n What do we think?\nOk, this is just to check the overflow...\nHaha, this is a test :D\n What do we think?\nOk, this is just to check the overflow...\nHaha, this is a test :D\n What do we think?\nOk, this is just to check the overflow...\n',
+        'rejected': False,
+        'creation_date': datetime.fromisoformat('2021-08-11')
+    }
+    # TODO: retrieve from the database
+    
+    form = InfimumEditForm(infimum=temp_infimum)
+    if form.validate_on_submit():
+        # Update infimum in database...
+        
+        # Return to admin panel
+        return redirect(url_for("admin.index"))
+    return render_template("edit_infimum_form.html", form=form), 200

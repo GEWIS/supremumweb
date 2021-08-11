@@ -66,11 +66,39 @@
 <div class="overview-item">
     <div class="overview-container">
         <div class="table-title">
-            <h3>Infima overview</h3>
+            <h3>Unassigned infima overview</h3>
         </div>
-
         <div class="admin-table">
-
+            <table>
+                <tr>
+                    <th><span>Id</span></th>
+                    <th><span>Content</span></th>
+                    <th><span>Date</span></th>
+                    <th><span>Rejected</span></th>
+                    <th></th>
+                </tr>
+                {% for infimum in infima %}
+                <tr>
+                    <td class="id">
+                        <p>{{ infimum.id }}</p>
+                    </td>
+                    <td class="content">
+                        <p>{{ infimum.content }}</p>
+                    </td>
+                    <td class="submission-date">
+                        <p>{{ infimum.submission_date }}</p>
+                    </td>
+                    <td class="rejected">
+                        <p>{{ infimum.rejected }}</p>
+                    </td>
+                    <td class="edit">
+                        <a class="edit-btn" href="infimum/edit/{{infimum.id}}">
+                            <img src="{{url_for('admin.static', filename='img/pencil.svg')}}">
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
         </div>
     </div>
 </div>

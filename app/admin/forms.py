@@ -1,5 +1,5 @@
 from flask_wtf import Form
-from wtforms import BooleanField, StringField, FileField, IntegerField
+from wtforms import BooleanField, StringField, FileField, IntegerField, DateField, SelectField
 from wtforms.validators import DataRequired
 from wtforms.widgets import TextArea
 
@@ -83,4 +83,70 @@ class SupremumForm(Form):
         if not self._check_types():
             return False
         return True
- 
+
+class InfimumEditForm(Form):        
+    infimum_id = IntegerField(
+        'Infimum id',
+        validators=[DataRequired()],
+        render_kw = {
+            "type":"number",
+            'disabled': True # read-only field
+        }
+    )
+    supremum = SelectField(
+        'Supremum', coerce=int        
+    )
+    content = StringField(
+        'Theme',
+        validators=[DataRequired()],
+        widget=TextArea()
+    )
+    creation_date = DateField(
+        'Submission date',
+        validators = [DataRequired()],
+        render_kw = {
+            'disabled': True # read-only field
+        }
+    )    
+    rejected = BooleanField(
+        'Rejected'
+    )
+
+    def __init__(self, *args, **kwargs):
+        Form.__init__(self, *args, **kwargs)
+        self.infimum = kwargs.get("infimum", {})
+        print(self.infimum.get("volume_nr", ''))
+        if self.infimum:
+            self.infimum_id.data = self.infimum.get("id", '')
+            self.content.data = self.infimum.get('content', '')
+            self.creation_date.data = self.infimum.get('creation_date', '')
+            self.rejected.data = self.infimum.get('rejected', False)
+            
+            self.supremum.choices = [
+                (-1, 'Not selected'),
+                (0, 'Supremum 53.0'),
+                (1, 'Supremum 53.1'),
+                (2, 'Supremum 53.2')
+            ]
+            self.supremum.selected = None
+
+    def _check_types(self):
+        valid = True
+        
+        if not isinstance(self.content.data, str):
+            self.content.errors.append('Infimum must consist of text.')
+            valid = False
+            
+        print(self.rejected.data)
+        if not isinstance(self.rejected.data, bool):
+            self.rejected.errors.append('Rejected must be a boolean.')
+            valid = False
+
+        return valid
+        
+
+    def validate(self):
+        rv = Form.validate(self)
+        if not self._check_types():
+            return False
+        return True
