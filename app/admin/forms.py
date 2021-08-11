@@ -50,7 +50,7 @@ class SupremumForm(Form):
         self.supremum = kwargs.get("supremum", {})
         print(self.supremum.get("volume_nr", ''))
         if self.supremum:
-            self.supremum_id.data = self.supremum.get('id', '')
+            self.supremum_id.data = self.supremum.get('id', None)
             self.volume_nr.data = self.supremum.get("volume_nr", '')
             self.edition_nr.data = self.supremum.get("edition_nr", '')
             self.theme.data = self.supremum.get("theme", '')

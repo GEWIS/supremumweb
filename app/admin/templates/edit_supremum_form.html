@@ -14,7 +14,7 @@
             <div class="panel panel-default">
                 <div>
                     {{ form.csrf_token }}
-                    {% if form.supremum_id.data %}
+                    {% if form.supremum_id.data != None %}
                         {{ render_field(form.supremum_id, show_label=True) }}
                     {% endif %}
                     {{ render_field(form.volume_nr, show_label=True) }}
