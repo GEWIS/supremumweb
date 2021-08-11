@@ -5,11 +5,11 @@
 {% endblock %}
 
 {% block body %}
-<div class="overview-item full-page">
+<div class="overview-item">
     <div class="overview-container">
         <div class="table-title">
             <h3>Supremum overview</h3>
-            <a class="cta-button"><b>+</b></a>
+            <a class="cta-button" href="supremum/new"><b>+</b></a>
         </div>
         <div class="admin-table">
             <table>
@@ -28,7 +28,7 @@
                         <p>{{ edition.title }}</p>
                     </td>
                     <td class="icon">
-                        {% if edition.visible %}
+                        {% if edition.published %}
                         <img src="{{url_for('admin.static', filename='img/visible.svg')}}">
                         {% else %}
                         <img src="{{url_for('admin.static', filename='img/invisible.svg')}}">

@@ -1,0 +1,25 @@
+.form-group {
+    margin: 1.5rem 0;
+}
+
+.form-group label {
+    display: inline-block;
+    min-width: 15ch;
+    font-size: 1.75rem;
+}
+
+.form-group input {
+    box-sizing: border-box;
+    padding: .5rem;
+}
+
+.submit-btn {
+    background-color: transparent;
+    text-decoration: underline;
+    color: var(--clr-accent-700);
+    border: none;
+}
+
+.field-errors {
+    color: var(--clr-accent-700);
+}
