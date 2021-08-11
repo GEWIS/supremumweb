@@ -18,7 +18,8 @@ class SupremumForm(Form):
         'Volume nr.',
         validators=[DataRequired()],
         render_kw={
-            "type":"number"
+            "type":"number",
+            "min":"0"
         }
     )
     edition_nr = IntegerField(
@@ -26,6 +27,7 @@ class SupremumForm(Form):
         validators=[DataRequired()],
         render_kw={
             "type":"number",
+            "min":"0",
             "max":"3"
         }
     )
