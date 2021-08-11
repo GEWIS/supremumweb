@@ -1,0 +1,31 @@
+{% extends 'layout.html' %}
+
+{% from 'components/macros.html' import render_field %}
+
+{% block links %}
+<link rel="stylesheet" type="text/css" href="{{url_for('admin.static', filename='stylesheets/admin.css')}}">
+<link rel="stylesheet" type="text/css" href="{{url_for('admin.static', filename='stylesheets/form.css')}}">
+{% endblock %}
+
+{% block body %}
+<div class="overview-item full-page">
+    {% if form %}
+        <form method="POST" action="{{ request.url }}" enctype="multipart/form-data">
+            <div class="panel panel-default">
+                <div>
+                    {{ form.csrf_token }}
+                    {{ render_field(form.volume_nr, show_label=True) }}
+                    {{ render_field(form.edition_nr, show_label=True) }}
+                    {{ render_field(form.theme, show_label=True) }}
+                    {{ render_field(form.published, show_label=True) }}
+                    {{ render_field(form.magazine, show_label=True) }}
+                    {{ render_field(form.cover, show_label=True) }}
+                </div>
+                <button type="submit" class="submit-btn" style="margin-right: 1em;">
+                    <i class="fa fa-sign-in"></i><p>> Submit</p>
+                </button>
+            </div>
+        </form>    
+    {% endif %}
+</div>
+{% endblock %}
