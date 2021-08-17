@@ -11,7 +11,7 @@
     {% block links %}{% endblock %}
 </head>
 <body>
-    {% include 'components/menu.html' %}
+    {% block menu %}{% include 'components/menu.html' %}{% endblock %}
     <div class="container">
         {% block body %}{% endblock %}
     </div>
