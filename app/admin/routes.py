@@ -6,6 +6,7 @@ from app.admin import admin_bp as admin
 from app.admin.forms import SupremumForm, InfimumEditForm, InfimumAssignForm
 
 @admin.route('/')
+@admin.route('/home')
 # @login_required
 def index():
     temp_editions = [

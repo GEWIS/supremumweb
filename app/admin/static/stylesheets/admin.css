@@ -17,6 +17,10 @@
     max-width: 1000px;
 }
 
+.container {
+    min-height: var(--window-height);
+}
+
 /* Button */
 
 .cta-button {
