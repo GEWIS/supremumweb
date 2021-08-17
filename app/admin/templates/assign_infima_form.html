@@ -9,18 +9,21 @@
 
 {% block body %}
 <div class="overview-item full-page">
-    <h3>Edit infimum.</h3>
+    <h3>Assign Infima to edition.</h3>
     {% if form %}
-        <form method="POST" action="{{ request.url }}" enctype="multipart/form-data">
-            <div class="panel panel-default">
+        <form method="POST" action="{{ request.url }}">
+            <div class="panel panel-default">                
                 {{ form.csrf_token }}
-                {{ render_field(form.infimum_id, show_label=True) }}
-                {{ render_field(form.creation_date, show_label=True) }}
+                <h3>The infima</h3>
+                {% for infimum in form.infima %}
+                    <div class="form-check">
+                        {{ render_field(infimum, show_label=True) }}
+                    </div>                    
+                {% endfor %}
+                <h3>Assign to</h3>
                 {{ render_field(form.supremum, show_label=True) }}
-                {{ render_field(form.content, show_label=True) }}
-                {{ render_field(form.rejected, show_label=True) }}
                 <button type="submit" class="submit-btn" style="margin-right: 1em;">
-                    <i class="fa fa-sign-in"></i><p>> Submit</p>
+                    <i class="fa fa-sign-in"></i><p>> Assign</p>
                 </button>
             </div>
         </form>    

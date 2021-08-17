@@ -3,7 +3,7 @@ from flask_login import login_required
 from datetime import datetime
 
 from app.admin import admin_bp as admin
-from app.admin.forms import SupremumForm, InfimumEditForm
+from app.admin.forms import SupremumForm, InfimumEditForm, InfimumAssignForm
 
 @admin.route('/')
 # @login_required
@@ -124,3 +124,48 @@ def edit_infimum(iid: int):
         # Return to admin panel
         return redirect(url_for("admin.index"))
     return render_template("edit_infimum_form.html", form=form), 200
+
+@admin.route('/infimum/assign', methods=["GET", "POST"])
+def assign_infima():
+    temp_infima = [
+        {
+            'id': 0,
+            'content': 'Haha, this is a test :D\n What do we think?\nOk, this is just to check the overflow...\nHaha, this is a test :D\n What do we think?\nOk, this is just to check the overflow...\nHaha, this is a test :D\n What do we think?\nOk, this is just to check the overflow...\nHaha, this is a test :D\n What do we think?\nOk, this is just to check the overflow...\nHaha, this is a test :D\n What do we think?\nOk, this is just to check the overflow...\nHaha, this is a test :D\n What do we think?\nOk, this is just to check the overflow...\nHaha, this is a test :D\n What do we think?\nOk, this is just to check the overflow...\n',
+            'rejected': False,
+            'creation_date': datetime.fromisoformat('2021-08-11')
+        },
+        {
+            'id': 1,
+            'content': 'Haha, this is a test :D\n What do we think?\nOk, this is just to check the overflow...\nHaha, this is a test :D\n What do we think?\nOk, this is just to check the overflow...\nHaha, this is a test :D\n What do we think?\nOk, this is just to check the overflow...\nHaha, this is a test :D\n What do we think?\nOk, this is just to check the overflow...\nHaha, this is a test :D\n What do we think?\nOk, this is just to check the overflow...\nHaha, this is a test :D\n What do we think?\nOk, this is just to check the overflow...\nHaha, this is a test :D\n What do we think?\nOk, this is just to check the overflow...\n',
+            'rejected': False,
+            'creation_date': datetime.fromisoformat('2021-08-11')
+        }
+    ]
+    
+    temp_suprema = [
+        {
+            'theme': 'The Fire Edition',
+            'img_url' : url_for("home.static", filename="latest_edition.png"),
+            'pdf_url' : url_for("home.static", filename="latest_supremum.pdf"),
+            'name': 'Supremum 53.1',
+            'id': 5,
+            'published': True
+        },
+        {
+            'theme': 'The Wind Edition',
+            'img_url' : url_for("home.static", filename="latest_edition.png"),
+            'pdf_url' : url_for("home.static", filename="latest_supremum.pdf"),
+            'name': 'Supremum 53.1',
+            'id': 4,
+            'published': True
+        }
+    ]
+    # TODO: retrieve from the database
+    
+    form = InfimumAssignForm(infima=temp_infima, suprema=temp_suprema)
+    if form.validate_on_submit():
+        # Update infimum in database...
+        
+        # Return to admin panel
+        return redirect(url_for("admin.index"))
+    return render_template("assign_infima_form.html", form=form), 200

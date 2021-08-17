@@ -1,3 +1,7 @@
+a, button {
+    cursor: pointer;
+}
+
 .form-group {
     display: flex;
     align-items: center;
@@ -22,6 +26,7 @@
 
 .form-group select {
     min-width: 25ch;
+    max-width: 1000px;
     background-color: transparent;
     padding: .5rem 0;
     border: solid 1px;
@@ -36,4 +41,10 @@
 
 .field-errors {
     color: var(--clr-accent-700);
+}
+
+.panel {
+    width: 90%;
+    max-width: 1000px;
+    margin: 0 auto;
 }

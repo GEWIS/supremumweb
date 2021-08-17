@@ -1,5 +1,5 @@
 from flask_wtf import Form
-from wtforms import BooleanField, StringField, FileField, IntegerField, DateField, SelectField
+from wtforms import BooleanField, StringField, FileField, IntegerField, DateField, SelectField, SelectMultipleField, widgets
 from wtforms.validators import DataRequired
 from wtforms.widgets import TextArea
 
@@ -149,4 +149,23 @@ class InfimumEditForm(Form):
         rv = Form.validate(self)
         if not self._check_types():
             return False
+        return True
+
+class MultiCheckboxField(SelectMultipleField):
+    widget = widgets.ListWidget(prefix_label=False)
+    option_widget = widgets.CheckboxInput()
+
+class InfimumAssignForm(Form):
+    supremum = SelectField('Supremum edition')
+    infima = MultiCheckboxField('Infima', coerce=int)
+    
+    def __init__(self, *args, **kwargs):
+        Form.__init__(self, *args, **kwargs)
+        
+        infima = kwargs.get("infima", [])
+        self.infima.choices = [(i['id'], i['content']) for i in infima]
+        supremum = kwargs.get("suprema", [])
+        self.supremum.choices = [(i['id'], i['theme']) for i in supremum]
+    
+    def validate(self):
         return True
