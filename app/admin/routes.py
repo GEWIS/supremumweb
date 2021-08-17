@@ -106,7 +106,7 @@ def edit_supremum(sid: int):
         return redirect(url_for("admin.index"))
     return render_template("edit_supremum_form.html", form=form), 200
 
-@admin.route('/infimum/edit/<int:iid>', methods=["GET", "POST"])
+@admin.route('/infimum/<int:iid>/edit', methods=["GET", "POST"])
 def edit_infimum(iid: int):
      # Retrieve the infimum with iid
     temp_infimum = {
@@ -169,3 +169,23 @@ def assign_infima():
         # Return to admin panel
         return redirect(url_for("admin.index"))
     return render_template("assign_infima_form.html", form=form), 200
+
+@admin.route('/infima/<int:sid>')
+def infima_of_supremum_edition_with_id(sid: int):
+    temp_infima = [
+        {
+            'id': 1,
+            'content': "Hahah wat een grap! Ik ga even testen hoe lang ik deze zin kan maken.\n Wat denken we eravn?",
+            'submission_date': "2021-08-11",
+            'rejected': False
+        },
+        {
+            'id': 2,
+            'content': "Blarb blarb!",
+            'submission_date': "2021-08-11",
+            'rejected': True
+        }
+    ]
+
+    return render_template("infima_overview.html", infima=temp_infima), 200
+    

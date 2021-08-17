@@ -1,6 +1,6 @@
 {% extends 'components/admin_layout.html' %}
 
-{% from 'components/tables.html' import infima_table, supremum_table %}
+{% from 'components/tables.html' import infima_table %}
 
 {% block links %}
 <link rel="stylesheet" type="text/css" href="{{url_for('admin.static', filename='stylesheets/admin.css')}}">
@@ -11,16 +11,7 @@
 <div class="overview-item">
     <div class="overview-container">
         <div class="table-title">
-            <h3>Supremum overview</h3>
-            <a class="cta-button" href="supremum/new"><b>+</b></a>
-        </div>
-        {{ supremum_table(editions) }}
-    </div>
-</div>
-<div class="overview-item">
-    <div class="overview-container">
-        <div class="table-title">
-            <h3>Unassigned infima overview</h3>
+            <h3>Infima overview of edition {{ edition }}</h3>
             <a class="cta-button" href="infimum/assign"><b>></b></a>
         </div>
         {{ infima_table(infima) }}
