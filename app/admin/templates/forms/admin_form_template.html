@@ -1,0 +1,20 @@
+{% extends 'components/admin_layout.html' %}
+
+{% block links %}
+<link rel="stylesheet" type="text/css" href="{{url_for('admin.static', filename='stylesheets/admin.css')}}">
+<link rel="stylesheet" type="text/css" href="{{url_for('admin.static', filename='stylesheets/form.css')}}">
+{% endblock %}
+
+{% block body %}
+<div class="overview-item full-page">
+    <h3>{% block form_title %}{% endblock %}</h3>
+    <form method="POST" action="{{ request.url }}" enctype="multipart/form-data">
+        {{ form.csrf_token }}
+        {% block contents %}
+        {% endblock %}
+        <button type="submit" class="submit-btn">
+            <p>{% block submit_title %}> Submit{% endblock %}</p>
+        </button>
+    </form>
+</div>
+{% endblock %}

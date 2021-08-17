@@ -1,0 +1,15 @@
+{% extends 'forms/admin_form_template.html' %}
+
+{% from 'components/macros.html' import render_field %}
+
+{% block form_title %}Edit infimum.{% endblock %}
+
+{% block contents %}
+    {{ render_field(form.infimum_id, show_label=True) }}
+    {{ render_field(form.creation_date, show_label=True) }}
+    {{ render_field(form.supremum, show_label=True) }}
+    {{ render_field(form.content, show_label=True) }}
+    {{ render_field(form.rejected, show_label=True) }}
+{% endblock %}
+
+{% block submit_title %}> Submit{% endblock %}

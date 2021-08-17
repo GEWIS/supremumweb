@@ -1,0 +1,16 @@
+{% extends 'forms/admin_form_template.html' %}
+
+{% from 'components/macros.html' import render_field %}
+
+{% block form_title %}Assign Infima to edition.{% endblock %}
+
+{% block contents %}
+    <h3>The infima</h3>
+    {% for infimum in form.infima %}
+        {{ render_field(infimum, show_label=True) }}
+    {% endfor %}
+    <h3>Assign to</h3>
+    {{ render_field(form.supremum, show_label=True) }}
+{% endblock %}
+
+{% block submit_title %}> Assign{% endblock %}

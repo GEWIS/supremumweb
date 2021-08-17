@@ -83,9 +83,9 @@ def new_supremum():
         
         # Return to admin panel
         return redirect(url_for("admin.index"))
-    return render_template("edit_supremum_form.html", form=form), 200
+    return render_template("forms/edit_supremum_form.html", form=form), 200
 
-@admin.route('/supremum/edit/<int:sid>', methods=["GET", "POST"])
+@admin.route('/supremum/<int:sid>/edit', methods=["GET", "POST"])
 def edit_supremum(sid: int):
     # Retrieve the supremum with sid
     temp_supremum = {
@@ -105,7 +105,26 @@ def edit_supremum(sid: int):
         
         # Return to admin panel
         return redirect(url_for("admin.index"))
-    return render_template("edit_supremum_form.html", form=form), 200
+    return render_template("forms/edit_supremum_form.html", form=form), 200
+
+@admin.route('/supremum/<int:sid>/infima')
+def infima_of_supremum_edition_with_id(sid: int):
+    temp_infima = [
+        {
+            'id': 1,
+            'content': "Hahah wat een grap! Ik ga even testen hoe lang ik deze zin kan maken.\n Wat denken we eravn?",
+            'submission_date': "2021-08-11",
+            'rejected': False
+        },
+        {
+            'id': 2,
+            'content': "Blarb blarb!",
+            'submission_date': "2021-08-11",
+            'rejected': True
+        }
+    ]
+
+    return render_template("admin_infima_overview.html", infima=temp_infima), 200
 
 @admin.route('/infimum/<int:iid>/edit', methods=["GET", "POST"])
 def edit_infimum(iid: int):
@@ -124,9 +143,9 @@ def edit_infimum(iid: int):
         
         # Return to admin panel
         return redirect(url_for("admin.index"))
-    return render_template("edit_infimum_form.html", form=form), 200
+    return render_template("forms/edit_infimum_form.html", form=form), 200
 
-@admin.route('/infimum/assign', methods=["GET", "POST"])
+@admin.route('/infima/assign', methods=["GET", "POST"])
 def assign_infima():
     temp_infima = [
         {
@@ -164,29 +183,11 @@ def assign_infima():
     # TODO: retrieve from the database
     
     form = InfimumAssignForm(infima=temp_infima, suprema=temp_suprema)
+    
+    print(dir(form), form.data)
     if form.validate_on_submit():
         # Update infimum in database...
         
         # Return to admin panel
         return redirect(url_for("admin.index"))
-    return render_template("assign_infima_form.html", form=form), 200
-
-@admin.route('/infima/<int:sid>')
-def infima_of_supremum_edition_with_id(sid: int):
-    temp_infima = [
-        {
-            'id': 1,
-            'content': "Hahah wat een grap! Ik ga even testen hoe lang ik deze zin kan maken.\n Wat denken we eravn?",
-            'submission_date': "2021-08-11",
-            'rejected': False
-        },
-        {
-            'id': 2,
-            'content': "Blarb blarb!",
-            'submission_date': "2021-08-11",
-            'rejected': True
-        }
-    ]
-
-    return render_template("admin_infima_overview.html", infima=temp_infima), 200
-    
+    return render_template("forms/assign_infima_form.html", form=form), 200

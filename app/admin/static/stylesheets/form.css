@@ -2,6 +2,11 @@ a, button {
     cursor: pointer;
 }
 
+form {
+    max-width: 95%;
+    margin: auto;
+}
+
 .form-group {
     display: flex;
     align-items: center;
