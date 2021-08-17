@@ -188,5 +188,5 @@ def infima_of_supremum_edition_with_id(sid: int):
         }
     ]
 
-    return render_template("infima_overview.html", infima=temp_infima), 200
+    return render_template("admin_infima_overview.html", infima=temp_infima), 200
     
