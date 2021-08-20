@@ -1,7 +1,7 @@
 {% extends 'layout.html' %}
 
 {% block links %}
-<link rel="stylesheet" type="text/css" href="{{url_for('supremum.static', filename='stylesheets/archive.css')}}">
+<link rel="stylesheet" type="text/css" href="{{url_for('home.static', filename='stylesheets/archive.css')}}">
 {% endblock%}
 
 
@@ -14,7 +14,6 @@
             <div class="volume-box">
                 {% for edition in editions %}
                 <div class="edition-box">
-                    <!-- <p><b>#{{volume}}.{{edition.edition}}</b></p> -->
                     <a class="flex-centered" id="edition" href='{{edition.pdf_url}}'>
                         <img class="gray-hover" id="edition-cover" src='{{edition.img_url}}' loading="lazy">
                     </a>

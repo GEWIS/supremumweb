@@ -4,7 +4,7 @@
 {% from 'components/macros.html' import infimum %}
 
 {% block links %}
-<link rel="stylesheet" type="text/css" href="{{url_for('infima.static', filename='stylesheets/infima.css')}}">
+<link rel="stylesheet" type="text/css" href="{{url_for('home.static', filename='stylesheets/infima.css')}}">
 {% endblock %}
 
 {% block body %}
@@ -20,7 +20,8 @@
                     {{ render_field(form.search_term) }}
                 </div>
                 <button type="submit" class="submit-btn">
-                    <i class="fa fa-sign-in"></i><p>> Search</p>
+                    <i class="fa fa-sign-in"></i>
+                    <p>> Search</p>
                 </button>
             </div>
         </form>
@@ -30,7 +31,7 @@
     <div id="results-box" class="module">
         <h3>Results</h3>
         {% for res in search_results %}
-            {{ infimum(res) }}
+        {{ infimum(res) }}
         {% endfor %}
     </div>
     {% endif %}
@@ -38,9 +39,11 @@
         <h3>Per edition</h3>
         <div class="edition-list">
             {% for edition in editions %}
-            <a class="edition-link" href="./{{edition.volume_nr}}.{{edition.edition_nr}}"><span>{{edition.volume_nr}}.{{edition.edition_nr}} - {{edition.theme}}</span></a>
+            <a class="edition-link" href="./supremum/{{edition.volume_nr}}.{{edition.edition_nr}}/infima">
+                <span>{{edition.volume_nr}}.{{edition.edition_nr}} - {{edition.theme}}</span>
+            </a>
             {% endfor %}
-        </div>    
+        </div>
     </div>
 </div>
 {% endblock %}

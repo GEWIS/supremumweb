@@ -3,7 +3,7 @@ from wtforms import BooleanField, StringField, FileField, IntegerField, DateFiel
 from wtforms.validators import DataRequired
 from wtforms.widgets import TextArea
 
-from app.infima.models import Infimum
+from app.home.models import Infimum
 
 
 class SupremumForm(Form):

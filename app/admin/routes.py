@@ -4,8 +4,8 @@ from datetime import datetime
 
 from app.admin import admin_bp as admin
 from app.admin.forms import SupremumForm, InfimumEditForm, InfimumAssignForm
-from app.supremum.models import Supremum
-from app.infima.models import Infimum
+from app.home.models import Supremum, Infimum
+
 
 @admin.route('/')
 @admin.route('/home')

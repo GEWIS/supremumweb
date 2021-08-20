@@ -3,18 +3,18 @@ from wtforms import StringField, TextField
 from wtforms.validators import DataRequired
 from wtforms.widgets import TextArea
 
-from app.infima.models import Infimum
+from app.home.models import Infimum
 
 
 class SubmitForm(Form):
     infimum_text = StringField(
-        'infimum_text', 
+        'infimum_text',
         validators=[DataRequired()],
         widget=TextArea(),
         render_kw={
             'placeholder': 'Write your infimum here...',
             'autocomplete': 'off',
-            })
+        })
 
     def __init__(self, *args, **kwargs):
         Form.__init__(self, *args, **kwargs)
@@ -23,7 +23,8 @@ class SubmitForm(Form):
     def validate(self):
         rv = Form.validate(self)
 
-        infimum = Infimum.query.filter_by(content=self.infimum_text.data).first()
+        infimum = Infimum.query.filter_by(
+            content=self.infimum_text.data).first()
 
         if infimum:
             self.infimum.errors.append(
@@ -34,16 +35,17 @@ class SubmitForm(Form):
         self.infimum = infimum
         return True
 
+
 class SearchForm(Form):
     search_term = TextField(
         'search_term',
-        validators = [DataRequired()],
-        render_kw = {
+        validators=[DataRequired()],
+        render_kw={
             'placeholder': 'Search for...',
             'autocomplete': 'off',
         }
     )
-    
+
     def __init__(self, *args, **kwargs):
         Form.__init__(self, *args, **kwargs)
         self.term = None
