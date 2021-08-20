@@ -1,193 +1,112 @@
-from flask import render_template, url_for, redirect
+from flask import render_template, url_for, redirect, abort, request
 from flask_login import login_required
 from datetime import datetime
 
 from app.admin import admin_bp as admin
 from app.admin.forms import SupremumForm, InfimumEditForm, InfimumAssignForm
+from app.supremum.models import Supremum
+from app.infima.models import Infimum
 
 @admin.route('/')
 @admin.route('/home')
 # @login_required
 def index():
-    temp_editions = [
-        {
-            'title': 'The Fire Edition',
-            'img_url' : url_for("home.static", filename="latest_edition.png"),
-            'pdf_url' : url_for("home.static", filename="latest_supremum.pdf"),
-            'name': 'Supremum 53.1',
-            'id': 5,
-            'published': True
-        },
-        {
-            'title': 'The Wind Edition',
-            'img_url' : url_for("home.static", filename="latest_edition.png"),
-            'pdf_url' : url_for("home.static", filename="latest_supremum.pdf"),
-            'name': 'Supremum 53.1',
-            'id': 4,
-            'published': True
-        },
-        {
-            'title': 'The Earth Edition',
-            # 'img_url' : url_for("home.static", filename="latest_edition.png"),
-            'pdf_url' : url_for("home.static", filename="latest_supremum.pdf"),
-            'name': 'Supremum 53.0',
-            'id': 3
-        },
-        {
-            'title': 'The Default Edition',
-            'img_url' : url_for("home.static", filename="latest_edition.png"),
-            # 'pdf_url' : url_for("home.static", filename="latest_supremum.pdf"),
-            'name': 'Supremum 52.2',
-            'id': 2
-        },
-        {
-            'title': 'The Miracle Edition',
-            'img_url' : url_for("home.static", filename="latest_edition.png"),
-            'pdf_url' : url_for("home.static", filename="latest_supremum.pdf"),
-            'name': 'Supremum 52.1',
-            'id': 1
-        },
-        {
-            'title': 'The Disaster Edition',
-            'img_url' : url_for("home.static", filename="latest_edition.png"),
-            'pdf_url' : url_for("home.static", filename="latest_supremum.pdf"),
-            'name': 'Supremum 52.0',
-            'id': 0
-        }
-    ]
-    # TODO: retrieve from database.
-    
-    temp_infima = [
-        {
-            'id': 1,
-            'content': "Hahah wat een grap! Ik ga even testen hoe lang ik deze zin kan maken.\n Wat denken we eravn?",
-            'submission_date': "2021-08-11",
-            'rejected': False
-        },
-        {
-            'id': 2,
-            'content': "Blarb blarb!",
-            'submission_date': "2021-08-11",
-            'rejected': True
-        }
-        ]
-    
-    return render_template('index.html', editions=temp_editions, infima=temp_infima), 200
+    editions = Supremum._get_all_editions()
+    editions = [ed.format_private() for ed in editions]
+
+    infima = Infimum._get_all_unassigned_infima()
+    infima = [inf.format_private() for inf in infima]
+
+    return render_template('index.html', editions=editions, infima=infima), 200
 
 @admin.route('/supremum/new', methods=["GET", "POST"])
 def new_supremum():
     form = SupremumForm()
     if form.validate_on_submit():
+        # Retrieve values from form
+        volume_nr = form.volume_nr.data
+        edition_nr = form.edition_nr.data
+        theme = form.theme.data
+        published = form.published.data
+        # TODO: retrieve .pdf and .png
+
         # Add supremum to database
-        # TODO
-        
+        Supremum.create(volume_nr=volume_nr, edition_nr=edition_nr, theme=theme, published=published)
+
         # Return to admin panel
         return redirect(url_for("admin.index"))
     return render_template("forms/edit_supremum_form.html", form=form), 200
 
 @admin.route('/supremum/<int:sid>/edit', methods=["GET", "POST"])
 def edit_supremum(sid: int):
-    # Retrieve the supremum with sid
-    temp_supremum = {
-            'theme': 'The Disaster Edition',
-            'volume_nr': 52,
-            'edition_nr': 0,
-            'img_url' : url_for("home.static", filename="latest_edition.png"),
-            'pdf_url' : url_for("home.static", filename="latest_supremum.pdf"),
-            'id': 0,
-            'published': True
-    }
-    # TODO: retrieve from the database
-    
-    form = SupremumForm(supremum=temp_supremum)
+    supremum = Supremum.get_supremum_by_id(sid)
+    if supremum is None:
+        return abort(404)
+
+    do_prepopulate = request.method == "GET"
+    form = SupremumForm(supremum=supremum.format_private(), prepopulate=do_prepopulate)
     if form.validate_on_submit():
-        # Update supremum in database...
-        
+        # Retrieve data from form
+        volume_nr = form.volume_nr.data
+        edition_nr = form.edition_nr.data
+        theme = form.theme.data
+        published = form.published.data
+        # TODO: retrieve pdf and cover png and handle appropriately
+
+        # Update supremum in database
+        supremum.update(volume_nr=volume_nr, edition_nr=edition_nr, theme=theme, published=published)
+
         # Return to admin panel
         return redirect(url_for("admin.index"))
     return render_template("forms/edit_supremum_form.html", form=form), 200
 
 @admin.route('/supremum/<int:sid>/infima')
 def infima_of_supremum_edition_with_id(sid: int):
-    temp_infima = [
-        {
-            'id': 1,
-            'content': "Hahah wat een grap! Ik ga even testen hoe lang ik deze zin kan maken.\n Wat denken we eravn?",
-            'submission_date': "2021-08-11",
-            'rejected': False
-        },
-        {
-            'id': 2,
-            'content': "Blarb blarb!",
-            'submission_date': "2021-08-11",
-            'rejected': True
-        }
-    ]
-
-    return render_template("admin_infima_overview.html", infima=temp_infima), 200
+    infima = Infimum.get_infima_with_supremum_id(sid)
+    infima = [inf.format_private() for inf in infima]
+    return render_template("admin_infima_overview.html", infima=infima), 200
 
 @admin.route('/infimum/<int:iid>/edit', methods=["GET", "POST"])
 def edit_infimum(iid: int):
-     # Retrieve the infimum with iid
-    temp_infimum = {
-        'id': iid,
-        'content': 'Haha, this is a test :D\n What do we think?\nOk, this is just to check the overflow...\nHaha, this is a test :D\n What do we think?\nOk, this is just to check the overflow...\nHaha, this is a test :D\n What do we think?\nOk, this is just to check the overflow...\nHaha, this is a test :D\n What do we think?\nOk, this is just to check the overflow...\nHaha, this is a test :D\n What do we think?\nOk, this is just to check the overflow...\nHaha, this is a test :D\n What do we think?\nOk, this is just to check the overflow...\nHaha, this is a test :D\n What do we think?\nOk, this is just to check the overflow...\n',
-        'rejected': False,
-        'creation_date': datetime.fromisoformat('2021-08-11')
-    }
-    # TODO: retrieve from the database
-    
-    form = InfimumEditForm(infimum=temp_infimum)
+    infimum = Infimum.get_infimum_with_id(iid)
+    if infimum is None:
+        return abort(404)
+
+    suprema = Supremum._get_all_editions()
+    editions = [(sup.id, str(sup)) for sup in suprema]
+
+    do_prepopulate = request.method == "GET"
+    form = InfimumEditForm(infimum=infimum.format_private(), suprema=editions, prepopulate=do_prepopulate)
     if form.validate_on_submit():
+        # Retrieve data from form
+        content = form.content.data
+        supremum_id = form.supremum.data
+        rejected = form.rejected.data
+
         # Update infimum in database...
-        
+        infimum.update(content=content, rejected=rejected, supremum_id=supremum_id)
+
         # Return to admin panel
         return redirect(url_for("admin.index"))
     return render_template("forms/edit_infimum_form.html", form=form), 200
 
 @admin.route('/infima/assign', methods=["GET", "POST"])
 def assign_infima():
-    temp_infima = [
-        {
-            'id': 0,
-            'content': 'Haha, this is a test :D\n What do we think?\nOk, this is just to check the overflow...\nHaha, this is a test :D\n What do we think?\nOk, this is just to check the overflow...\nHaha, this is a test :D\n What do we think?\nOk, this is just to check the overflow...\nHaha, this is a test :D\n What do we think?\nOk, this is just to check the overflow...\nHaha, this is a test :D\n What do we think?\nOk, this is just to check the overflow...\nHaha, this is a test :D\n What do we think?\nOk, this is just to check the overflow...\nHaha, this is a test :D\n What do we think?\nOk, this is just to check the overflow...\n',
-            'rejected': False,
-            'creation_date': datetime.fromisoformat('2021-08-11')
-        },
-        {
-            'id': 1,
-            'content': 'Haha, this is a test :D\n What do we think?\nOk, this is just to check the overflow...\nHaha, this is a test :D\n What do we think?\nOk, this is just to check the overflow...\nHaha, this is a test :D\n What do we think?\nOk, this is just to check the overflow...\nHaha, this is a test :D\n What do we think?\nOk, this is just to check the overflow...\nHaha, this is a test :D\n What do we think?\nOk, this is just to check the overflow...\nHaha, this is a test :D\n What do we think?\nOk, this is just to check the overflow...\nHaha, this is a test :D\n What do we think?\nOk, this is just to check the overflow...\n',
-            'rejected': False,
-            'creation_date': datetime.fromisoformat('2021-08-11')
-        }
-    ]
-    
-    temp_suprema = [
-        {
-            'theme': 'The Fire Edition',
-            'img_url' : url_for("home.static", filename="latest_edition.png"),
-            'pdf_url' : url_for("home.static", filename="latest_supremum.pdf"),
-            'name': 'Supremum 53.1',
-            'id': 5,
-            'published': True
-        },
-        {
-            'theme': 'The Wind Edition',
-            'img_url' : url_for("home.static", filename="latest_edition.png"),
-            'pdf_url' : url_for("home.static", filename="latest_supremum.pdf"),
-            'name': 'Supremum 53.1',
-            'id': 4,
-            'published': True
-        }
-    ]
-    # TODO: retrieve from the database
-    
-    form = InfimumAssignForm(infima=temp_infima, suprema=temp_suprema)
-    
-    print(dir(form), form.data)
+    infima = Infimum._get_all_unassigned_infima()
+    infs = [inf.format_private() for inf in infima]
+    suprema = Supremum._get_all_editions()
+
+    form = InfimumAssignForm(infima=infs, suprema=suprema)
     if form.validate_on_submit():
         # Update infimum in database...
-        
+        infima_ids = form.infima.data
+        supremum_id = form.supremum.data
+
+        # Update database
+        for inf in infima:
+            if inf.id in infima_ids:
+                inf.update(supremum_id=supremum_id)
+
         # Return to admin panel
         return redirect(url_for("admin.index"))
     return render_template("forms/assign_infima_form.html", form=form), 200

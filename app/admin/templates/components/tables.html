@@ -13,7 +13,7 @@
             </td>
             <td class="content">
                 <p>{{ infimum.content }}</p>
-            </td>                
+            </td>
             <td class="rejected">
                 <p>{{ infimum.rejected }}</p>
             </td>
@@ -31,17 +31,17 @@
 <table class="admin-table">
     <tr>
         <th><span>Name</span></th>
-        <th><span>Title</span></th>
+        <th><span>Theme</span></th>
         <th colspan="3"><span>Status</span></th>
         <th colspan="2"></th>
     </tr>
     {% for edition in editions %}
     <tr>
         <td class="name">
-            <p>{{ edition.name }}</p>
+            <p>Supremum {{ edition.volume_nr }}.{{ edition.edition_nr }}</p>
         </td>
         <td class="title">
-            <p>{{ edition.title }}</p>
+            <p>{{ edition.theme }}</p>
         </td>
         <td class="icon">
             {% if edition.published %}
