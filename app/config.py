@@ -14,13 +14,7 @@ class base_config(object):
     MYSQL_PASS = os.environ.get('MYSQL_PASS', 'goodpass')
     MYSQL_DB = os.environ.get('MYSQL_DB', 'goodbname')
 
-    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://%s:%s@%s:%s/%s' % (
-        MYSQL_USER,
-        MYSQL_PASS,
-        MYSQL_HOST,
-        MYSQL_PORT,
-        MYSQL_DB
-    )
+    DATA_PATH = os.environ.get('DATA_PATH', 'app/data/')
 
     print(SQLALCHEMY_DATABASE_URI)
 

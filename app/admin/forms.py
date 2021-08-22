@@ -1,10 +1,8 @@
+from flask import request
 from flask_wtf import Form
 from wtforms import BooleanField, StringField, FileField, IntegerField, DateField, SelectField, SelectMultipleField, widgets
 from wtforms.validators import DataRequired
 from wtforms.widgets import TextArea
-
-from app.home.models import Infimum
-
 
 class SupremumForm(Form):
     supremum_id = IntegerField(
@@ -57,7 +55,7 @@ class SupremumForm(Form):
             self.theme.data = self.supremum.get("theme", '')
             self.published.data = self.supremum.get("published", '')
 
-    def _check_types(self):
+    def _validate_types(self):
         valid = True
         volume_nr = self.volume_nr.data
         if not isinstance(volume_nr, int):
@@ -76,10 +74,34 @@ class SupremumForm(Form):
 
         return valid
 
+    def _validate_files(self):
+        valid = True
+
+        # Validate pdf file
+        magazine = request.files.getlist(self.magazine.name)
+        if not len(magazine) <= 1:
+            self.magazine.errors.append("Upload at most one file")
+            valid = False
+        if len(magazine) == 1:
+            magazine = magazine[0]
+            # TODO: validate file is actually pdf
+
+        # Validate cover file
+        cover = request.files.getlist(self.cover.name)
+        if not len(cover) <= 1:
+            self.cover.errors.append("Upload at most one file")
+            valid = False
+        if len(cover) == 1:
+            cover = cover[0]
+            # TODO: validate file is actually an image
+
+        return valid
 
     def validate(self):
         rv = Form.validate(self)
-        if not self._check_types():
+        if not self._validate_types():
+            return False
+        if not self._validate_files():
             return False
         return True
 
@@ -136,7 +158,6 @@ class InfimumEditForm(Form):
             valid = False
 
         return valid
-
 
     def validate(self):
         rv = Form.validate(self)

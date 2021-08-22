@@ -1,6 +1,8 @@
+from flask import current_app
 from app.database import db, CRUDMixin
 from sqlalchemy.sql.expression import func
 from typing import List
+import os
 
 
 class Supremum(CRUDMixin, db.Model):
@@ -19,23 +21,24 @@ class Supremum(CRUDMixin, db.Model):
         return f'Supremum {self.volume_nr}.{self.edition_nr} - {self.theme}'
 
     def format_public(self):
-        return {
+        public_info = {
             'self': f"/supremum/{self.id}",
             'id': self.id,
             'volume_nr': self.volume_nr,
             'edition_nr': self.edition_nr,
             'theme': self.theme
         }
+        if self.filename_pdf:
+            public_info['pdf_url'] = os.path.join('/', current_app.config['DATA_PATH'], self.filename_pdf)
+        if self.filename_cover:
+            public_info['img_url'] = os.path.join('/', current_app.config['DATA_PATH'], self.filename_cover)
+
+        return public_info
 
     def format_private(self):
-        return {
-            'self': f"/supremum/{self.id}",
-            'id': self.id,
-            'volume_nr': self.volume_nr,
-            'edition_nr': self.edition_nr,
-            'theme': self.theme,
-            'published': self.published
-        }
+        private_info = self.format_public()
+        private_info['published'] = self.published
+        return private_info
 
     @classmethod
     def get_supremum_by_id(cls, id: int):

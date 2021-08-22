@@ -9,7 +9,7 @@ from app.home import home_bp
 
 
 def create_app(config=config.base_config):
-    app = Flask(__name__, static_folder=None, template_folder=None)
+    app = Flask(__name__, static_folder='../data', template_folder=None)
     app.config.from_object(config)
 
     register_extensions(app)
