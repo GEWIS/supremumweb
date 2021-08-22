@@ -10,13 +10,9 @@ from datetime import datetime
 
 @home.route('/')
 def index():
-    temp_edition = {
-        'title': 'The Earth Edition',
-        'img_url': url_for("home.static", filename="latest_edition.png"),
-        'pdf_url': url_for("home.static", filename="latest_supremum.pdf"),
-        'name': 'Supremum 53.0'
-    }
-    return render_template('home.html', edition=temp_edition)
+    supremum = Supremum.get_latest_published_edition()
+    edition = supremum.format_public()
+    return render_template('home.html', edition=edition)
 
 
 @home.route('/infimum', methods=['GET', 'POST'])

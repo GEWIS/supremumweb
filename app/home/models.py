@@ -53,6 +53,14 @@ class Supremum(CRUDMixin, db.Model):
         return cls.query.filter_by(published=True).all()
 
     @classmethod
+    def get_latest_published_edition(cls):
+        """Returns the published edition with the highest volume and edition nr"""
+        return cls.query\
+            .filter_by(published=True)\
+            .order_by(Supremum.volume_nr.desc(), Supremum.edition_nr.desc())\
+            .first()
+
+    @classmethod
     def _get_all_editions(cls):
         """Returns a list containing all editions"""
         return cls.query.all()
