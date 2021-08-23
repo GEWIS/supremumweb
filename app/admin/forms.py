@@ -4,6 +4,8 @@ from wtforms import BooleanField, StringField, FileField, IntegerField, DateFiel
 from wtforms.validators import DataRequired, InputRequired
 from wtforms.widgets import TextArea
 
+from app.home.models import Supremum
+
 class SupremumForm(Form):
     supremum_id = IntegerField(
         'Supremum id',
@@ -47,15 +49,13 @@ class SupremumForm(Form):
 
     def __init__(self, *args, **kwargs):
         Form.__init__(self, *args, **kwargs)
+        self.supremum = kwargs.get("supremum", None)
         if kwargs.get("prepopulate", False):
-            self.supremum = kwargs.get("supremum", None)
             self.supremum_id.data = self.supremum.id
             self.volume_nr.data = self.supremum.volume_nr
             self.edition_nr.data = self.supremum.edition_nr
             self.theme.data = self.supremum.theme
             self.published.data = self.supremum.published
-        else:
-            self.supremum = None
 
     def validate_volume_nr(self, *args):
         volume_nr = self.volume_nr.data
@@ -95,7 +95,43 @@ class SupremumForm(Form):
         return is_valid
 
     def validate(self):
-        return Form.validate(self)
+        rv = Form.validate(self)
+        if not rv:
+            return False
+
+        # Verify that if set to published, both magazine and cover are present
+        set_to_publish = self.published.data
+        if set_to_publish:
+            # Require a magazine
+            magazine = request.files.getlist(self.magazine.name)[0]
+            has_magazine = bool(magazine) or self.supremum and self.supremum.filename_pdf
+            if not has_magazine:
+                self.published.errors.append(
+                    "A magazine must be uploaded before publishing."
+                )
+                return False
+
+            cover = request.files.getlist(self.magazine.name)[0]
+            has_cover = bool(cover) or self.supremum and self.supremum.filename_cover
+            if not has_cover:
+                self.published.errors.append(
+                    "A cover must be uploaded before publishing."
+                )
+                return False
+
+        # Verify that if volume_nr or edition_nr is changed, these values are not yet in use
+        new_volume_nr = self.volume_nr.data
+        new_edition_nr = self.edition_nr.data
+        if self.supremum.volume_nr != new_volume_nr or \
+            self.supremum.edition_nr != new_edition_nr:
+            supremum = Supremum.get_by_volume_and_edition(
+                new_volume_nr, new_edition_nr)
+            if supremum is not None:
+                self.edition_nr.errors.append('This combination of volume_nr '\
+                    'and edition_nr is already in use.')
+                return False
+
+        return True
 
 class InfimumEditForm(Form):
     infimum_id = IntegerField(

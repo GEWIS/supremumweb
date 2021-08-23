@@ -44,12 +44,7 @@ class Supremum(CRUDMixin, db.Model):
             f'published={self.published})'
 
     @classmethod
-    def get_supremum_by_id(cls, id: int):
-        """Returns the supremum with the specified id or None if this does not exist"""
-        return cls.query.filter_by(id=id).first()
-
-    @classmethod
-    def get_supremum_by_volume_and_edition(cls, volume_nr: int, edition_nr: int):
+    def get_by_volume_and_edition(cls, volume_nr: int, edition_nr: int):
         """Returns the supremum with the specified volume and edition nr, or None if this does not exist"""
         return cls.query.filter_by(volume_nr=volume_nr, edition_nr=edition_nr).first()
 

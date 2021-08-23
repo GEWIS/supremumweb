@@ -52,7 +52,7 @@ def new_supremum():
 @admin.route('/supremum/<int:sid>/edit', methods=["GET", "POST"])
 # @login_required
 def edit_supremum(sid: int):
-    supremum = Supremum.get_supremum_by_id(sid)
+    supremum = Supremum.get_by_id(sid)
     if supremum is None:
         return abort(404)
 
