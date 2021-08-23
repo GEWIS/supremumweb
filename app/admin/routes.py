@@ -1,4 +1,4 @@
-from flask import render_template, url_for, redirect, abort, request
+from flask import render_template, url_for, redirect, abort, request, jsonify
 from flask_login import login_required
 
 from app.admin import admin_bp as admin
@@ -54,8 +54,17 @@ def edit_supremum(sid: int):
 @admin.route('/supremum/<int:sid>/infima')
 # @login_required
 def infima_of_supremum_edition_with_id(sid: int):
+    supremum = Supremum.get_by_id(sid)
     infima = Infimum.get_infima_with_supremum_id(sid)
-    return render_template("admin_infima_overview.html", infima=infima), 200
+    return render_template("admin_infima_overview.html", supremum=supremum,
+                           infima=infima), 200
+
+
+@admin.route('/supremum/<int:sid>/infima/download')
+# @login_required
+def download_infima_of_supremum_edition_with_id(sid: int):
+    infima = Infimum.get_infima_with_supremum_id(sid)
+    return jsonify([inf.format_public() for inf in infima]), 200
 
 
 @admin.route('/infimum/<int:iid>/edit', methods=["GET", "POST"])

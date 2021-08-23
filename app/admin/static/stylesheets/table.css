@@ -90,3 +90,7 @@ td.icon, td.edit-btn, td.id, td.date, td.rejected {
 .infima-btn {
     color: #ffffff;
 }
+
+.svg-white {
+    filter: invert(100%) sepia(100%) saturate(8%) hue-rotate(196deg) brightness(108%) contrast(100%);
+}

@@ -11,7 +11,10 @@
 <div class="overview-item">
     <div class="overview-container">
         <div class="table-title">
-            <h3>Infima overview of edition {{ edition }}</h3>
+            <h3>Infima overview of {{ supremum|string }}</h3>
+            <a class="cta-button" href="./infima/download">
+                <img class="svg-white" src="{{url_for('admin.static', filename='img/download.svg')}}">
+            </a>
         </div>
         {{ infima_table(infima) }}
     </div>
