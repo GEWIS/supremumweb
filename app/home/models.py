@@ -23,11 +23,15 @@ class Supremum(CRUDMixin, db.Model):
 
     @property
     def pdf_url(self):
-        return os.path.join('/', current_app.config['DATA_PATH'], self.filename_pdf)
+        if self.filename_cover:
+            return os.path.join('/', current_app.config['DATA_PATH'], self.filename_pdf)
+        return None
 
     @property
     def cover_url(self):
-        return os.path.join('/', current_app.config['DATA_PATH'], self.filename_cover)
+        if self.filename_cover:
+            return os.path.join('/', current_app.config['DATA_PATH'], self.filename_cover)
+        return None
 
     def __str__(self):
         return f'Supremum {self.volume_nr}.{self.edition_nr} - {self.theme}'

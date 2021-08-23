@@ -168,7 +168,7 @@ class InfimumAssignForm(Form):
         Form.__init__(self, *args, **kwargs)
 
         infima = kwargs.get("infima", [])
-        self.infima.choices = [(i['id'], i['content']) for i in infima]
+        self.infima.choices = [(i.id, i.content) for i in infima]
 
         suprema = kwargs.get("suprema", [])
         self.supremum.choices = [(sup.id, str(sup)) for sup in suprema]

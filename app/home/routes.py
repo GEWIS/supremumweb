@@ -33,7 +33,7 @@ def submit():
 
     # Save infimum when submitted
     if infimum_form.validate_on_submit():
-        content = infimum_form.infimum_text.data
+        content = infimum_form.content.data
         submission_date = datetime.now()
         Infimum.create(content=content, submission_date=submission_date,
                        rejected=False)
