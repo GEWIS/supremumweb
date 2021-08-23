@@ -92,9 +92,12 @@ class Infimum(CRUDMixin, db.Model):
 
     @property
     def self(self):
-        return "/supremum/{}.{}/infima#{}".format(self.supremum.volume_nr,
+        if self.supremum:
+            return "/supremum/{}.{}/infima#{}".format(self.supremum.volume_nr,
                                                   self.supremum.edition_nr,
                                                   self.id)
+        else:
+            return None
 
     @property
     def supremum(self):
