@@ -1,4 +1,8 @@
 import os
+from dotenv import load_dotenv
+
+basedir = os.path.abspath(os.path.dirname(__file__))
+load_dotenv(os.path.join(basedir, '.env'))
 
 
 class base_config(object):
@@ -18,9 +22,8 @@ class base_config(object):
     DATA_PATH = os.environ.get('DATA_PATH', 'data/')
     RANDOM_BASE = os.environ.get('RANDOM_BASE', 2.0)
 
-    print(SQLALCHEMY_DATABASE_URI)
-
-    SQLALCHEMY_TRACK_MODIFICATIONS = False
+    # Random infimum API-key
+    INFIMUM_API_KEY = os.environ.get('INFIMUM_API_KEY')
 
 
 class dev_config(base_config):

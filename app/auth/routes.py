@@ -26,11 +26,11 @@ def login():
     form = LoginForm()
     if form.validate_on_submit():
         login_user(form.user)
-        
+
         next = request.args.get('next')
         if not is_safe_url(next):
             return abort(400)
-               
+
         return render_template(next or url_for('home.index'))
     return render_template('login.html', form=form), 200
 

@@ -42,16 +42,6 @@ def submit():
     return render_template('submit.html', form=infimum_form), 200
 
 
-@home.route('/infimum/random')
-def get_random_infimum():
-    random_infimum = Infimum.get_random_infimum()
-    if random_infimum is None:
-        return jsonify({"msg": "No eligible infimum was found"}), 404
-
-    formatted_infimum = random_infimum.format_public()
-    return jsonify(formatted_infimum), 200
-
-
 @home.route('/supremum')
 def supremum_overview():
     suprema = Supremum.get_published_editions()
