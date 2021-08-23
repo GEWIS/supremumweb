@@ -2,7 +2,7 @@ import os
 from dotenv import load_dotenv
 
 basedir = os.path.abspath(os.path.dirname(__file__))
-load_dotenv(os.path.join(basedir, '.env'))
+load_dotenv(os.path.join(basedir, '../.env'))
 
 
 class base_config(object):
@@ -44,7 +44,7 @@ class dev_config(base_config):
     SERVER_NAME = None
 
     # Files path relative to the app dir.
-    DATA_PATH = os.environ.get('DATA_PATH', 'data/')
+    DATA_PATH = os.environ.get('DATA_PATH', '../data/')
 
 
 class test_config(base_config):

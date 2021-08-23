@@ -5,11 +5,10 @@ FROM tiangolo/uwsgi-nginx-flask:python3.8-alpine
 RUN apk --update add bash nano gcc g++ libffi-dev
 
 # Set constant environment
-# TODO: Configure nginx to use multiple static folders
 ENV STATIC_URL /static
 ENV STATIC_PATH /app/app/home/static
 
-# Install dependencies 
+# Install dependencies
 COPY ./requirements.txt /requirements.txt
 RUN pip3 install -r /requirements.txt
 

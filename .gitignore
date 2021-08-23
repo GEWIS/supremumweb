@@ -10,4 +10,4 @@ __pycache__/
 
 # Temporary files
 database/*
-*/data/*
+data/*
