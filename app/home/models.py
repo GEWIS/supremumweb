@@ -75,9 +75,16 @@ class Supremum(CRUDMixin, db.Model):
             return None
 
     @classmethod
-    def _get_all_editions(cls):
+    def _get_editions(cls):
         """Returns a list containing all editions"""
         return cls.query.all()
+
+    @classmethod
+    def _get_editions_in_order(cls):
+        """Returns a list containing all editions, with most recent first."""
+        return cls.query\
+            .order_by(Supremum.volume_nr.desc(), Supremum.edition_nr.desc())\
+            .all()
 
 
 class Infimum(CRUDMixin, db.Model):
@@ -128,7 +135,7 @@ class Infimum(CRUDMixin, db.Model):
         }
 
     @classmethod
-    def _search_all_infima(cls, search_term: str) -> List:
+    def _search_infima(cls, search_term: str) -> List:
         """Returns all infima whose content contain the search term."""
         filter = cls.content.like(f'%{search_term}%')
         return cls.query.filter(filter).filter_by(rejected=False).all()
@@ -138,7 +145,7 @@ class Infimum(CRUDMixin, db.Model):
     def search_published_infima(cls, search_term: str) -> List:
         """Returns all published, non-rejected infima whose content contain the search term."""
 
-        search_results = cls._search_all_infima(search_term)
+        search_results = cls._search_infima(search_term)
         published_suprema = Supremum.get_published_editions()
         published_suprema_ids = [sup.id for sup in published_suprema]
 
@@ -176,7 +183,7 @@ class Infimum(CRUDMixin, db.Model):
         return random_infimum or cls.get_random_infimum(depth + 1)
 
     @classmethod
-    def _get_all_unassigned_infima(cls):
+    def _get_unassigned_infima(cls):
         return cls.query.filter_by(supremum_id=None).all()
 
     @classmethod

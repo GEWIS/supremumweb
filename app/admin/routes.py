@@ -1,26 +1,20 @@
-from flask import render_template, url_for, redirect, abort, request, current_app
+from flask import render_template, url_for, redirect, abort, request
 from flask_login import login_required
-
-import os
-from datetime import datetime
-from werkzeug.utils import secure_filename
 
 from app.admin import admin_bp as admin
 from app.admin.forms import SupremumForm, InfimumEditForm, InfimumAssignForm
 from app.home.models import Supremum, Infimum
+from . import tools
 
 
 @admin.route('/')
 @admin.route('/home')
 # @login_required
 def index():
-    editions = Supremum._get_all_editions()
-    editions = [ed.format_private() for ed in editions]
-
-    infima = Infimum._get_all_unassigned_infima()
-    infima = [inf.format_private() for inf in infima]
-
+    editions = Supremum._get_editions_in_order()
+    infima = Infimum._get_unassigned_infima()
     return render_template('index.html', editions=editions, infima=infima), 200
+
 
 @admin.route('/supremum/new', methods=["GET", "POST"])
 # @login_required
@@ -38,19 +32,13 @@ def new_supremum():
         # Update pdf
         pdf = request.files.getlist(form.magazine.name)[0]
         if pdf:
-            fname = secure_filename(pdf.filename)
-            path = os.path.join(os.getcwd(), current_app.config['DATA_PATH'], fname)
-            with open(path, "wb") as file:
-                file.write(pdf.stream.read())
+            fname = tools.save_file(pdf)
             kwargs['filename_pdf'] = fname
 
         # Update cover
         cover = request.files.getlist(form.cover.name)[0]
         if cover:
-            fname = secure_filename(cover.filename)
-            path = os.path.join(os.getcwd(), current_app.config['DATA_PATH'], fname)
-            with open(path, "wb") as file:
-                file.write(cover.stream.read())
+            fname = tools.save_file(cover)
             kwargs['filename_cover'] = fname
 
         # Add supremum to database
@@ -60,6 +48,7 @@ def new_supremum():
         return redirect(url_for("admin.index"))
     return render_template("forms/edit_supremum_form.html", form=form), 200
 
+
 @admin.route('/supremum/<int:sid>/edit', methods=["GET", "POST"])
 # @login_required
 def edit_supremum(sid: int):
@@ -68,7 +57,7 @@ def edit_supremum(sid: int):
         return abort(404)
 
     do_prepopulate = request.method == "GET"
-    form = SupremumForm(supremum=supremum.format_private(), prepopulate=do_prepopulate)
+    form = SupremumForm(supremum=supremum, prepopulate=do_prepopulate)
     if form.validate_on_submit():
         # Retrieve data from form
         kwargs = {
@@ -81,19 +70,13 @@ def edit_supremum(sid: int):
         # Update pdf
         pdf = request.files.getlist(form.magazine.name)[0]
         if pdf:
-            fname = secure_filename(pdf.filename)
-            path = os.path.join(os.getcwd(), current_app.config['DATA_PATH'], fname)
-            with open(path, "wb") as file:
-                file.write(pdf.stream.read())
+            fname = tools.save_file(pdf)
             kwargs['filename_pdf'] = fname
 
         # Update cover
         cover = request.files.getlist(form.cover.name)[0]
         if cover:
-            fname = secure_filename(cover.filename)
-            path = os.path.join(os.getcwd(), current_app.config['DATA_PATH'], fname)
-            with open(path, "wb") as file:
-                file.write(cover.stream.read())
+            fname = tools.save_file(cover)
             kwargs['filename_cover'] = fname
 
         # Update supremum in database
@@ -103,12 +86,13 @@ def edit_supremum(sid: int):
         return redirect(url_for("admin.index"))
     return render_template("forms/edit_supremum_form.html", form=form), 200
 
+
 @admin.route('/supremum/<int:sid>/infima')
 # @login_required
 def infima_of_supremum_edition_with_id(sid: int):
     infima = Infimum.get_infima_with_supremum_id(sid)
-    infima = [inf.format_private() for inf in infima]
     return render_template("admin_infima_overview.html", infima=infima), 200
+
 
 @admin.route('/infimum/<int:iid>/edit', methods=["GET", "POST"])
 # @login_required
@@ -117,11 +101,12 @@ def edit_infimum(iid: int):
     if infimum is None:
         return abort(404)
 
-    suprema = Supremum._get_all_editions()
-    editions = [(sup.id, str(sup)) for sup in suprema]
+    suprema = Supremum._get_editions()
+    edition_list = [(sup.id, str(sup)) for sup in suprema]
 
     do_prepopulate = request.method == "GET"
-    form = InfimumEditForm(infimum=infimum.format_private(), suprema=editions, prepopulate=do_prepopulate)
+    form = InfimumEditForm(infimum=infimum, suprema=edition_list,
+                           prepopulate=do_prepopulate)
     if form.validate_on_submit():
         # Retrieve data from form
         content = form.content.data
@@ -129,26 +114,27 @@ def edit_infimum(iid: int):
         rejected = form.rejected.data
 
         # Update infimum in database...
-        infimum.update(content=content, rejected=rejected, supremum_id=supremum_id)
+        infimum.update(content=content, rejected=rejected,
+                       supremum_id=supremum_id)
 
         # Return to admin panel
         return redirect(url_for("admin.index"))
     return render_template("forms/edit_infimum_form.html", form=form), 200
 
+
 @admin.route('/infima/assign', methods=["GET", "POST"])
 # @login_required
 def assign_infima():
-    infima = Infimum._get_all_unassigned_infima()
-    infs = [inf.format_private() for inf in infima]
-    suprema = Supremum._get_all_editions()
+    infima = Infimum._get_unassigned_infima()
+    suprema = Supremum._get_editions()
 
-    form = InfimumAssignForm(infima=infs, suprema=suprema)
+    form = InfimumAssignForm(infima=infima, suprema=suprema)
     if form.validate_on_submit():
-        # Update infimum in database...
+        # Retrieve data from form
         infima_ids = form.infima.data
         supremum_id = form.supremum.data
 
-        # Update database
+        # Update infima
         for inf in infima:
             if inf.id in infima_ids:
                 inf.update(supremum_id=supremum_id)
