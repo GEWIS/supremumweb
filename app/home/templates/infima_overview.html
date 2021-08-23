@@ -38,9 +38,9 @@
     <div id="edition-list" class="module">
         <h3>Per edition</h3>
         <div class="edition-list">
-            {% for edition in editions %}
-            <a class="edition-link" href="./supremum/{{edition.volume_nr}}.{{edition.edition_nr}}/infima">
-                <span>{{edition.volume_nr}}.{{edition.edition_nr}} - {{edition.theme}}</span>
+            {% for supremum in suprema %}
+            <a class="edition-link" href="./supremum/{{supremum.volume_nr}}.{{supremum.edition_nr}}/infima">
+                <span>{{supremum.volume_nr}}.{{supremum.edition_nr}} - {{supremum.theme}}</span>
             </a>
             {% endfor %}
         </div>

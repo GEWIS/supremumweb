@@ -7,10 +7,10 @@
 
 {% block body %}
 <div class="infima-overview">
-    <h2 class="title">The infima of Supremum {{volume_nr}}.{{edition_nr}}</h2>
+    <h2 class="title">The infima of Supremum {{supremum.volume_nr}}.{{supremum.edition_nr}}</h2>
     <div class="infima-list">
         {% for infimum in infima %}
-        <div class="infima-card">
+        <div class="infima-card" id={{infimum.id}}>
             <p>{{infimum.content}}</p>
         </div>
         {% endfor %}

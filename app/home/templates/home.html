@@ -6,15 +6,16 @@
 
 {% block body %}
 
+{% if supremum %}
 <!-- Edition section -->
 <div class="content-item">
     <div id="edition-container">
         <div id="edition-title" class="flex-center flex-column">
-            <h3>Supremum {{ edition.volume_nr }}.{{ edition.edition_nr }}</h3>
-            <h2>{{ edition.theme }}</h2>
+            <h3>Supremum {{ supremum.volume_nr }}.{{ supremum.edition_nr }}</h3>
+            <h2>{{ supremum.theme }}</h2>
         </div>
-        <a class="flex-centered" href='{{edition.pdf_url}}'>
-            <img class="edition-cover" src='{{edition.img_url}}'>
+        <a class="flex-centered" href='{{ supremum.pdf_url }}'>
+            <img class="edition-cover" src='{{ supremum.cover_url }}'>
         </a>
         <div class="flex-column flex-center">
             <img id="chevron" src="{{url_for('home.static', filename='icons/chevron.svg')}}">
@@ -22,6 +23,7 @@
         </div>
     </div>
 </div>
+{% endif %}
 
 <!-- About section -->
 <div class="content-item">

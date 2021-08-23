@@ -6,7 +6,9 @@ from wtforms.widgets import TextArea
 from app.home.models import Infimum
 
 
-class SubmitForm(Form):
+class SubmitInfimumForm(Form):
+    """Form used in submitting new infima"""
+
     infimum_text = StringField(
         'infimum_text',
         validators=[DataRequired()],
@@ -36,7 +38,9 @@ class SubmitForm(Form):
         return True
 
 
-class SearchForm(Form):
+class InfimumSearchForm(Form):
+    """Form used in searching for infima based on their content"""
+
     search_term = TextField(
         'search_term',
         validators=[DataRequired()],
