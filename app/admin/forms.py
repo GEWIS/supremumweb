@@ -1,7 +1,7 @@
 from flask import request
 from flask_wtf import Form
 from wtforms import BooleanField, StringField, FileField, IntegerField, DateField, SelectField, SelectMultipleField, widgets
-from wtforms.validators import DataRequired
+from wtforms.validators import DataRequired, InputRequired
 from wtforms.widgets import TextArea
 
 class SupremumForm(Form):
@@ -22,7 +22,7 @@ class SupremumForm(Form):
     )
     edition_nr = IntegerField(
         'Edition nr.',
-        validators=[DataRequired()],
+        validators=[InputRequired()],
         render_kw={
             "type":"number",
             "min":"0",
@@ -48,12 +48,14 @@ class SupremumForm(Form):
     def __init__(self, *args, **kwargs):
         Form.__init__(self, *args, **kwargs)
         if kwargs.get("prepopulate", False):
-            self.supremum = kwargs.get("supremum", {})
-            self.supremum_id.data = self.supremum.get('id', None)
-            self.volume_nr.data = self.supremum.get("volume_nr", '')
-            self.edition_nr.data = self.supremum.get("edition_nr", '')
-            self.theme.data = self.supremum.get("theme", '')
-            self.published.data = self.supremum.get("published", '')
+            self.supremum = kwargs.get("supremum", None)
+            self.supremum_id.data = self.supremum.id
+            self.volume_nr.data = self.supremum.volume_nr
+            self.edition_nr.data = self.supremum.edition_nr
+            self.theme.data = self.supremum.theme
+            self.published.data = self.supremum.published
+        else:
+            self.supremum = None
 
     def validate_volume_nr(self, *args):
         volume_nr = self.volume_nr.data
@@ -68,7 +70,6 @@ class SupremumForm(Form):
         if not is_valid:
             self.edition_nr.errors.append('Edition nr. must be an integer.')
         return is_valid
-
 
     def validate_theme(self, *args):
         theme = self.theme.data
