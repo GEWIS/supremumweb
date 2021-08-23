@@ -21,25 +21,7 @@ def index():
 def new_supremum():
     form = SupremumForm()
     if form.validate_on_submit():
-        # Retrieve values from form
-        kwargs = {
-            'volume_nr': form.volume_nr.data,
-            'edition_nr': form.edition_nr.data,
-            'theme': form.theme.data,
-            'published': form.published.data
-        }
-
-        # Update pdf
-        pdf = request.files.getlist(form.magazine.name)[0]
-        if pdf:
-            fname = tools.save_file(pdf)
-            kwargs['filename_pdf'] = fname
-
-        # Update cover
-        cover = request.files.getlist(form.cover.name)[0]
-        if cover:
-            fname = tools.save_file(cover)
-            kwargs['filename_cover'] = fname
+        kwargs = tools.retrieve_supremum_from_form(form)
 
         # Add supremum to database
         Supremum.create(**kwargs)
@@ -59,25 +41,7 @@ def edit_supremum(sid: int):
     do_prepopulate = request.method == "GET"
     form = SupremumForm(supremum=supremum, prepopulate=do_prepopulate)
     if form.validate_on_submit():
-        # Retrieve data from form
-        kwargs = {
-            'volume_nr': form.volume_nr.data,
-            'edition_nr': form.edition_nr.data,
-            'theme': form.theme.data,
-            'published': form.published.data
-        }
-
-        # Update pdf
-        pdf = request.files.getlist(form.magazine.name)[0]
-        if pdf:
-            fname = tools.save_file(pdf)
-            kwargs['filename_pdf'] = fname
-
-        # Update cover
-        cover = request.files.getlist(form.cover.name)[0]
-        if cover:
-            fname = tools.save_file(cover)
-            kwargs['filename_cover'] = fname
+        kwargs = tools.retrieve_supremum_from_form(form)
 
         # Update supremum in database
         supremum.update(**kwargs)

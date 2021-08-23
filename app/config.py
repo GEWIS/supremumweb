@@ -28,7 +28,7 @@ class base_config(object):
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
     # NGINX should take care of this.
-    DATA_PATH = None
+    DATA_PATH = os.environ.get('DATA_PATH', '../data/')
 
     # Random infimum selection base
     RANDOM_BASE = os.environ.get('RANDOM_BASE', 2.0)
@@ -41,10 +41,8 @@ class dev_config(base_config):
     """Development configuration options."""
     ASSETS_DEBUG = True
     WTF_CSRF_ENABLED = False
+    SQLALCHEMY_DATABASE_URI = "sqlite:///../database/supremum.db"
     SERVER_NAME = None
-
-    # Files path relative to the app dir.
-    DATA_PATH = os.environ.get('DATA_PATH', '../data/')
 
 
 class test_config(base_config):
