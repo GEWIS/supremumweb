@@ -24,13 +24,13 @@ class Supremum(CRUDMixin, db.Model):
     @property
     def pdf_url(self):
         if self.filename_pdf:
-            return os.path.join('/', current_app.config['DATA_PATH'], self.filename_pdf)
+            return os.path.join(current_app.config['DATA_PATH'], self.filename_pdf)
         return None
 
     @property
     def cover_url(self):
         if self.filename_cover:
-            return os.path.join('/', current_app.config['DATA_PATH'], self.filename_cover)
+            return os.path.join(current_app.config['DATA_PATH'], self.filename_cover)
         return None
 
     def __str__(self):
