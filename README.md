@@ -16,15 +16,14 @@ After you have everything set up, run the following commands on the command line
 0. Run `source venv/bin/activate` (Linux, OS X) or `venv\Scripts\activate.bat` (Windows).
     - This activates the virtual environment we created in the setup.
     - It can be deactivated by running `source venv/bin/deactivate` (Linux, OS X) or `venv\Scripts\deactivate.bat` (Windows).
-1. Execute `python3 wsgi.py`
+1. Execute `python3 serve.py`
     - This starts the development server.
 2. Open `http://localhost:8080/` on your web browser to view the website.
 
 ### Automatic reload
 This development server has been setup in such a way that when changing and saving a python file (`.py`), the server automatically restarts. Simply (force-)refresh your browser to view the update version: `ctrl+shift+r` (Windows, Linux) or `cmd+shift+r` (OS X).
-This also works when updating a `.css` file. 
+This also works when updating a `.css` file.
 
-When you have updated an `.html` file, you have to restart the 
 
 ## Docker environment
 If you wish to run this website in a docker setting, do the following:
