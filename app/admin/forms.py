@@ -55,55 +55,46 @@ class SupremumForm(Form):
             self.theme.data = self.supremum.get("theme", '')
             self.published.data = self.supremum.get("published", '')
 
-    def _validate_types(self):
-        valid = True
+    def validate_volume_nr(self, *args):
         volume_nr = self.volume_nr.data
-        if not isinstance(volume_nr, int):
+        is_valid = isinstance(volume_nr, int)
+        if not is_valid:
             self.volume_nr.errors.append('Volume nr. must be an integer.')
-            valid = False
+        return is_valid
 
+    def validate_edition_nr(self, *args):
         edition_nr = self.edition_nr.data
-        if not isinstance(edition_nr, int):
+        is_valid = isinstance(edition_nr, int)
+        if not is_valid:
             self.edition_nr.errors.append('Edition nr. must be an integer.')
-            valid = False
+        return is_valid
 
+
+    def validate_theme(self, *args):
         theme = self.theme.data
-        if not isinstance(theme, str):
+        is_valid = isinstance(theme, str)
+        if not is_valid:
             self.theme.errors.append('Theme must be text.')
-            valid = False
+        return is_valid
 
-        return valid
-
-    def _validate_files(self):
-        valid = True
-
-        # Validate pdf file
+    # TODO: validate file is actually pdf
+    def validate_magazine(self, *args):
         magazine = request.files.getlist(self.magazine.name)
-        if not len(magazine) <= 1:
+        is_valid = len(magazine) <= 1
+        if not is_valid:
             self.magazine.errors.append("Upload at most one file")
-            valid = False
-        if len(magazine) == 1:
-            magazine = magazine[0]
-            # TODO: validate file is actually pdf
+        return is_valid
 
-        # Validate cover file
+    # TODO: validate file is actually an image
+    def validate_cover(self, *args):
         cover = request.files.getlist(self.cover.name)
-        if not len(cover) <= 1:
+        is_valid = len(cover) <= 1
+        if not is_valid:
             self.cover.errors.append("Upload at most one file")
-            valid = False
-        if len(cover) == 1:
-            cover = cover[0]
-            # TODO: validate file is actually an image
-
-        return valid
+        return is_valid
 
     def validate(self):
-        rv = Form.validate(self)
-        if not self._validate_types():
-            return False
-        if not self._validate_files():
-            return False
-        return True
+        return Form.validate(self)
 
 class InfimumEditForm(Form):
     infimum_id = IntegerField(
@@ -145,25 +136,25 @@ class InfimumEditForm(Form):
             self.supremum.choices = kwargs.get("suprema", []) + [(-1, "Not selected")]
             self.supremum.data = infimum.get("supremum_id", None) or -1
 
-    def _check_types(self):
-        valid = True
-
-        if not isinstance(self.content.data, str):
+    def validate_content(self, *args):
+        content = self.content.data.strip()
+        is_str = isinstance(content, str)
+        if not is_str:
             self.content.errors.append('Infimum must consist of text.')
-            valid = False
+        is_non_empty = bool(content)
+        if not is_non_empty:
+            self.content.errors.append('Infimum must consist of text.')
+        return is_str and is_non_empty
 
-        print(self.rejected.data)
-        if not isinstance(self.rejected.data, bool):
+    def validate_rejected(self, *args):
+        rejected = self.rejected.data
+        is_valid = isinstance(self.rejected.data, bool)
+        if not is_valid:
             self.rejected.errors.append('Rejected must be a boolean.')
-            valid = False
-
-        return valid
+        return is_valid
 
     def validate(self):
-        rv = Form.validate(self)
-        if not self._check_types():
-            return False
-        return True
+        return Form.validate(self)
 
 class MultiCheckboxField(SelectMultipleField):
     widget = widgets.ListWidget(prefix_label=False)
@@ -182,5 +173,12 @@ class InfimumAssignForm(Form):
         suprema = kwargs.get("suprema", [])
         self.supremum.choices = [(sup.id, str(sup)) for sup in suprema]
 
+    def validate_infima(self, *args):
+        infima_ids = self.infima.data
+        is_valid = bool(infima_ids)
+        if not is_valid:
+            self.infima.errors.append('At least one infimum must be selected')
+        return is_valid
+
     def validate(self):
-        return True
+        return Form.validate(self)

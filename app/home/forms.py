@@ -9,8 +9,8 @@ from app.home.models import Infimum
 class SubmitInfimumForm(Form):
     """Form used in submitting new infima"""
 
-    infimum_text = StringField(
-        'infimum_text',
+    content = StringField(
+        'content',
         validators=[DataRequired()],
         widget=TextArea(),
         render_kw={
@@ -20,22 +20,27 @@ class SubmitInfimumForm(Form):
 
     def __init__(self, *args, **kwargs):
         Form.__init__(self, *args, **kwargs)
-        self.infimum = None
 
-    def validate(self):
-        rv = Form.validate(self)
+    def validate_content(self, *args):
+        content = self.content.data.strip()
 
-        infimum = Infimum.query.filter_by(
-            content=self.infimum_text.data).first()
-
-        if infimum:
+        # Check for duplicates
+        already_exists = Infimum.get_infimum_with_content(content)
+        if already_exists:
             self.infimum.errors.append(
                 'This infimum has already been submitted'
             )
-            return False
 
-        self.infimum = infimum
-        return True
+        # Check the submission is not just spaces
+        contains_non_spaces = bool(content)
+        if not contains_non_spaces:
+            self.infimum.errors.append(
+                'Please enter non-spaces too.'
+            )
+        return not already_exists and contains_non_spaces
+
+    def validate(self):
+        return Form.validate(self)
 
 
 class InfimumSearchForm(Form):
@@ -52,4 +57,20 @@ class InfimumSearchForm(Form):
 
     def __init__(self, *args, **kwargs):
         Form.__init__(self, *args, **kwargs)
-        self.term = None
+
+    def validate_search_term(self, *args):
+        search_term = self.search_term.data.strip()
+
+        # Check the submission is not just spaces
+        if not bool(search_term):
+            self.search_term.errors.append(
+                'Make sure your search term contains non-space characters'
+            )
+
+        # Check submission has at least two characters
+        if len(search_term) < 2:
+            self.search_term.errors.append('Please enter a longer search term')
+        return bool(search_term) and len(search_term) >= 2
+
+    def validate(self):
+        return Form.validate(self)

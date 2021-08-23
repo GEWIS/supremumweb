@@ -178,3 +178,7 @@ class Infimum(CRUDMixin, db.Model):
     @classmethod
     def get_infimum_with_id(cls, id):
         return cls.query.filter_by(id=id).first()
+
+    @classmethod
+    def get_infimum_with_content(cls, content):
+        return cls.query.filter_by(content=content).first()

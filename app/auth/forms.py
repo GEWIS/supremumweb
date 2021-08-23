@@ -12,7 +12,7 @@ class LoginForm(Form):
             'placeholder': 'Username'
         }
     )
-    
+
     password = PasswordField(
         'password',
         validators=[DataRequired()],
@@ -20,22 +20,22 @@ class LoginForm(Form):
             'placeholder': 'Password'
         }
     )
-    
+
     def __init__(self, *args, **kwargs):
         Form.__init__(self, *args, **kwargs)
         self.user = None
-    
+
     def validate(self):
         rv = Form.validate(self)
-        
+
         self.user = User.query.filter_by(username=self.username.data).first()
-        
+
         if not self.user:
             self.username.errors.append('Unknown username')
             return False
-        
+
         if not self.user.check_password(self.password.data):
             self.password.errors.append('Invalid password')
-            return False        
-        
+            return False
+
         return True

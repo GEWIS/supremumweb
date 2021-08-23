@@ -3,7 +3,7 @@
     min-height: var(--window-height);
 }
 
-#infimum_text {
+#content {
     border: none;
     width: 80%;
     min-width: 100px;
