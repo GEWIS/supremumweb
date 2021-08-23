@@ -57,7 +57,7 @@ def supremum_overview():
 
 @home.route('/supremum/<int:volume_nr>.<int:edition_nr>/infima')
 def infima_for_edition(volume_nr, edition_nr):
-    supremum = Supremum.get_supremum_by_volume_and_edition(
+    supremum = Supremum.get_by_volume_and_edition(
         volume_nr, edition_nr)
     if supremum is None or not supremum.published:
         abort(404)
