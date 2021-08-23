@@ -23,7 +23,7 @@ class Supremum(CRUDMixin, db.Model):
 
     @property
     def pdf_url(self):
-        if self.filename_cover:
+        if self.filename_pdf:
             return os.path.join('/', current_app.config['DATA_PATH'], self.filename_pdf)
         return None
 

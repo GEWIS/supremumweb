@@ -7,7 +7,7 @@
 
 {% block body %}
 <div class="flex-centered">
-    {% for volume, editions in volumes.items() %}
+    {% for volume, editions in volumes.items()|reverse %}
     <div class="archive-item">
         <div class="archive-container">
             <h3 class="volume-title">Volume {{volume}}</h3>
@@ -15,7 +15,7 @@
                 {% for edition in editions %}
                 <div class="edition-box">
                     <a class="flex-centered" id="edition" href='{{edition.pdf_url}}'>
-                        <img class="gray-hover" id="edition-cover" src='{{edition.img_url}}' loading="lazy">
+                        <img class="gray-hover" id="edition-cover" src='{{edition.cover_url}}' loading="lazy">
                     </a>
                     <p><b>{{ edition.title }}</b></p>
                 </div>

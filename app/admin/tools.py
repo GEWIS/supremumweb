@@ -7,3 +7,4 @@ def save_file(f):
     path = os.path.join(os.getcwd(), current_app.config['DATA_PATH'], fname)
     with open(path, "wb") as file:
         file.write(f.stream.read())
+    return fname

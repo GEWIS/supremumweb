@@ -61,7 +61,7 @@
         </td>
         <td class="icon">
             {% if edition.cover_url %}
-            <a href="{{edition.img_url}}">
+            <a href="{{ edition.cover_url }}">
                 <img src="{{url_for('admin.static', filename='img/image.svg')}}">
             </a>
             {% else %}

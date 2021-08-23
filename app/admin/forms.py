@@ -120,10 +120,16 @@ class SupremumForm(Form):
                 return False
 
         # Verify that if volume_nr or edition_nr is changed, these values are not yet in use
+        if self.supremum is not None:
+            old_volume_nr = self.supremum.volume_nr
+            old_edition_nr = self.supremum.edition_nr
+        else:
+            old_volume_nr, old_edition_nr = None, None
+
         new_volume_nr = self.volume_nr.data
         new_edition_nr = self.edition_nr.data
-        if self.supremum.volume_nr != new_volume_nr or \
-            self.supremum.edition_nr != new_edition_nr:
+        if old_volume_nr != new_volume_nr or \
+            old_edition_nr != new_edition_nr:
             supremum = Supremum.get_by_volume_and_edition(
                 new_volume_nr, new_edition_nr)
             if supremum is not None:
