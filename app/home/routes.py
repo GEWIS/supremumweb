@@ -22,7 +22,7 @@ def infima_overview():
         seach_term = inf_search_form.search_term.data
         infima = Infimum.search_published_infima(seach_term)
 
-    published_suprema = Supremum.get_all_published_editions()
+    published_suprema = Supremum.get_published_editions()
     return render_template('infima_overview.html', suprema=published_suprema,
                            form=inf_search_form, search_results=infima)
 
@@ -54,7 +54,7 @@ def get_random_infimum():
 
 @home.route('/supremum')
 def supremum_overview():
-    suprema = Supremum.get_all_published_editions()
+    suprema = Supremum.get_published_editions()
 
     # Split suprema up per volume
     volumes = {}

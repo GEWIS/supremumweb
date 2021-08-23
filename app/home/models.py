@@ -135,7 +135,7 @@ class Infimum(CRUDMixin, db.Model):
         """Returns all published, non-rejected infima whose content contain the search term."""
 
         search_results = cls._search_all_infima(search_term)
-        published_suprema = Supremum.get_all_published_editions()
+        published_suprema = Supremum.get_published_editions()
         published_suprema_ids = [sup.id for sup in published_suprema]
 
         filtered_results = [
