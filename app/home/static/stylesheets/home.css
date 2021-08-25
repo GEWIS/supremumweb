@@ -1,24 +1,7 @@
 /* Section in general */
-
-section {
-    width: 100%;
-}
-
-section:nth-child(2n){
-    background-color: #ffffff;
-    color: #000000;
-}
-
-section:nth-child(2n + 1) {
-    background-color: var(--gewis-rood);
-    color: #ffffff;
-}
-
 .section-container {
     width: 800px;
     max-width: 90%;
-
-    margin: 4rem auto;
 }
 
 /* Edition section */
@@ -85,12 +68,4 @@ section:nth-child(2n + 1) {
 
 .section-link + .section-link {
     margin-top: 1rem;
-}
-
-section:nth-child(2n) .section-link{
-    color: var(--gewis-rood);
-}
-
-section:nth-child(2n + 1) .section-link{
-    color: #ffffff;
 }

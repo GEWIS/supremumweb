@@ -52,6 +52,10 @@ def supremum_overview():
         volume = volumes.setdefault(supremum.volume_nr, [])
         volume.append(supremum)
 
+    # Sort volumes
+    for volume_nr, editions in volumes.items():
+        volumes[volume_nr] = sorted(editions, key=lambda x: x.edition_nr, reverse=True)
+
     return render_template('archive.html', volumes=volumes)
 
 

@@ -47,7 +47,7 @@ body, html, div {
 a {
     text-decoration: none;
     cursor: pointer;
-    color: #000000;
+    /* color: #000000; */
 }
 
 h1, h2, h3, p, span {
@@ -111,6 +111,32 @@ p, span {
     margin-top: var(--menu-height);
 }
 
+section {
+    width: 100%;
+}
+
+section > * {
+    margin: 4rem auto;
+}
+
+
+section:nth-child(2n) {
+    background-color: #ffffff;
+    color: #000000;
+}
+
+section:nth-child(2n + 1) {
+    background-color: var(--gewis-rood);
+    color: #ffffff;
+}
+
+section:nth-child(2n) .section-link {
+    color: var(--gewis-rood);
+}
+
+section:nth-child(2n + 1) .section-link {
+    color: #ffffff;
+}
 
 /* Footer */
 

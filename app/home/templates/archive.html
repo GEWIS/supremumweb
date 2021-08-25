@@ -1,4 +1,4 @@
-{% extends 'layout.html' %}
+{% extends 'components/layout.html' %}
 
 {% block links %}
 <link rel="stylesheet" type="text/css" href="{{url_for('home.static', filename='stylesheets/archive.css')}}">
@@ -6,23 +6,19 @@
 
 
 {% block body %}
-<div class="flex-centered">
-    {% for volume, editions in volumes.items()|reverse %}
-    <div class="archive-item">
-        <div class="archive-container">
-            <h3 class="volume-title">Volume {{volume}}</h3>
-            <div class="volume-box">
-                {% for edition in editions %}
-                <div class="edition-box">
-                    <a class="flex-centered" id="edition" href='{{edition.pdf_url}}'>
-                        <img class="gray-hover" id="edition-cover" src='{{edition.cover_url}}' loading="lazy">
-                    </a>
-                    <p><b>{{ edition.title }}</b></p>
-                </div>
-                {% endfor %}
-            </div>
+{% for volume, editions in volumes.items()|reverse %}
+<section>
+    <div class="archive-container">
+        <h3 class="volume-title">Volume {{volume}}</h3>
+        <div class="volume-box">
+            {% for edition in editions %}
+            <a class="edition-box" href='{{edition.pdf_url}}'>
+                <img class="gray-hover" id="edition-cover" src='{{edition.cover_url}}' loading="lazy">
+                <span class="section-link">{{ edition.theme }}</span>
+            </a>
+            {% endfor %}
         </div>
     </div>
-    {% endfor %}
-</div>
+</section>
+{% endfor %}
 {% endblock %}
