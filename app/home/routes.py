@@ -22,7 +22,7 @@ def infima_overview():
         seach_term = inf_search_form.search_term.data
         infima = Infimum.search_published_infima(seach_term)
 
-    published_suprema = Supremum.get_published_editions()
+    published_suprema = Supremum.get_published_editions_in_order()
     return render_template('infima_overview.html', suprema=published_suprema,
                            form=inf_search_form, search_results=infima)
 

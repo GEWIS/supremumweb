@@ -1,5 +1,7 @@
 :root {
-    --gewis-rood: #D40026;
+    --GEWIS-red: #D40026;
+    --light-color: #ffffff;
+    --dark-color: #000000;
     --menu-height: 7rem;
     --footer-height: 7rem;
     --content-height: calc(100vh - var(--menu-height) - var(--footer-height));
@@ -79,7 +81,7 @@ p, span {
     width: 100%;
     height: var(--menu-height);
     overflow: hidden;
-    background-color: white;
+    background-color: var(--light-color);
     top: 0;
     position: fixed;
     z-index: 2;
@@ -88,7 +90,7 @@ p, span {
 .menu-logo {
     display: flex;
     flex-direction: row;
-    color: var(--gewis-rood);
+    color: var(--GEWIS-red);
     font-size: 3.5rem;
     margin: 2rem 0 2rem 2rem;
 }
@@ -113,6 +115,26 @@ p, span {
 
 section {
     width: 100%;
+    color: var(--primary-color);
+    background: var(--secondary-color);
+}
+
+section:nth-child(2n) {
+    background-color: var(--light-color);
+    color: var(--dark-color);
+}
+
+section:nth-child(2n) .section-link {
+    color: var(--GEWIS-red);
+}
+
+section:nth-child(2n + 1) {
+    background-color: var(--GEWIS-red);
+    color: var(--light-color);
+}
+
+section:nth-child(2n + 1) .section-link {
+    color: var(--light-color);
 }
 
 section > * {
@@ -120,22 +142,14 @@ section > * {
 }
 
 
-section:nth-child(2n) {
-    background-color: #ffffff;
-    color: #000000;
-}
-
-section:nth-child(2n + 1) {
-    background-color: var(--gewis-rood);
-    color: #ffffff;
-}
-
-section:nth-child(2n) .section-link {
-    color: var(--gewis-rood);
-}
-
-section:nth-child(2n + 1) .section-link {
-    color: #ffffff;
+/* Forms */
+.submit-btn {
+    border: none;
+    background-color: transparent;
+    text-decoration: underline;
+    color: var(--light-color);
+    cursor: pointer;
+    margin-top: 1em;
 }
 
 /* Footer */
@@ -146,6 +160,6 @@ section:nth-child(2n + 1) .section-link {
     justify-content: center;
     width: 100%;
     height: var(--footer-height);
-    background-color: var(--gewis-rood);
-    color: white;
+    background-color: var(--GEWIS-red);
+    color: var(--light-color);
 }

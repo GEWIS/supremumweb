@@ -31,12 +31,3 @@ form {
     font-family: Arial, Helvetica, sans-serif;
     padding: 15px;
 }
-
-.submit-btn {
-    border: none;
-    background-color: transparent;
-    text-decoration: underline;
-    color: white;
-    cursor: pointer;
-    margin-top: 1em;
-}

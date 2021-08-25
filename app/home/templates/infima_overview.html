@@ -1,4 +1,4 @@
-{% extends 'layout.html' %}
+{% extends 'components/layout.html' %}
 
 {% from 'components/macros.html' import render_field %}
 {% from 'components/macros.html' import infimum %}
@@ -8,42 +8,38 @@
 {% endblock %}
 
 {% block body %}
-<div class="infima-overview">
-    <h1 class="title">The infima</h1>
-    {% if form %}
-    <div id="search-form" class="module">
-        <h3>Search</h3>
+<section>
+    <div class="section-container search-container">
+        <h1 class="title">The infima</h1>
         <form method="POST" action="{{ request.url }}">
-            <div class="form">
-                <div>
-                    {{ form.csrf_token }}
-                    {{ render_field(form.search_term) }}
-                </div>
-                <button type="submit" class="submit-btn">
-                    <i class="fa fa-sign-in"></i>
-                    <p>> Search</p>
-                </button>
-            </div>
+            {{ form.csrf_token }}
+            {{ render_field(form.search_term) }}
+            <button type="submit" class="submit-btn">
+                <span>> Search</span>
+            </button>
         </form>
     </div>
-    {% endif %}
-    {% if search_results %}
-    <div id="results-box" class="module">
-        <h3>Results</h3>
-        {% for res in search_results %}
+</section>
+{% if search_results %}
+<section>
+    <div class="section-container results-container">
+        <h3 class="results-title">Results</h3>
+        {% for res in search_results|reverse %}
         {{ infimum(res) }}
         {% endfor %}
     </div>
-    {% endif %}
-    <div id="edition-list" class="module">
-        <h3>Per edition</h3>
+</section>
+{% endif %}
+<section>
+    <div class="section-container per-edition-container">
+        <h3>View per edition</h3>
         <div class="edition-list">
-            {% for supremum in suprema %}
+            {% for supremum in suprema|reverse %}
             <a class="edition-link" href="./supremum/{{supremum.volume_nr}}.{{supremum.edition_nr}}/infima">
-                <span>{{supremum.volume_nr}}.{{supremum.edition_nr}} - {{supremum.theme}}</span>
+                <span>> Supremum {{supremum.volume_nr}}.{{supremum.edition_nr}} - {{supremum.theme}}</span>
             </a>
             {% endfor %}
         </div>
     </div>
-</div>
+</section>
 {% endblock %}
