@@ -1,4 +1,4 @@
-{% extends 'layout.html' %}
+{% extends 'components/layout.html' %}
 
 {% block links %}
 <link rel="stylesheet" type="text/css" href="{{url_for('home.static', filename='stylesheets/infima.css')}}">
@@ -6,14 +6,22 @@
 
 
 {% block body %}
-<div class="infima-overview">
-    <h2 class="title">The infima of Supremum {{supremum.volume_nr}}.{{supremum.edition_nr}}</h2>
-    <div class="infima-list">
+<section>
+    <div class="section-container title-container">
+        <h2 class="title">The infima of
+            <a href="/supremum/{{supremum.volume_nr}}.{{supremum.edition_nr}}" class="section-link">
+                Supremum {{supremum.volume_nr}}.{{supremum.edition_nr}}
+            </a>
+        </h2>
+    </div>
+</section>
+<section>
+    <div class="section-container infima-container">
         {% for infimum in infima %}
         <div class="infima-card" id={{infimum.id}}>
             <p>{{infimum.content}}</p>
         </div>
         {% endfor %}
     </div>
-</div>
+</section>
 {% endblock %}

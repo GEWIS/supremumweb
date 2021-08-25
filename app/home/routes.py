@@ -1,4 +1,4 @@
-from flask import render_template, jsonify, abort, Response, request
+from flask import render_template, jsonify, abort, Response, request, redirect
 from . import home_bp as home
 from .forms import SubmitInfimumForm, InfimumSearchForm
 from .models import Supremum, Infimum
@@ -58,11 +58,17 @@ def supremum_overview():
 
     return render_template('archive.html', volumes=volumes)
 
+@home.route('/supremum/<int:volume_nr>.<int:edition_nr>')
+def supremum_by_volume_nr_and_edition_nr(volume_nr, edition_nr):
+    supremum = Supremum.get_by_volume_and_edition(volume_nr, edition_nr)
+    if supremum is None or not supremum.published:
+        abort(404)
+    return redirect(supremum.pdf_url)
+
 
 @home.route('/supremum/<int:volume_nr>.<int:edition_nr>/infima')
 def infima_for_edition(volume_nr, edition_nr):
-    supremum = Supremum.get_by_volume_and_edition(
-        volume_nr, edition_nr)
+    supremum = Supremum.get_by_volume_and_edition(volume_nr, edition_nr)
     if supremum is None or not supremum.published:
         abort(404)
 
