@@ -22,7 +22,7 @@
 }
 
 .edition-cover {
-    max-height: calc( .8 * var(--window-height));
+    max-height: calc( .8 * var(--content-height));
     max-width: 100%;
     box-shadow: 0px 0px 20px 2px #000;
     -webkit-box-shadow: 0px 0px 20px 2px #000;

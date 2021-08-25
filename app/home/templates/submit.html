@@ -1,4 +1,4 @@
-{% extends 'layout.html' %}
+{% extends 'components/layout.html' %}
 
 {% from 'components/macros.html' import render_field %}
 
@@ -7,20 +7,16 @@
 {% endblock %}
 
 {% block body %}
-<div class="content-item center">
-    <div class="content-container submit-container">
+<section>
+    <div class="section-container">
         {% if form %}
         <h3>Submit an infimum!</h3>
         <form method="POST" action="{{ request.url }}">
-            <div class="panel panel-default">
-                <div>
-                    {{ form.csrf_token }}
-                    {{ render_field(form.content) }}
-                </div>
-                <button type="submit" class="submit-btn" style="margin-right: 1em;">
-                    <i class="fa fa-sign-in"></i><p>> Submit</p>
-                </button>
-            </div>
+            {{ form.csrf_token }}
+            {{ render_field(form.content) }}
+            <button type="submit" class="submit-btn">
+                <span class="section-link">> Submit</span>
+            </button>
         </form>
         {% else %}
         <div id="submission-succesfull">
@@ -31,5 +27,5 @@
         </div>
         {% endif %}
     </div>
-</div>
+</section>
 {% endblock %}
