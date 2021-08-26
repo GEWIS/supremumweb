@@ -15,7 +15,7 @@ th {
 }
 
 tr:first-child {
-    background-color: var(--clr-accent-700) !important;
+    background-color: var(--GEWIS-red) !important;
     color: #fff;
 }
 
@@ -66,7 +66,7 @@ td.icon, td.edit-btn, td.id, td.date, td.rejected {
 .table-btn {
     display: block;
     box-sizing: border-box;
-    background: var(--clr-accent-700);
+    background: var(--GEWIS-red);
     padding: 1rem;
     margin: 0 2rem;
     border-radius: .75rem;

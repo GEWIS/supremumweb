@@ -18,13 +18,13 @@
 }
 
 .container {
-    min-height: var(--window-height);
+    min-height: var(--content-height);
 }
 
 /* Button */
 
 .cta-button {
-    background-color: var(--clr-accent-700);
+    background-color: var(--GEWIS-red);
     color: #fff;
     border: none;
     border-radius: 5px;

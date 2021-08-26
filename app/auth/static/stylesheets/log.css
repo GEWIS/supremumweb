@@ -2,7 +2,7 @@
     display: flex;
     justify-content: center;
     width: 100%;
-    background-color: var(--clr-accent-700);
+    background-color: var(--GEWIS-red);
 }
 
 .login-box {
@@ -10,7 +10,7 @@
     width: 85%;
     max-width: 300px;
 
-    padding: 2rem 5rem;   
+    padding: 2rem 5rem;
 }
 
 .login-box input {

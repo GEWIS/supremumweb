@@ -40,12 +40,12 @@ form {
 .submit-btn {
     background-color: transparent;
     text-decoration: underline;
-    color: var(--clr-accent-700);
+    color: var(--GEWIS-red);
     border: none;
 }
 
 .field-errors {
-    color: var(--clr-accent-700);
+    color: var(--GEWIS-red);
 }
 
 .panel {
