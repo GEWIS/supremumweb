@@ -33,7 +33,7 @@ def validate_key(func):
 
 @api.route('/random_infimum')
 @validate_key
-@cache.memoize(300)  # cache for 5 min
+@cache.memoize(300)  # cache for 300 seconds
 def get_random_infimum():
     random_infimum = Infimum.get_random_infimum()
     if random_infimum is None:
