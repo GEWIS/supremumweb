@@ -27,14 +27,14 @@ class SubmitInfimumForm(Form):
         # Check for duplicates
         already_exists = Infimum.get_infimum_with_content(content)
         if already_exists:
-            self.infimum.errors.append(
+            self.content.errors.append(
                 'This infimum has already been submitted'
             )
 
         # Check the submission is not just spaces
         contains_non_spaces = bool(content)
         if not contains_non_spaces:
-            self.infimum.errors.append(
+            self.content.errors.append(
                 'Please enter non-spaces too.'
             )
         return not already_exists and contains_non_spaces
