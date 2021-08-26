@@ -115,11 +115,15 @@ class Infimum(CRUDMixin, db.Model):
     def theme(self):
         return self.supremum.theme if self.supremum else None
 
+    @property
+    def submission_date_str(self):
+        return self.submission_date.strftime('%Y-%m-%d, %H:%M:%S')
+
     def __repr__(self):
         return f'Infimum(id={self.id}, '\
             f'supremum_id={self.supremum_id}, '\
             f'content="{self.content}", '\
-            f'submission_date={repr(self.submission_date)}, '\
+            f'submission_date={self.submission_date_str}, '\
             f'rejected={self.rejected})'
 
     def format_public(self):

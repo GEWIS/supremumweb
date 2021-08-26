@@ -179,9 +179,8 @@ class InfimumEditForm(Form):
         suprema = kwargs["suprema"]
 
         # Prepopulate supremum choices
-        self.supremum.choices = [(sup.id, str(sup)) for sup in suprema]
-        if self.infimum.supremum_id is None:
-            self.supremum.choices += [(self.NOT_SELECTED, "Not selected")]
+        self.supremum.choices = [(sup.id, str(sup)) for sup in suprema] +\
+             [(self.NOT_SELECTED, "Not selected")]
 
     def _populate(self):
         self.infimum_id.data = self.infimum.id

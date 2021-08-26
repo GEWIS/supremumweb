@@ -9,7 +9,7 @@
         {% for infimum in infima %}
         <tr>
             <td class="submission-date">
-                <p>{{ infimum.submission_date }}</p>
+                <p>{{ infimum.submission_date_str }}</p>
             </td>
             <td class="content">
                 <p>{{ infimum.content }}</p>
@@ -40,7 +40,7 @@
         <td class="name">
             <p>Supremum {{ edition.volume_nr }}.{{ edition.edition_nr }}</p>
         </td>
-        <td class="title">
+        <td class="theme">
             <p>{{ edition.theme }}</p>
         </td>
         <td class="icon">

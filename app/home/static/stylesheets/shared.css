@@ -115,8 +115,6 @@ p, span {
 
 section {
     width: 100%;
-    color: var(--primary-color);
-    background: var(--secondary-color);
 }
 
 section:nth-child(2n) {

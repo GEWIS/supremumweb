@@ -8,22 +8,26 @@
 {% endblock %}
 
 {% block body %}
-<div class="overview-item">
-    <div class="overview-container">
-        <div class="table-title">
-            <h3>Supremum overview</h3>
-            <a class="cta-button" href="supremum/new"><b>+</b></a>
-        </div>
+<section>
+    <div class="table-title">
+        <h3>Supremum overview</h3>
+        <a class="cta-button" href="supremum/new"><b>+</b></a>
+    </div>
+</section>
+<section>
+    <div class="table-container">
         {{ supremum_table(editions) }}
     </div>
-</div>
-<div class="overview-item">
-    <div class="overview-container">
-        <div class="table-title">
-            <h3>Unassigned infima overview</h3>
-            <a class="cta-button" href="infima/assign"><b>></b></a>
-        </div>
-        {{ infima_table(infima) }}
+</section>
+<section>
+    <div class="table-title">
+        <h3>Unassigned infima overview</h3>
+        <a class="cta-button" href="infima/assign"><b>></b></a>
     </div>
+</section>
+<section>
+<div class="table-container">
+    {{ infima_table(infima) }}
 </div>
+</section>
 {% endblock %}
