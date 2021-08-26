@@ -38,8 +38,7 @@ def edit_supremum(sid: int):
     if supremum is None:
         return abort(404)
 
-    do_prepopulate = request.method == "GET"
-    form = SupremumForm(supremum=supremum, prepopulate=do_prepopulate)
+    form = SupremumForm(supremum=supremum)
     if form.validate_on_submit():
         kwargs = tools.retrieve_supremum_from_form(form)
 
@@ -48,6 +47,8 @@ def edit_supremum(sid: int):
 
         # Return to admin panel
         return redirect(url_for("admin.index"))
+
+    form._populate()
     return render_template("forms/edit_supremum_form.html", form=form), 200
 
 
@@ -55,6 +56,9 @@ def edit_supremum(sid: int):
 # @login_required
 def infima_of_supremum_edition_with_id(sid: int):
     supremum = Supremum.get_by_id(sid)
+    if supremum is None:
+        return abort(404)
+
     infima = Infimum.get_infima_with_supremum_id(sid)
     return render_template("admin_infima_overview.html", supremum=supremum,
                            infima=infima), 200
@@ -63,6 +67,10 @@ def infima_of_supremum_edition_with_id(sid: int):
 @admin.route('/supremum/<int:sid>/infima/download')
 # @login_required
 def download_infima_of_supremum_edition_with_id(sid: int):
+    supremum = Supremum.get_by_id(sid)
+    if supremum is None:
+        return abort(404)
+
     infima = Infimum.get_infima_with_supremum_id(sid)
     return jsonify([inf.format_public() for inf in infima]), 200
 
@@ -75,11 +83,7 @@ def edit_infimum(iid: int):
         return abort(404)
 
     suprema = Supremum._get_editions()
-    edition_list = [(sup.id, str(sup)) for sup in suprema]
-
-    do_prepopulate = request.method == "GET"
-    form = InfimumEditForm(infimum=infimum, suprema=edition_list,
-                           prepopulate=do_prepopulate)
+    form = InfimumEditForm(infimum=infimum, suprema=suprema)
     if form.validate_on_submit():
         # Retrieve data from form
         content = form.content.data
@@ -92,6 +96,9 @@ def edit_infimum(iid: int):
 
         # Return to admin panel
         return redirect(url_for("admin.index"))
+
+    # Populate infimum fields
+    form._populate()
     return render_template("forms/edit_infimum_form.html", form=form), 200
 
 

@@ -49,13 +49,16 @@ class SupremumForm(Form):
 
     def __init__(self, *args, **kwargs):
         Form.__init__(self, *args, **kwargs)
-        self.supremum = kwargs.get("supremum", None)
-        if kwargs.get("prepopulate", False):
-            self.supremum_id.data = self.supremum.id
-            self.volume_nr.data = self.supremum.volume_nr
-            self.edition_nr.data = self.supremum.edition_nr
-            self.theme.data = self.supremum.theme
-            self.published.data = self.supremum.published
+        if not "supremum" in kwargs:
+            raise ValueError("supremum not provided")
+        self.supremum = kwargs["supremum"]
+
+    def _populate(self):
+        self.supremum_id.data = self.supremum.id
+        self.volume_nr.data = self.supremum.volume_nr
+        self.edition_nr.data = self.supremum.edition_nr
+        self.theme.data = self.supremum.theme
+        self.published.data = self.supremum.published
 
     def validate_volume_nr(self, *args):
         volume_nr = self.volume_nr.data
@@ -140,17 +143,16 @@ class SupremumForm(Form):
         return True
 
 class InfimumEditForm(Form):
+    NOT_SELECTED = 0
+
     infimum_id = IntegerField(
         'Infimum id',
-        validators=[DataRequired()],
         render_kw = {
             "type":"number",
             'disabled': True # read-only field
         }
     )
-    supremum = SelectField(
-        'Supremum', coerce=int
-    )
+    supremum = SelectField('Supremum', coerce=int)
     content = StringField(
         'Theme',
         validators=[DataRequired()],
@@ -158,7 +160,6 @@ class InfimumEditForm(Form):
     )
     creation_date = DateField(
         'Submission date',
-        validators = [DataRequired()],
         render_kw = {
             'disabled': True # read-only field
         }
@@ -169,15 +170,31 @@ class InfimumEditForm(Form):
 
     def __init__(self, *args, **kwargs):
         Form.__init__(self, *args, **kwargs)
-        if kwargs.get("prepopulate", False):
-            infimum = kwargs.get("infimum", {})
-            self.infimum_id.data = infimum.get("id", '')
-            self.content.data = infimum.get('content', '')
-            self.creation_date.data = infimum.get('submission_date', '')
-            self.rejected.data = infimum.get('rejected', False)
+        if not "infimum" in kwargs:
+            raise ValueError("infimum not provided")
+        self.infimum = kwargs["infimum"]
 
-            self.supremum.choices = kwargs.get("suprema", []) + [(-1, "Not selected")]
-            self.supremum.data = infimum.get("supremum_id", None) or -1
+        if not "suprema" in kwargs:
+            raise ValueError("suprema not provided")
+        suprema = kwargs["suprema"]
+
+        # Prepopulate supremum choices
+        self.supremum.choices = [(sup.id, str(sup)) for sup in suprema]
+        if self.infimum.supremum_id is None:
+            self.supremum.choices += [(self.NOT_SELECTED, "Not selected")]
+
+    def _populate(self):
+        self.infimum_id.data = self.infimum.id
+        self.creation_date.data = self.infimum.submission_date
+        self.content.data = self.infimum.content
+        self.rejected.data = self.infimum.rejected
+        self.supremum.data = self.infimum.supremum_id or self.NOT_SELECTED
+
+    def validate_supremum(self, *args):
+        # Set to None if no supremum was selected
+        if self.supremum.data == self.NOT_SELECTED:
+            self.supremum.data = None
+        return True
 
     def validate_content(self, *args):
         content = self.content.data.strip()
@@ -191,7 +208,7 @@ class InfimumEditForm(Form):
 
     def validate_rejected(self, *args):
         rejected = self.rejected.data
-        is_valid = isinstance(self.rejected.data, bool)
+        is_valid = isinstance(rejected, bool)
         if not is_valid:
             self.rejected.errors.append('Rejected must be a boolean.')
         return is_valid
