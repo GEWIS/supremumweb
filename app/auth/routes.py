@@ -18,11 +18,8 @@ def load_user(id):
 def login():
     if current_user.is_authenticated:
         return redirect(url_for('home.infimum_overview'))
-    login_user(User.get_by_id(8046))
-    return redirect(url_for('home.infima_overview'))
-
-    # app_id = current_app.config['GEWIS_API_APPID']
-    # return redirect(urljoin('https://gewis.nl/token/', app_id))
+    app_id = current_app.config['GEWIS_API_APPID']
+    return redirect(urljoin('https://gewis.nl/token/', app_id))
 
 @auth.route('/callback')
 def callback():
