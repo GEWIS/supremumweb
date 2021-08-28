@@ -5,13 +5,22 @@
         <h3 class="logo-text accomodate-shrink">upremum</h3>
         {% endblock %}
     </a>
+    <div class="menu-buttons">
     {% if user.is_authenticated %}
+        {% if user.is_admin %}
+            {% block cross_link %}
+                <a href="/admin" class="login-btn btn-hover">
+                    <span><b>Admin</b></span>
+                </a>
+            {% endblock %}
+        {% endif %}
         <a href="/auth/logout" class="login-btn btn-hover">
-            <span class="accomodate-shrink"><b>Logout</b></span>
+            <span><b>Logout</b></span>
         </a>
     {% else %}
         <a href="/auth/login" class="login-btn btn-hover">
-            <span class="accomodate-shrink"><b>Login</b></span>
+            <span><b>Login</b></span>
         </a>
     {% endif %}
+    </div>
 </div>

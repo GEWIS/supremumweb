@@ -103,6 +103,10 @@ p, span {
     margin-left: 3px;
 }
 
+.menu-buttons {
+    display: flex;
+}
+
 .login-btn {
     background-color: var(--GEWIS-red);
     border-radius: .5rem;
