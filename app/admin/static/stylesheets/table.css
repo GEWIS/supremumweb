@@ -81,11 +81,6 @@ td.name, td.icon, td.edit-btn, td.id, td.submission-date, td.rejected {
     max-height: 100%;
 }
 
-.table-btn:hover {
-    transform: translateY(.5rem);
-    transition: 50ms;
-}
-
 .edit-btn {
     width: 35px;
     height: 35px;
