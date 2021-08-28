@@ -47,9 +47,3 @@ form {
 .field-errors {
     color: var(--GEWIS-red);
 }
-
-.panel {
-    width: 90%;
-    max-width: 1000px;
-    margin: 0 auto;
-}
