@@ -23,7 +23,7 @@ def login():
 
 @auth.route('/callback')
 def callback():
-    if current_user.is_authenicated:
+    if current_user.is_authenticated:
         return redirect(url_for('home.infima_overview'))
 
     # Retrieve token from url
