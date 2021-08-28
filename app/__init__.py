@@ -31,5 +31,5 @@ def register_extensions(app):
 def register_blueprints(app):
     app.register_blueprint(admin_bp, url_prefix='/admin')
     app.register_blueprint(api_bp, url_prefix='/api')
-    app.register_blueprint(auth_bp, url_prefix='/auth')
+    app.register_blueprint(auth_bp)
     app.register_blueprint(home_bp)
