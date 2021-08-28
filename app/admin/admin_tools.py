@@ -46,7 +46,7 @@ def retrieve_supremum_from_form(form):
     # Update cover
     cover = request.files.getlist(form.cover.name)[0]
     if cover:
-        fname = f'supremum_{form.volume_nr.data}.{form.edition_nr.data}_cover.pdf'
+        fname = f'supremum_{form.volume_nr.data}.{form.edition_nr.data}_cover.png'
         save_file(cover, fname)
         kwargs['filename_cover'] = fname
 
