@@ -1,6 +1,7 @@
 from flask import current_app, request, Response
 from flask_login import current_user
 from werkzeug.utils import secure_filename
+from app.tools import code_page
 from app.config import basedir
 from functools import wraps
 import os
@@ -14,7 +15,7 @@ def admin_required(func):
             is_admin = False
         finally:
             if not is_admin:
-                return Response("You are not allowed to be on this page.", 403)
+                return code_page(403, f"Sadly, only Supremum members are permitted on this page. Feel free to join us!")
         return func(*args, **kwargs)
     return validate_is_admin
 

@@ -4,6 +4,7 @@ from . import home_bp as home
 
 from .forms import SubmitInfimumForm, InfimumSearchForm
 from .models import Supremum, Infimum
+from app.tools import code_page
 from app.tools import render
 
 from datetime import datetime
@@ -28,7 +29,7 @@ def infima_overview():
 
     published_suprema = Supremum.get_published_editions_in_order()
     return render('infima_overview.html', suprema=published_suprema,
-                           form=inf_search_form, search_results=infima)
+                  form=inf_search_form, search_results=infima)
 
 
 @home.route('/infimum/submit', methods=['GET', 'POST'])
@@ -58,15 +59,17 @@ def supremum_overview():
 
     # Sort volumes
     for volume_nr, editions in volumes.items():
-        volumes[volume_nr] = sorted(editions, key=lambda x: x.edition_nr, reverse=True)
+        volumes[volume_nr] = sorted(editions, key=lambda x: x.edition_nr,
+                                    reverse=True)
 
     return render('archive.html', volumes=volumes)
+
 
 @home.route('/supremum/<int:volume_nr>.<int:edition_nr>')
 def supremum_by_volume_nr_and_edition_nr(volume_nr, edition_nr):
     supremum = Supremum.get_by_volume_and_edition(volume_nr, edition_nr)
     if supremum is None or not supremum.published:
-        abort(404)
+        return code_page(404, f'Supremum {volume_nr}.{edition_nr} does not (yet) exist.')
     return redirect(supremum.pdf_url)
 
 
@@ -75,10 +78,10 @@ def supremum_by_volume_nr_and_edition_nr(volume_nr, edition_nr):
 def infima_for_edition(volume_nr, edition_nr):
     supremum = Supremum.get_by_volume_and_edition(volume_nr, edition_nr)
     if supremum is None or not supremum.published:
-        abort(404)
+        return code_page(404, f'Supremum {volume_nr}.{edition_nr} does not (yet) exist.')
 
     # Retrieve infima
     infima = Infimum.get_infima_with_supremum_id(supremum.id)
 
     return render('infima_edition.html', supremum=supremum,
-                           infima=infima, user=current_user), 200
+                  infima=infima, user=current_user), 200

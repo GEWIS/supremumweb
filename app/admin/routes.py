@@ -1,6 +1,7 @@
 from flask import url_for, redirect, abort, jsonify
 from flask_login import login_required
 
+from app.tools import code_page
 from app.admin import admin_bp as admin
 from app.admin.forms import SupremumForm, InfimumEditForm, InfimumAssignForm
 from app.home.models import Supremum, Infimum
@@ -40,7 +41,7 @@ def new_supremum():
 def edit_supremum(sid: int):
     supremum = Supremum.get_by_id(sid)
     if supremum is None:
-        return abort(404)
+        return code_page(404, f"Supremum with id '{sid}' does not exist.")
 
     form = SupremumForm(supremum=supremum)
     if form.validate_on_submit():
@@ -62,7 +63,7 @@ def edit_supremum(sid: int):
 def infima_of_supremum_edition_with_id(sid: int):
     supremum = Supremum.get_by_id(sid)
     if supremum is None:
-        return abort(404)
+        return code_page(404, f"Supremum with id '{sid}' does not exist.")
 
     infima = Infimum.get_infima_with_supremum_id(sid)
     return render("admin_infima_overview.html", supremum=supremum,
@@ -75,7 +76,7 @@ def infima_of_supremum_edition_with_id(sid: int):
 def download_infima_of_supremum_edition_with_id(sid: int):
     supremum = Supremum.get_by_id(sid)
     if supremum is None:
-        return abort(404)
+        return code_page(404, f"Supremum with id '{sid}' does not exist.")
 
     infima = Infimum.get_infima_with_supremum_id(sid)
     return jsonify([inf.format_public() for inf in infima]), 200
@@ -87,7 +88,7 @@ def download_infima_of_supremum_edition_with_id(sid: int):
 def edit_infimum(iid: int):
     infimum = Infimum.get_infimum_with_id(iid)
     if infimum is None:
-        return abort(404)
+        return code_page(404, f"Infimum with id '{id}' does not exist.")
 
     suprema = Supremum._get_editions()
     form = InfimumEditForm(infimum=infimum, suprema=suprema)

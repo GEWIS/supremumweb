@@ -2,6 +2,7 @@ from flask import request, url_for, redirect, Response, current_app
 from flask_login import login_user, logout_user, current_user
 from urllib.parse import urljoin
 
+from app.tools import code_page
 from app.auth import auth_bp as auth
 from app.auth.models import User
 from app.extensions import lm
@@ -29,21 +30,19 @@ def callback():
     # Retrieve token from url
     jwt_str = request.args.get("token", None)
     if jwt_str is None:
-        return Response("No token was provided", 401)
+        return code_page(401, "No login token was provided with this callback.")
 
     # Validate token header
     try:
         header = jwt.get_unverified_header(jwt_str)
     except jwt.exceptions.DecodeError:
-        return Response("Invalid token provided", 400)
+        return code_page(400, 'The provided login token has an invalid format')
     if "typ" not in header:
-        return Response(f"Token type not specified.", 400)
+        return code_page(400, 'Your login token did does not specify its type')
     if header["typ"] != 'JWT':
-        return Response(
-            f"Invalid token type '{header['type']}'. Expected 'JWT'.", 400
-        )
+        return code_page(400, f'Your login token type, {header["typ"]}, is not supported.')
     if "alg" not in header:
-        return Response(f"JWT algorithm not specified.", 400)
+        return code_page(400, f'Your login token does not specify its HMAC algorithm.')
     alg = header['alg']
 
     # Decode token
@@ -54,14 +53,14 @@ def callback():
             algorithms=[alg]
         )
     except jwt.exceptions.ExpiredSignatureError:
-        return Response(f"Signature has expired. Please try again.", 401)
+        return code_page(401, f'The signature on your login token has expired. Please log in again.')
     except Exception as e:
-        return Response(f"Something went wrong while logging you in: {str(e)}", 500)
+        return code_page(500, f'Something went wrong while logging you in: {str(e)}')
 
     # Verify token's expiration date
     expiration = datetime.fromtimestamp(token['exp'])
     if expiration < datetime.now():
-        return Response("JWT token has expired", 401)
+        return code_page(400, f'Your login token as expired. Please log in again.')
 
     # Retrieve information from token
     lidnr = token['lidnr']

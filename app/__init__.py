@@ -8,6 +8,7 @@ from app.database import db
 from app.extensions import cache
 from app.extensions import lm
 from app.home import home_bp
+from app.tools import http_code
 
 
 def create_app(config=config.base_config):
@@ -17,6 +18,7 @@ def create_app(config=config.base_config):
 
     register_extensions(app)
     register_blueprints(app)
+    register_error_handlers(app)
 
     return app
 
@@ -33,3 +35,11 @@ def register_blueprints(app):
     app.register_blueprint(api_bp, url_prefix='/api')
     app.register_blueprint(auth_bp)
     app.register_blueprint(home_bp)
+
+def register_error_handlers(app):
+    app.register_error_handler(400, http_code)
+    app.register_error_handler(401, http_code)
+    app.register_error_handler(403, http_code)
+    app.register_error_handler(404, http_code)
+    app.register_error_handler(409, http_code)
+    app.register_error_handler(500, http_code)
