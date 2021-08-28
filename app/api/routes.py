@@ -16,7 +16,7 @@ def make_json_response(data, code=200):
 def validate_key(func):
     @wraps(func)
     def validate(*args, **kwargs):
-        key = request.args.get("key", None)
+        key = request.headers.get("X-API-KEY", None)
         if key is None:
             return make_json_response({
                 'authenticated': False,
