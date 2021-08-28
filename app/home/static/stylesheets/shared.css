@@ -78,6 +78,9 @@ p, span {
 #menu {
     display: flex;
     flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+
     width: 100%;
     height: var(--menu-height);
     overflow: hidden;
@@ -100,6 +103,15 @@ p, span {
     margin-left: 3px;
 }
 
+.login-btn {
+    background-color: var(--GEWIS-red);
+    border-radius: .5rem;
+    color: var(--light-color);
+
+    padding: .5rem 1.5rem;
+    margin-right: 1rem;
+}
+
 /* Layout & Basic components */
 
 .container {
@@ -111,6 +123,17 @@ p, span {
     min-height: var(--content-height);
     /* Prevent content overflow */
     margin-top: var(--menu-height);
+}
+
+
+.btn-hover {
+    display: block;
+}
+
+.btn-hover:hover,
+.btn-hover:active {
+    transform: translateY(.5rem);
+    transition: 50ms;
 }
 
 section {

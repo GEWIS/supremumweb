@@ -1,38 +1,42 @@
-from flask import render_template, url_for, redirect, abort, request, jsonify
+from flask import url_for, redirect, abort, jsonify
 from flask_login import login_required
 
 from app.admin import admin_bp as admin
 from app.admin.forms import SupremumForm, InfimumEditForm, InfimumAssignForm
 from app.home.models import Supremum, Infimum
-from . import tools
 
+from app.tools import render
+from .admin_tools import admin_required, retrieve_supremum_from_form
 
 @admin.route('/')
 @admin.route('/home')
-# @login_required
+@login_required
+@admin_required
 def index():
     editions = Supremum._get_editions_in_order()
     infima = Infimum._get_unassigned_infima()
-    return render_template('index.html', editions=editions, infima=infima), 200
+    return render('index.html', editions=editions, infima=infima), 200
 
 
 @admin.route('/supremum/new', methods=["GET", "POST"])
-# @login_required
+@login_required
+@admin_required
 def new_supremum():
     form = SupremumForm()
     if form.validate_on_submit():
-        kwargs = tools.retrieve_supremum_from_form(form)
+        kwargs = retrieve_supremum_from_form(form)
 
         # Add supremum to database
         Supremum.create(**kwargs)
 
         # Return to admin panel
         return redirect(url_for("admin.index"))
-    return render_template("forms/edit_supremum_form.html", form=form), 200
+    return render("forms/edit_supremum_form.html", form=form), 200
 
 
 @admin.route('/supremum/<int:sid>/edit', methods=["GET", "POST"])
-# @login_required
+@login_required
+@admin_required
 def edit_supremum(sid: int):
     supremum = Supremum.get_by_id(sid)
     if supremum is None:
@@ -40,7 +44,7 @@ def edit_supremum(sid: int):
 
     form = SupremumForm(supremum=supremum)
     if form.validate_on_submit():
-        kwargs = tools.retrieve_supremum_from_form(form)
+        kwargs = retrieve_supremum_from_form(form)
 
         # Update supremum in database
         supremum.update(**kwargs)
@@ -49,23 +53,25 @@ def edit_supremum(sid: int):
         return redirect(url_for("admin.index"))
 
     form._populate()
-    return render_template("forms/edit_supremum_form.html", form=form), 200
+    return render("forms/edit_supremum_form.html", form=form), 200
 
 
 @admin.route('/supremum/<int:sid>/infima')
-# @login_required
+@login_required
+@admin_required
 def infima_of_supremum_edition_with_id(sid: int):
     supremum = Supremum.get_by_id(sid)
     if supremum is None:
         return abort(404)
 
     infima = Infimum.get_infima_with_supremum_id(sid)
-    return render_template("admin_infima_overview.html", supremum=supremum,
+    return render("admin_infima_overview.html", supremum=supremum,
                            infima=infima), 200
 
 
 @admin.route('/supremum/<int:sid>/infima/download')
-# @login_required
+@login_required
+@admin_required
 def download_infima_of_supremum_edition_with_id(sid: int):
     supremum = Supremum.get_by_id(sid)
     if supremum is None:
@@ -76,7 +82,8 @@ def download_infima_of_supremum_edition_with_id(sid: int):
 
 
 @admin.route('/infimum/<int:iid>/edit', methods=["GET", "POST"])
-# @login_required
+@login_required
+@admin_required
 def edit_infimum(iid: int):
     infimum = Infimum.get_infimum_with_id(iid)
     if infimum is None:
@@ -99,11 +106,12 @@ def edit_infimum(iid: int):
 
     # Populate infimum fields
     form._populate()
-    return render_template("forms/edit_infimum_form.html", form=form), 200
+    return render("forms/edit_infimum_form.html", form=form), 200
 
 
 @admin.route('/infima/assign', methods=["GET", "POST"])
-# @login_required
+@login_required
+@admin_required
 def assign_infima():
     infima = Infimum._get_unassigned_infima()
     suprema = Supremum._get_editions()
@@ -121,4 +129,4 @@ def assign_infima():
 
         # Return to admin panel
         return redirect(url_for("admin.index"))
-    return render_template("forms/assign_infima_form.html", form=form), 200
+    return render("forms/assign_infima_form.html", form=form), 200

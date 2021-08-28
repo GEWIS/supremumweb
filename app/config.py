@@ -36,6 +36,10 @@ class base_config(object):
     # Random infimum API-key
     INFIMUM_API_KEY = os.environ.get('INFIMUM_API_KEY')
 
+    # GEWIS API-key, used for logging in
+    GEWIS_API_KEY = os.environ.get('GEWIS_API_KEY')
+    GEWIS_API_APPID = os.environ.get('GEWIS_API_APPID')
+
 
 class dev_config(base_config):
     """Development configuration options."""

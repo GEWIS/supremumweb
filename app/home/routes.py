@@ -1,7 +1,10 @@
-from flask import render_template, jsonify, abort, Response, request, redirect
+from flask import abort, redirect
+from flask_login import login_required, current_user
 from . import home_bp as home
+
 from .forms import SubmitInfimumForm, InfimumSearchForm
 from .models import Supremum, Infimum
+from app.tools import render
 
 from datetime import datetime
 
@@ -9,10 +12,11 @@ from datetime import datetime
 @home.route('/')
 def index():
     latest_supremum = Supremum.get_latest_published_edition()
-    return render_template('home.html', supremum=latest_supremum)
+    return render('home.html', supremum=latest_supremum)
 
 
 @home.route('/infimum', methods=['GET', 'POST'])
+@login_required
 def infima_overview():
     inf_search_form = InfimumSearchForm()
 
@@ -23,7 +27,7 @@ def infima_overview():
         infima = Infimum.search_published_infima(seach_term)
 
     published_suprema = Supremum.get_published_editions_in_order()
-    return render_template('infima_overview.html', suprema=published_suprema,
+    return render('infima_overview.html', suprema=published_suprema,
                            form=inf_search_form, search_results=infima)
 
 
@@ -38,8 +42,8 @@ def submit():
         Infimum.create(content=content, submission_date=submission_date,
                        rejected=False)
 
-        return render_template('submit.html', success=True), 200
-    return render_template('submit.html', form=infimum_form), 200
+        return render('submit.html', success=True), 200
+    return render('submit.html', form=infimum_form), 200
 
 
 @home.route('/supremum')
@@ -56,7 +60,7 @@ def supremum_overview():
     for volume_nr, editions in volumes.items():
         volumes[volume_nr] = sorted(editions, key=lambda x: x.edition_nr, reverse=True)
 
-    return render_template('archive.html', volumes=volumes)
+    return render('archive.html', volumes=volumes)
 
 @home.route('/supremum/<int:volume_nr>.<int:edition_nr>')
 def supremum_by_volume_nr_and_edition_nr(volume_nr, edition_nr):
@@ -67,6 +71,7 @@ def supremum_by_volume_nr_and_edition_nr(volume_nr, edition_nr):
 
 
 @home.route('/supremum/<int:volume_nr>.<int:edition_nr>/infima')
+@login_required
 def infima_for_edition(volume_nr, edition_nr):
     supremum = Supremum.get_by_volume_and_edition(volume_nr, edition_nr)
     if supremum is None or not supremum.published:
@@ -75,5 +80,5 @@ def infima_for_edition(volume_nr, edition_nr):
     # Retrieve infima
     infima = Infimum.get_infima_with_supremum_id(supremum.id)
 
-    return render_template('infima_edition.html', supremum=supremum,
-                           infima=infima), 200
+    return render('infima_edition.html', supremum=supremum,
+                           infima=infima, user=current_user), 200

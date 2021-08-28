@@ -1,7 +1,22 @@
-from flask import current_app, request
+from flask import current_app, request, Response
+from flask_login import current_user
 from werkzeug.utils import secure_filename
 from app.config import basedir
+from functools import wraps
 import os
+
+def admin_required(func):
+    @wraps(func)
+    def validate_is_admin(*args, **kwargs):
+        try:
+            is_admin = current_user.is_admin
+        except:
+            is_admin = False
+        finally:
+            if not is_admin:
+                return Response("You are not allowed to be on this page.", 403)
+        return func(*args, **kwargs)
+    return validate_is_admin
 
 def save_file(f, fname=None):
     if fname is None:
