@@ -7,8 +7,7 @@ def render(template, **kwargs):
     return render_template(template, **kwargs)
 
 def http_code(e):
-    return code_page(e.code)
+    return code_page(e.code, e.name)
 
 def code_page(code, message=""):
-    print(message)
     return render('error_code.html', code=code, message=message), code
