@@ -9,16 +9,16 @@
     {% if user.is_authenticated %}
         {% if user.is_admin %}
             {% block cross_link %}
-                <a href="/admin" class="login-btn btn-hover">
+                <a href="{{ url_for('admin.index')}}" class="login-btn btn-hover">
                     <span><b>Admin</b></span>
                 </a>
             {% endblock %}
         {% endif %}
-        <a href="/auth/logout" class="login-btn btn-hover">
+        <a href="{{ url_for('auth.logout') }}" class="login-btn btn-hover">
             <span><b>Logout</b></span>
         </a>
     {% else %}
-        <a href="/auth/login" class="login-btn btn-hover">
+        <a href="{{ url_for('auth.login') }}" class="login-btn btn-hover">
             <span><b>Login</b></span>
         </a>
     {% endif %}

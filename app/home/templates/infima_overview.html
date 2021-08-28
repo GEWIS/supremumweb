@@ -35,7 +35,7 @@
         <h3>View per edition</h3>
         <div class="edition-list">
             {% for supremum in suprema|reverse %}
-            <a class="edition-link" href="./supremum/{{supremum.volume_nr}}.{{supremum.edition_nr}}/infima">
+            <a class="edition-link" href="{{ url_for('home.infima_for_edition', volume_nr=supremum.volume_nr, edition_nr=supremum.edition_nr)}}">
                 <span>> Supremum {{supremum.volume_nr}}.{{supremum.edition_nr}} - {{supremum.theme}}</span>
             </a>
             {% endfor %}

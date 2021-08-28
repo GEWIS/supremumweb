@@ -18,7 +18,7 @@
                 <p>{{ infimum.rejected }}</p>
             </td>
             <td class="btn">
-                <a class="table-btn edit-btn btn-hover" href="/admin/infimum/{{infimum.id}}/edit">
+                <a class="table-btn edit-btn btn-hover" href="{{ url_for('admin.edit_infimum', iid=infimum.id) }}">
                     <img src="{{url_for('admin.static', filename='img/pencil.svg')}}">
                 </a>
             </td>
@@ -69,10 +69,10 @@
             {% endif %}
         </td>
         <td class="btn">
-            <a class="table-btn infima-btn btn-hover" href="supremum/{{edition.id}}/infima"><b>infima</b></a>
+            <a class="table-btn infima-btn btn-hover" href="{{ url_for('admin.infima_of_supremum_edition_with_id', sid=edition.id) }}"><b>infima</b></a>
         </td>
         <td class="btn">
-            <a class="table-btn edit-btn btn-hover" href="supremum/{{edition.id}}/edit">
+            <a class="table-btn edit-btn btn-hover" href="{{ url_for('admin.edit_supremum', sid=edition.id) }}">
                 <img src="{{url_for('admin.static', filename='img/pencil.svg')}}">
             </a>
         </td>

@@ -9,7 +9,7 @@
 <section>
     <div class="section-container title-container">
         <h2 class="title">The infima of
-            <a href="/supremum/{{supremum.volume_nr}}.{{supremum.edition_nr}}" class="section-link">
+            <a href="{{ url_for('home.supremum_by_volume_nr_and_edition_nr', volume_nr=supremum.volume_nr, edition_nr=supremum.edition_nr)}}" class="section-link">
                 Supremum {{supremum.volume_nr}}.{{supremum.edition_nr}}
             </a>
         </h2>
