@@ -49,16 +49,15 @@ class SupremumForm(Form):
 
     def __init__(self, *args, **kwargs):
         Form.__init__(self, *args, **kwargs)
-        if not "supremum" in kwargs:
-            raise ValueError("supremum not provided")
-        self.supremum = kwargs["supremum"]
+        self.supremum = kwargs.get("supremum", None)
 
     def _populate(self):
-        self.supremum_id.data = self.supremum.id
-        self.volume_nr.data = self.supremum.volume_nr
-        self.edition_nr.data = self.supremum.edition_nr
-        self.theme.data = self.supremum.theme
-        self.published.data = self.supremum.published
+        if not self.supremum is None:
+            self.supremum_id.data = self.supremum.id
+            self.volume_nr.data = self.supremum.volume_nr
+            self.edition_nr.data = self.supremum.edition_nr
+            self.theme.data = self.supremum.theme
+            self.published.data = self.supremum.published
 
     def validate_volume_nr(self, *args):
         volume_nr = self.volume_nr.data
