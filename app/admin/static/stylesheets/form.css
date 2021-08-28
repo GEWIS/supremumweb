@@ -2,7 +2,17 @@ a, button {
     cursor: pointer;
 }
 
+.table-title {
+    display: flex;
+    justify-content: center;
+}
+
+.form-container {
+    margin: 0 auto;
+}
+
 form {
+    width: 316px;
     max-width: 95%;
     margin: auto;
 }
@@ -17,6 +27,7 @@ form {
     display: inline-block;
     min-width: 15ch;
     font-size: 1.75rem;
+    white-space: pre-wrap;
 }
 
 .form-group input {

@@ -31,7 +31,7 @@ def new_supremum():
 
         # Return to admin panel
         return redirect(url_for("admin.index"))
-    return render("forms/edit_supremum_form.html", form=form), 200
+    return render("forms/new_supremum_form.html", form=form), 200
 
 
 @admin.route('/supremum/<int:sid>/edit', methods=["GET", "POST"])

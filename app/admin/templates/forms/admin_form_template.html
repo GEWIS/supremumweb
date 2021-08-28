@@ -6,15 +6,21 @@
 {% endblock %}
 
 {% block body %}
-<div class="overview-item full-page">
-    <h3>{% block form_title %}{% endblock %}</h3>
-    <form method="POST" action="{{ request.url }}" enctype="multipart/form-data">
-        {{ form.csrf_token }}
-        {% block contents %}
-        {% endblock %}
-        <button type="submit" class="submit-btn">
-            <p>{% block submit_title %}> Submit{% endblock %}</p>
-        </button>
-    </form>
-</div>
+<section>
+    <div class="table-title">
+        <h3>{% block form_title %}{% endblock %}</h3>
+    </div>
+</section>
+<section>
+    <div class="form-container">
+        <form method="POST" action="{{ request.url }}" enctype="multipart/form-data">
+            {{ form.csrf_token }}
+            {% block contents %}
+            {% endblock %}
+            <button type="submit" class="submit-btn">
+                <p>{% block submit_title %}> Submit{% endblock %}</p>
+            </button>
+        </form>
+    </div>
+</section>
 {% endblock %}
