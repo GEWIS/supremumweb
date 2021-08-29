@@ -28,7 +28,7 @@ class SupremumForm(Form):
         render_kw={
             "type":"number",
             "min":"0",
-            "max":"3"
+            "max":"5"
         }
     )
     theme = StringField(
