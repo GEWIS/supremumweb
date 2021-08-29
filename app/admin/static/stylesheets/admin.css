@@ -39,10 +39,18 @@ section p {
     padding: 1rem 1.75rem;
 }
 
+.cta-button + .cta-button {
+    margin-left: 1rem;
+}
+
 .cta-button:hover,
 .cta-button:active {
     transform: translateY(.5rem);
     transition: 50ms;
+}
+
+.buttons {
+    display: flex;
 }
 
 /* Table */

@@ -1,4 +1,4 @@
-from flask import url_for, redirect, abort, jsonify
+from flask import url_for, redirect, abort, jsonify, request
 from flask_login import login_required
 
 from app.tools import code_page
@@ -9,14 +9,19 @@ from app.home.models import Supremum, Infimum
 from app.tools import render
 from .admin_tools import admin_required, retrieve_supremum_from_form
 
+
 @admin.route('/')
 @admin.route('/home')
 @login_required
 @admin_required
 def index():
-    editions = Supremum._get_editions_in_order()
-    infima = Infimum._get_unassigned_infima()
-    return render('index.html', editions=editions, infima=infima), 200
+    sup_limit = int(request.args.get('nr_supremum', 5))
+    editions = Supremum._get_editions_in_order(limit=sup_limit)
+    inf_limit = int(request.args.get('nr_infima', 5))
+    infima = Infimum._get_unassigned_infima(limit=inf_limit)
+    return render('index.html',
+                  editions=editions, all_editions=sup_limit == 0,
+                  infima=infima, all_infima=inf_limit == 0), 200
 
 
 @admin.route('/supremum/new', methods=["GET", "POST"])
@@ -67,7 +72,7 @@ def infima_of_supremum_edition_with_id(sid: int):
 
     infima = Infimum.get_infima_with_supremum_id(sid)
     return render("admin_infima_overview.html", supremum=supremum,
-                           infima=infima), 200
+                  infima=infima), 200
 
 
 @admin.route('/supremum/<int:sid>/infima/download')

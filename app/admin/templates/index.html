@@ -11,7 +11,12 @@
 <section>
     <div class="table-title">
         <h3>Supremum overview</h3>
-        <a class="cta-button btn-hover" href="{{ url_for('admin.new_supremum')}}"><b>+</b></a>
+        <div class="buttons">
+            {% if not all_editions %}
+                <a class="cta-button btn-hover" href="?nr_supremum=0"><b>Show all</b></a>
+            {% endif %}
+            <a class="cta-button btn-hover" href="{{ url_for('admin.new_supremum')}}"><b>+</b></a>
+        </div>
     </div>
 </section>
 <section>
@@ -22,12 +27,17 @@
 <section>
     <div class="table-title">
         <h3>Unassigned infima overview</h3>
-        <a class="cta-button btn-hover" href="{{ url_for('admin.assign_infima') }}"><b>></b></a>
+        <div class="buttons">
+            {% if not all_infima %}
+                <a class="cta-button btn-hover" href="?nr_infima=0"><b>Show all</b></a>
+            {% endif %}
+            <a class="cta-button btn-hover" href="{{ url_for('admin.assign_infima') }}"><b>></b></a>
+        </div>
     </div>
 </section>
 <section>
-<div class="table-container">
-    {{ infima_table(infima) }}
-</div>
+    <div class="table-container">
+        {{ infima_table(infima) }}
+    </div>
 </section>
 {% endblock %}
