@@ -52,7 +52,7 @@ a {
     /* color: #000000; */
 }
 
-h1, h2, h3, p, span {
+h1, h2, h3, p, span, a {
     font-family: Arial, Helvetica, sans-serif;
 }
 
