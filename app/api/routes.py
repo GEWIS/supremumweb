@@ -1,4 +1,4 @@
-from flask import jsonify, request, current_app, Response
+from flask import jsonify, request, current_app
 from . import api_bp as api
 
 from app.home.models import Infimum, Supremum
@@ -12,27 +12,37 @@ from functools import wraps
 def make_json_response(data, code=200):
     return jsonify(data), code
 
+def validate_key(key_validator):
+    def validate_key_outer(func):
+        @wraps(func)
+        def validate(*args, **kwargs):
+            key = request.headers.get("X-Api-Key", None)
+            if key is None:
+                return make_json_response({
+                    'authenticated': False,
+                    'message': 'No key provided.'
+                }, 401)
+            is_valid_key = key_validator(key)
+            if not is_valid_key:
+                return make_json_response({
+                    'authenticated': False,
+                    'message': 'Provided key is invalid.'
+                }, 401)
+            return func(*args, **kwargs)
+        return validate
+    return validate_key_outer
 
-def validate_key(func):
-    @wraps(func)
-    def validate(*args, **kwargs):
-        key = request.headers.get("X-API-KEY", None)
-        if key is None:
-            return make_json_response({
-                'authenticated': False,
-                'message': 'No key provided.'
-            }, 401)
-        if key != current_app.config['INFIMUM_API_KEY']:
-            return make_json_response({
-                'authenticated': False,
-                'message': 'Provided key is invalid.'
-            }, 401)
-        return func(*args, **kwargs)
-    return validate
+
+def validate_infimum_retrieve_key(key):
+    return key == current_app.config['INFIMUM_RETRIEVE_KEY']
+
+
+def validate_infimum_post_key(key):
+    return key == current_app.config['INFIMUM_POST_KEY']
 
 
 @api.route('/random_infimum')
-@validate_key
+@validate_key(validate_infimum_retrieve_key)
 @cache.memoize(300)  # cache for 300 seconds
 def get_random_infimum():
     random_infimum = Infimum.get_random_infimum()
@@ -47,7 +57,7 @@ def get_random_infimum():
 
 
 @api.route('/infimum/submit', methods=['POST'])
-@validate_key
+@validate_key(validate_infimum_post_key)
 def submit_infimum():
     data = request.data
     if data is None:
@@ -83,9 +93,9 @@ def submit_infimum():
         supremum = Supremum.get_by_id(supremum_id)
         if supremum is None:
             return make_json_response({
-            "authenticated": True,
-            "message": "No supremum with supremum_id exists."
-        }, 404)
+                "authenticated": True,
+                "message": "No supremum with supremum_id exists."
+            }, 404)
 
     if 'submission_date' in infimum_data:
         submission_date = datetime.strptime(

@@ -49,7 +49,7 @@ def submit():
 
 @home.route('/supremum')
 def supremum_overview():
-    suprema = Supremum.get_published_editions()
+    suprema = Supremum.get_published_editions_in_order()
 
     # Split suprema up per volume
     volumes = {}

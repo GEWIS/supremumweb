@@ -8,6 +8,7 @@ import random
 import math
 from typing import List
 
+
 class Supremum(CRUDMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     volume_nr = db.Column(db.Integer, nullable=False)
@@ -75,11 +76,13 @@ class Supremum(CRUDMixin, db.Model):
         return cls.query.all()
 
     @classmethod
-    def _get_editions_in_order(cls):
+    def _get_editions_in_order(cls, limit=0):
         """Returns a list containing all editions, with most recent first."""
-        return cls.query\
-            .order_by(Supremum.volume_nr.desc(), Supremum.edition_nr.desc())\
-            .all()
+        query = cls.query\
+            .order_by(Supremum.volume_nr.desc(), Supremum.edition_nr.desc())
+        if limit > 0:
+            query = query.limit(limit)
+        return query.all()
 
 
 class Infimum(CRUDMixin, db.Model):
@@ -94,8 +97,8 @@ class Infimum(CRUDMixin, db.Model):
     def self(self):
         if self.supremum:
             return "/supremum/{}.{}/infima#{}".format(self.supremum.volume_nr,
-                                                  self.supremum.edition_nr,
-                                                  self.id)
+                                                      self.supremum.edition_nr,
+                                                      self.id)
         else:
             return None
 
@@ -185,8 +188,11 @@ class Infimum(CRUDMixin, db.Model):
         return random_infimum or cls.get_random_infimum(depth + 1)
 
     @classmethod
-    def _get_unassigned_infima(cls):
-        return cls.query.filter_by(supremum_id=None).all()
+    def _get_unassigned_infima(cls, limit=0):
+        query = cls.query.filter_by(supremum_id=None)
+        if limit > 0:
+            query = query.limit(limit)
+        return query.all()
 
     @classmethod
     def get_infimum_with_id(cls, id):
