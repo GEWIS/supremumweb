@@ -16,7 +16,7 @@ from .admin_tools import admin_required, retrieve_supremum_from_form
 @admin_required
 def index():
     sup_limit = int(request.args.get('nr_supremum', 5))
-    editions = Supremum._get_editions_in_order(limit=sup_limit)
+    editions = Supremum._get_editions(limit=sup_limit)
     inf_limit = int(request.args.get('nr_infima', 5))
     infima = Infimum._get_unassigned_infima(limit=inf_limit)
     return render('index.html',

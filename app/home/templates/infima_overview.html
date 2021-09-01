@@ -24,7 +24,7 @@
 <section>
     <div class="section-container results-container">
         <h3 class="results-title">Results</h3>
-        {% for res in search_results|reverse %}
+        {% for res in search_results %}
         {{ infimum(res) }}
         {% endfor %}
     </div>

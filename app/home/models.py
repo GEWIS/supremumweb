@@ -50,36 +50,27 @@ class Supremum(CRUDMixin, db.Model):
         return cls.query.filter_by(volume_nr=volume_nr, edition_nr=edition_nr).first()
 
     @classmethod
-    def get_published_editions(cls):
+    def get_published_editions(cls, ordered=True):
         """Returns a list containing all editions"""
-        return cls.query.filter_by(published=True).all()
-
-    @classmethod
-    def get_published_editions_in_order(cls):
-        """Returns all published editions, ordered from newest to oldest"""
-        return cls.query\
-            .filter_by(published=True)\
-            .order_by(Supremum.volume_nr.desc(), Supremum.edition_nr.desc())\
-            .all()
+        query =  cls.query.filter_by(published=True)
+        if ordered:
+            query = query.order_by(Supremum.volume_nr.desc(), Supremum.edition_nr.desc())
+        return query.all()
 
     @classmethod
     def get_latest_published_edition(cls):
         """Returns the published edition with the highest volume and edition nr"""
         try:
-            return cls.get_published_editions_in_order()[0]
+            return cls.get_published_editions()[0]
         except:
             return None
 
     @classmethod
-    def _get_editions(cls):
-        """Returns a list containing all editions"""
-        return cls.query.all()
-
-    @classmethod
-    def _get_editions_in_order(cls, limit=0):
-        """Returns a list containing all editions, with most recent first."""
-        query = cls.query\
-            .order_by(Supremum.volume_nr.desc(), Supremum.edition_nr.desc())
+    def _get_editions(cls, ordered=True, limit=0):
+        """Returns a list containing all editions."""
+        query = cls.query
+        if ordered:
+            query = query.order_by(Supremum.volume_nr.desc(), Supremum.edition_nr.desc())
         if limit > 0:
             query = query.limit(limit)
         return query.all()
@@ -151,7 +142,7 @@ class Infimum(CRUDMixin, db.Model):
         """Returns all published, non-rejected infima whose content contain the search term."""
 
         search_results = cls._search_infima(search_term)
-        published_suprema = Supremum.get_published_editions_in_order()
+        published_suprema = Supremum.get_published_editions()
         published_suprema_ids = [sup.id for sup in published_suprema]
 
         # This weird approach maintains proper order

@@ -27,7 +27,7 @@ def infima_overview():
         search_term = inf_search_form.search_term.data
         infima = Infimum.search_published_infima(search_term)
 
-    published_suprema = Supremum.get_published_editions_in_order()
+    published_suprema = Supremum.get_published_editions()
     return render('infima_overview.html', suprema=published_suprema,
                   form=inf_search_form, search_results=infima)
 
@@ -49,7 +49,7 @@ def submit():
 
 @home.route('/supremum')
 def supremum_overview():
-    suprema = Supremum.get_published_editions_in_order()
+    suprema = Supremum.get_published_editions()
 
     # Split suprema up per volume
     volumes = {}
