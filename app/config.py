@@ -34,7 +34,8 @@ class base_config(object):
     RANDOM_BASE = os.environ.get('RANDOM_BASE', 2.0)
 
     # Random infimum API-key
-    INFIMUM_API_KEY = os.environ.get('INFIMUM_API_KEY')
+    INFIMUM_RETRIEVE_KEY = os.environ.get('INFIMUM_RETRIEVE_KEY')
+    INFIMUM_POST_KEY = os.environ.get('INFIMUM_POST_KEY')
 
     # GEWIS API-key, used for logging in
     GEWIS_API_KEY = os.environ.get('GEWIS_API_KEY')
