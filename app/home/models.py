@@ -151,13 +151,14 @@ class Infimum(CRUDMixin, db.Model):
         """Returns all published, non-rejected infima whose content contain the search term."""
 
         search_results = cls._search_infima(search_term)
-        published_suprema = Supremum.get_published_editions()
+        published_suprema = Supremum.get_published_editions_in_order()
         published_suprema_ids = [sup.id for sup in published_suprema]
 
-        filtered_results = [
-            inf for inf in search_results
-            if inf.supremum_id in published_suprema_ids
-        ]
+        # This weird approach maintains proper order
+        filtered_results = []
+        for id_ in published_suprema_ids:
+            filtered_results += [inf for inf in search_results
+                                 if inf.supremum_id == id_]
         return filtered_results
 
     @classmethod
