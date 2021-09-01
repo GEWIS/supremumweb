@@ -67,7 +67,7 @@ def submit_infimum():
         }, 400)
 
     try:
-        infimum_data = json.loads(data)
+        infimum_data: dict = json.loads(data)
     except:
         return make_json_response({
             "authenticated": True,
@@ -96,6 +96,17 @@ def submit_infimum():
                 "authenticated": True,
                 "message": "No supremum with supremum_id exists."
             }, 404)
+    else:
+        volume_nr = infimum_data.get('volume_nr', None)
+        edition_nr = infimum_data.get('edition_nr', None)
+        if not volume_nr is None and not edition_nr is None:
+            supremum = Supremum.get_by_volume_and_edition(int(volume_nr), int(edition_nr))
+            if supremum is None:
+                return make_json_response({
+                    "authenticated": True,
+                    "message": "Volume_nr and edition_nr do not indenticate a valid supremum edition."
+                }, 404)
+            supremum_id = supremum.id
 
     if 'submission_date' in infimum_data:
         submission_date = datetime.strptime(
