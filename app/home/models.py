@@ -159,17 +159,23 @@ class Infimum(CRUDMixin, db.Model):
     @classmethod
     def get_random_infimum(cls, depth=0):
         # Stop after too many searches
-        if depth == 10:
+        if depth >= 10:
             return None
 
         # Choose supremum edition, favoring recently released suprema
         published_suprema = Supremum.get_published_editions()
         if not published_suprema:
             return None
+
+        # Randomizer.
+        # rand_idx <- minimal i s.t. (1/RANDOM_BASE)^i < random.random()
+        # give or take.
         RANDOM_BASE = current_app.config['RANDOM_BASE']
-        rand_int = random.randint(1, RANDOM_BASE ** len(published_suprema))
-        rand_idx = math.floor(math.log(rand_int, RANDOM_BASE)) - 1
-        supremum = published_suprema[::-1][rand_idx]
+        rand_idx = min(
+            math.floor(-math.log(random.random(), RANDOM_BASE)),
+            len(published_suprema) - 1
+        )
+        supremum = published_suprema[rand_idx]
 
         # Get random non-rejected infimum from random supremum
         random_infimum = Infimum.query\

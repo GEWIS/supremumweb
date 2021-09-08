@@ -43,7 +43,7 @@ def validate_infimum_post_key(key):
 
 @api.route('/random_infimum')
 @validate_key(validate_infimum_retrieve_key)
-@cache.memoize(300)  # cache for 300 seconds
+# @cache.memoize(300)  # cache for 300 seconds
 def get_random_infimum():
     random_infimum = Infimum.get_random_infimum()
     if random_infimum is None:
