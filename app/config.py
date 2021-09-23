@@ -33,6 +33,9 @@ class base_config(object):
     # Random infimum selection base
     RANDOM_BASE = os.environ.get('RANDOM_BASE', 2.0)
 
+    # Writer manual url
+    WRITER_MANUAL_URL = os.environ.get('WRITER_MANUAL_URL', '')
+
     # Random infimum API-key
     INFIMUM_RETRIEVE_KEY = os.environ.get('INFIMUM_RETRIEVE_KEY')
     INFIMUM_POST_KEY = os.environ.get('INFIMUM_POST_KEY')

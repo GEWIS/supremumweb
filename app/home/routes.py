@@ -1,4 +1,4 @@
-from flask import abort, redirect
+from flask import abort, redirect, current_app
 from flask_login import login_required, current_user
 from . import home_bp as home
 
@@ -85,3 +85,11 @@ def infima_for_edition(volume_nr, edition_nr):
 
     return render('infima_edition.html', supremum=supremum,
                   infima=infima, user=current_user), 200
+
+@home.route('/writing/manual')
+def writers_manual():
+    wm_url = current_app.config['WRITER_MANUAL_URL']
+    print("url", wm_url)
+    if not wm_url:
+        return abort(404)
+    return redirect(wm_url)
