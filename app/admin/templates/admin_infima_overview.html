@@ -8,15 +8,19 @@
 {% endblock %}
 
 {% block body %}
-<div class="overview-item">
-    <div class="overview-container">
-        <div class="table-title">
-            <h3>Infima overview of {{ supremum|string }}</h3>
+<section>
+    <div class="table-title">
+        <h3>Infima overview of {{ supremum|string }}</h3>
+        <div class="buttons">
             <a class="cta-button" href="{{ url_for('admin.download_infima_of_supremum_edition_with_id', sid=supremum.id)}}">
-                <img class="svg-white" src="{{url_for('admin.static', filename='img/download.svg')}}">
+                <img src="{{url_for('admin.static', filename='img/download.svg')}}">
             </a>
         </div>
+    </div>
+</section>
+<section>
+    <div class="table-container">
         {{ infima_table(infima) }}
     </div>
-</div>
+</section>
 {% endblock %}
