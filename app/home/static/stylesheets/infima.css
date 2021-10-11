@@ -58,6 +58,7 @@ input {
 
 .infimum-content {
     margin: 0;
+    white-space: pre-wrap;
 }
 
 .infimum-link {
