@@ -186,8 +186,10 @@ class Infimum(CRUDMixin, db.Model):
         return random_infimum or cls.get_random_infimum(depth + 1)
 
     @classmethod
-    def _get_unassigned_infima(cls, limit=0):
+    def _get_unassigned_infima(cls, ordered=True, limit=0):
         query = cls.query.filter_by(supremum_id=None)
+        if ordered:
+            query = query.order_by(Infimum.submission_date.desc())
         if limit > 0:
             query = query.limit(limit)
         return query.all()
