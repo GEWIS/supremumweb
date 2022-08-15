@@ -1,5 +1,5 @@
 from flask_wtf import Form
-from wtforms import StringField, TextField
+from wtforms import StringField
 from wtforms.validators import DataRequired
 from wtforms.widgets import TextArea
 
@@ -46,7 +46,7 @@ class SubmitInfimumForm(Form):
 class InfimumSearchForm(Form):
     """Form used in searching for infima based on their content"""
 
-    search_term = TextField(
+    search_term = StringField(
         'search_term',
         validators=[DataRequired()],
         render_kw={
