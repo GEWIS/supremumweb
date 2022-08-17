@@ -1,12 +1,12 @@
 from flask import request
-from flask_wtf import Form
+from flask_wtf import FlaskForm
 from wtforms import BooleanField, StringField, FileField, IntegerField, DateField, SelectField, SelectMultipleField, widgets
 from wtforms.validators import DataRequired, InputRequired
 from wtforms.widgets import TextArea
 
 from app.home.models import Supremum
 
-class SupremumForm(Form):
+class SupremumForm(FlaskForm):
     supremum_id = IntegerField(
         'Supremum id',
         render_kw = {
@@ -48,7 +48,7 @@ class SupremumForm(Form):
     )
 
     def __init__(self, *args, **kwargs):
-        Form.__init__(self, *args, **kwargs)
+        FlaskForm.__init__(self, *args, **kwargs)
         self.supremum = kwargs.get("supremum", None)
 
     def _populate(self):
@@ -97,7 +97,7 @@ class SupremumForm(Form):
         return is_valid
 
     def validate(self):
-        rv = Form.validate(self)
+        rv = FlaskForm.validate(self)
         if not rv:
             return False
 
@@ -141,7 +141,7 @@ class SupremumForm(Form):
 
         return True
 
-class InfimumEditForm(Form):
+class InfimumEditForm(FlaskForm):
     NOT_SELECTED = 0
 
     infimum_id = IntegerField(
@@ -168,7 +168,7 @@ class InfimumEditForm(Form):
     )
 
     def __init__(self, *args, **kwargs):
-        Form.__init__(self, *args, **kwargs)
+        FlaskForm.__init__(self, *args, **kwargs)
         if not "infimum" in kwargs:
             raise ValueError("infimum not provided")
         self.infimum = kwargs["infimum"]
@@ -212,18 +212,18 @@ class InfimumEditForm(Form):
         return is_valid
 
     def validate(self):
-        return Form.validate(self)
+        return FlaskForm.validate(self)
 
 class MultiCheckboxField(SelectMultipleField):
     widget = widgets.ListWidget(prefix_label=False)
     option_widget = widgets.CheckboxInput()
 
-class InfimumAssignForm(Form):
+class InfimumAssignForm(FlaskForm):
     supremum = SelectField('Supremum edition')
     infima = MultiCheckboxField('Infima', coerce=int)
 
     def __init__(self, *args, **kwargs):
-        Form.__init__(self, *args, **kwargs)
+        FlaskForm.__init__(self, *args, **kwargs)
 
         infima = kwargs.get("infima", [])
         self.infima.choices = [(i.id, i.content) for i in infima]
@@ -239,4 +239,4 @@ class InfimumAssignForm(Form):
         return is_valid
 
     def validate(self):
-        return Form.validate(self)
+        return FlaskForm.validate(self)

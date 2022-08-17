@@ -1,4 +1,4 @@
-from flask_wtf import Form
+from flask_wtf import FlaskForm
 from wtforms import StringField
 from wtforms.validators import DataRequired
 from wtforms.widgets import TextArea
@@ -6,7 +6,7 @@ from wtforms.widgets import TextArea
 from app.home.models import Infimum
 
 
-class SubmitInfimumForm(Form):
+class SubmitInfimumForm(FlaskForm):
     """Form used in submitting new infima"""
 
     content = StringField(
@@ -19,7 +19,7 @@ class SubmitInfimumForm(Form):
         })
 
     def __init__(self, *args, **kwargs):
-        Form.__init__(self, *args, **kwargs)
+        FlaskForm.__init__(self, *args, **kwargs)
 
     def validate_content(self, *args):
         content = self.content.data.strip()
@@ -40,10 +40,10 @@ class SubmitInfimumForm(Form):
         return not already_exists and contains_non_spaces
 
     def validate(self):
-        return Form.validate(self)
+        return FlaskForm.validate(self)
 
 
-class InfimumSearchForm(Form):
+class InfimumSearchForm(FlaskForm):
     """Form used in searching for infima based on their content"""
 
     search_term = StringField(
@@ -56,7 +56,7 @@ class InfimumSearchForm(Form):
     )
 
     def __init__(self, *args, **kwargs):
-        Form.__init__(self, *args, **kwargs)
+        FlaskForm.__init__(self, *args, **kwargs)
 
     def validate_search_term(self, *args):
         search_term = self.search_term.data.strip()
@@ -73,4 +73,4 @@ class InfimumSearchForm(Form):
         return bool(search_term) and len(search_term) >= 2
 
     def validate(self):
-        return Form.validate(self)
+        return FlaskForm.validate(self)
