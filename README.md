@@ -68,10 +68,10 @@ In order to run the repository locally, perform the following steps.
 ### Edit the repository locally.
 1. Activate the virtual environment.
 - [Linux] Execute `source venv/bin/activate`
-- [Windows] Execute `venv/Scripts/activate.bat`
+- [Windows] Execute `cd venv/Scripts` followed by `activate.bat`
 2. Activate the development server.
 - [Linux] Execute `python3 serve.py`
-- [Windows] Execute `python serve.py`
+- [Windows] Execute `cd ../../` followed by `python serve.py`
 
 At this moment, you should be able to edit away to your hearts content. For most files
 (with the exception of the `.env` and `config.py` files) holds that if you save them
@@ -116,10 +116,11 @@ _Note: feel free to change the docker install to circumvent this issue._
 3. Create the image.
 - [Linux]: ```sudo docker build . -t supremum.docker-registry.gewis.nl/site:v{tag}```,
 where you replace `{tag}` with the version number of your image.
-- [Windows]: this command is not known. We advise you to use WSL and use the above command.
+- [Windows]: the command above can de executed as long as you have Docker Desktop installed, running on WSL
 4. Push the image to the GEWIS server.
 - [Linux]: ```sudo docker push supremum.docker-registry.gewis.nl/site:v{tag}```
-- [Windows]: this command is not known. We advise you to use WSL and use the above command.
+- [Windows]: the command above can de executed as long as you have Docker Desktop installed, running on WSL
+
 It might be that (during the first time) you are asked for your credentials in order to push
 to the GEWIS server. We advise you to have a look at the Docker documentation on this
 process and login with your `docker.gewis.nl` credentials.
