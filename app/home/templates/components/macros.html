@@ -1,10 +1,16 @@
-{% macro render_field(field, show_label=False) %}
+{% macro render_field(field, show_label=False, checked=False) %}
     {% with errors = field.errors %}
         <div class="form-group{{ ' has-error' if errors }}">
             {% if show_label %}
                 {{ field.label }}
             {% endif %}
-            {{ field(class='form-control', **kwargs)|safe }}
+            <!-- Apparently the 'checked' attribute is weird, so this if statement is necesarry -->
+            <!-- https://stackoverflow.com/questions/4228658/what-values-for-checked-and-selected-are-false -->
+            {% if checked %}
+                {{ field(class='form-control', checked='checked', **kwargs)|safe }}
+            {% else %}
+                {{ field(class='form-control', **kwargs)|safe }}
+            {% endif %}
             {% if errors %}
                 <div class="field-errors">
                     {% for error in errors %}

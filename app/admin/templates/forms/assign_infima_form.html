@@ -7,7 +7,7 @@
 {% block contents %}
     <h3>The infima</h3>
     {% for infimum in form.infima %}
-        {{ render_field(infimum, show_label=True) }}
+        {{ render_field(infimum, show_label=True, checked=True) }}
     {% endfor %}
     <h3>Assign to</h3>
     {{ render_field(form.supremum, show_label=True) }}
