@@ -84,7 +84,12 @@ def download_infima_of_supremum_edition_with_id(sid: int):
         return code_page(404, f"Supremum with id '{sid}' does not exist.")
 
     infima = Infimum.get_infima_with_supremum_id(sid)
-    return jsonify([inf.format_public() for inf in infima]), 200
+
+    result = []
+    for inf in infima:
+        result.append(inf.content.replace("\r\n", "<br/>"))
+        result.append('%')
+    return "<br/>".join(result), 200
 
 
 @admin.route('/infimum/<int:iid>/edit', methods=["GET", "POST"])
