@@ -17,4 +17,18 @@
         </a>
     </div>
 </section>
+<section>
+    <div class="puzzle-container">
+        <p>
+            The most recent puzzle is from the {{ ordinals[most_recent_puzzle_date.day - 1] }} of {{ months[most_recent_puzzle_date.month - 1] }}.
+        </p>
+        <div class="puzzle-list">
+            {% for sunday in all_sundays %}
+            <a class="puzzle-link" href="">
+                <span>{{ ordinals[sunday.day - 1] }} of {{ months[sunday.month - 1] }}</span>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+</section>
 {% endblock %}

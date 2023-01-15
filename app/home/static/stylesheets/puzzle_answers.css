@@ -12,3 +12,33 @@
     margin-left: auto;
     margin-right: 0;
 }
+
+.puzzle-container {
+    box-sizing: border-box;
+    min-width: 100px;
+    width: 500px;
+    max-width: 85%;
+    margin: auto;
+}
+
+.puzzle-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.puzzle-link {
+    position: relative;
+    box-sizing: border-box;
+    padding: 2rem 2rem 2rem;
+    margin-bottom: 1rem;
+    border-radius: .5rem;
+    background-color: var(--GEWIS-red);
+    color: var(--light-color);
+    text-align: center;
+}
+
+.puzzle-link span {
+    font-size: 1.75em;
+    font-weight: bold;
+    text-decoration: underline;
+}

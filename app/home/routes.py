@@ -7,7 +7,7 @@ from .models import Supremum, Infimum
 from app.tools import code_page
 from app.tools import render
 
-from datetime import datetime
+from datetime import datetime, date, timedelta
 
 
 @home.route('/')
@@ -98,4 +98,27 @@ def writers_manual():
 
 @home.route('/calendar')
 def puzzle_answers():
-    return render('puzzle_answers.html')
+    # Find all Sundays of 2023
+    d = date(2023, 1, 1)                    # January 1st
+    d += timedelta(days = 6 - d.weekday())  # First Sunday
+    sundays = []
+    while d.year == 2023:
+        sundays.append(d)
+        d += timedelta(days = 7)
+
+    # Find the most recent sunday
+    today = date.today()
+    idx = today.weekday()
+    if idx == 6:
+        most_recent_sunday = today
+    else:
+        most_recent_sunday = today - timedelta(7+idx-6)
+
+    # Get all the ordinal numbers
+    ordinal = lambda n: "%d%s" % (n,"tsnrhtdd"[(n//10%10!=1)*(n%10<4)*n%10::4])
+    ordinals = [ordinal(n) for n in range(1,32)]
+
+    # Gett all the months
+    months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+
+    return render('puzzle_answers.html', all_sundays=sundays, most_recent_puzzle_date=most_recent_sunday, ordinals=ordinals, months=months)
