@@ -86,6 +86,7 @@ def infima_for_edition(volume_nr, edition_nr):
     return render('infima_edition.html', supremum=supremum,
                   infima=infima, user=current_user), 200
 
+
 @home.route('/writing/manual')
 def writers_manual():
     wm_url = current_app.config['WRITER_MANUAL_URL']
@@ -93,3 +94,8 @@ def writers_manual():
     if not wm_url:
         return abort(404)
     return redirect(wm_url)
+
+
+@home.route('/calendar')
+def puzzle_answers():
+    return render('puzzle_answers.html')

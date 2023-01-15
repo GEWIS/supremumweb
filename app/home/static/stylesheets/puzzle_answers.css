@@ -1,0 +1,14 @@
+.section-container {
+    margin-top: 5rem;
+    max-width: 85%;
+}
+
+.section-link {
+    display: inline-block;
+    text-align: right;
+    width: 100%;
+    font-size: 1.75rem;
+    text-decoration: underline;
+    margin-left: auto;
+    margin-right: 0;
+}

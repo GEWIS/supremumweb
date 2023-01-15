@@ -1,0 +1,20 @@
+{% extends 'components/layout.html' %}
+
+{% block links %}
+<link rel="stylesheet" type="text/css" href="{{url_for('home.static', filename='stylesheets/puzzle_answers.css')}}">
+{% endblock %}
+
+{% block body %}
+<section>
+    <div class="section-container">
+        <h3 class="section-title">Puzzle answers</h3>
+        <p class="section-content">
+            Below, you can find the answers to some of the puzzles published in the calendar for 2023.
+            If your answer is not there, or you don't agree with a given answer, you can send us an email with your solution.
+        </p>
+        <a class="section-link" href='mailto:supremum@gewis.nl?subject=Puzzle answer'>
+            > Send in your puzzle answer
+        </a>
+    </div>
+</section>
+{% endblock %}
