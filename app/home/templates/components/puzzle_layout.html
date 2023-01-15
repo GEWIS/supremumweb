@@ -17,7 +17,9 @@
             <div class="puzzle-answer-container">
                 {% block body %}{% endblock %}
                 <div class="puzzle-list">
-                    <a class="puzzle-link" href="{{ url_for('home.puzzle_answers') }}">Back to the overview</a>
+                    <a class="puzzle-link" href="{{ url_for('home.puzzle_answers') }}">
+                        <span>Back to the overview</span>
+                    </a>
                 </div>
             </div>
         </section>
