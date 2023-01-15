@@ -24,9 +24,16 @@
         </p>
         <div class="puzzle-list">
             {% for sunday in all_sundays %}
-            <a class="puzzle-link" href="">
-                <span>{{ ordinals[sunday.day - 1] }} of {{ months[sunday.month - 1] }}</span>
-            </a>
+                {% set puzzle_id = sunday.day ~ "-" ~ sunday.month %}
+                {% if puzzle_id in published_puzzles %}
+                <a class="puzzle-link" href="{{ url_for('home.puzzle', month_nr=sunday.month, day_nr=sunday.day)}}">
+                    <span>{{ ordinals[sunday.day - 1] }} of {{ months[sunday.month - 1] }}</span>
+                </a>
+                {% else %}
+                <a class="puzzle-link disabled" href="{{ url_for('home.puzzle', month_nr=sunday.month, day_nr=sunday.day)}}">
+                    <span>{{ ordinals[sunday.day - 1] }} of {{ months[sunday.month - 1] }}</span>
+                </a>
+                {% endif %}
             {% endfor %}
         </div>
     </div>

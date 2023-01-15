@@ -118,7 +118,17 @@ def puzzle_answers():
     ordinal = lambda n: "%d%s" % (n,"tsnrhtdd"[(n//10%10!=1)*(n%10<4)*n%10::4])
     ordinals = [ordinal(n) for n in range(1,32)]
 
-    # Gett all the months
+    # Get all the months
     months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
 
-    return render('puzzle_answers.html', all_sundays=sundays, most_recent_puzzle_date=most_recent_sunday, ordinals=ordinals, months=months)
+    # Get a list of published puzzle answers
+    # TODO: Update this list automatically based on the contents of the 'puzzles' folder
+    published = ["1-1"]
+
+    return render('puzzle_answers.html', all_sundays=sundays, most_recent_puzzle_date=most_recent_sunday, ordinals=ordinals, months=months, published_puzzles=published)
+
+
+@home.route('/calendar/puzzle/<int:month_nr>/<int:day_nr>')
+def puzzle(month_nr, day_nr):
+    puzzle = 'puzzles/puzzle{}-{}.html'.format(str(month_nr).zfill(2), str(day_nr).zfill(2))
+    return render(puzzle)

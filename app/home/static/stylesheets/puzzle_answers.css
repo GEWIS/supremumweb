@@ -32,13 +32,27 @@
     padding: 2rem 2rem 2rem;
     margin-bottom: 1rem;
     border-radius: .5rem;
+    text-align: center;
     background-color: var(--GEWIS-red);
     color: var(--light-color);
-    text-align: center;
 }
 
 .puzzle-link span {
     font-size: 1.75em;
     font-weight: bold;
     text-decoration: underline;
+}
+
+.disabled {
+    pointer-events: none;
+    background-color: #aaaaaa;
+}
+
+/* Puzzle answers */
+.puzzle-answer-container {
+    box-sizing: border-box;
+    min-width: 100px;
+    width: 500px;
+    max-width: 85%;
+    margin: auto;
 }
