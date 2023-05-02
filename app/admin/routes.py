@@ -87,8 +87,9 @@ def download_infima_of_supremum_edition_with_id(sid: int):
 
     result = []
     for inf in infima:
-        result.append(inf.content.replace("\r\n", "<br/>"))
-        result.append('%')
+        if inf.rejected != True:
+            result.append(inf.content.replace("\r\n", "<br/>"))
+            result.append('%')
     return "<br/>".join(result), 200
 
 
