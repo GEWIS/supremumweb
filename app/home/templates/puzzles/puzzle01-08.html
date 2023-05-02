@@ -1,0 +1,27 @@
+{% extends 'components/puzzle_layout.html' %}
+
+{% block links %}
+<link rel="stylesheet" type="text/css" href="{{url_for('home.static', filename='stylesheets/puzzle_answers.css')}}">
+{% endblock %}
+
+{% block body %}
+<h3>Answer for the 8th of January</h3>
+<p class="section-content">
+    The answer to the puzzle can be found below:
+</p>
+
+<div style="text-align: center;">
+    <span style="white-space: pre; font-family: monospace;">
+        THIS              5628  
+        ISA               280  
+        GREAT      =>     97405  
+        TIME              5234  
+        ------ +          ------ +
+        WASTER            108547  
+    </span>
+</div>
+
+<p>
+    So A=0, W=1, I=2, M=3, E=4, T=5, H=6, R=7, S=8 and G=9.
+</p>
+{% endblock %}

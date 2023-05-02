@@ -123,7 +123,7 @@ def puzzle_answers():
 
     # Get a list of published puzzle answers
     # TODO: Update this list automatically based on the contents of the 'puzzles' folder
-    published = ["1-1", "15-1"]
+    published = ["1-1", "8-1", "15-1", "22-1", "29-1"]
 
     return render('puzzle_answers.html', all_sundays=sundays, most_recent_puzzle_date=most_recent_sunday, ordinals=ordinals, months=months, published_puzzles=published)
 
