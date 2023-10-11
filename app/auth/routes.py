@@ -18,14 +18,14 @@ def load_user(id):
 @auth.route('/login')
 def login():
     if current_user.is_authenticated:
-        return redirect(url_for('home.infimum_overview'))
+        return redirect(url_for('home.index'))
     app_id = current_app.config['GEWIS_API_APPID']
     return redirect(urljoin('https://gewis.nl/token/', app_id))
 
 @auth.route('/callback')
 def callback():
     if current_user.is_authenticated:
-        return redirect(url_for('home.infima_overview'))
+        return redirect(url_for('home.index'))
 
     # Retrieve token from url
     jwt_str = request.args.get("token", None)
@@ -70,9 +70,12 @@ def callback():
 
     login_user(user)
 
+    if user.is_admin:
+        return redirect(url_for('admin.index'))
+
     # Redirect to infima overview page
     # TODO: can we do something a bit more custom?
-    return redirect(url_for('home.infima_overview'))
+    return redirect(url_for('home.index'))
 
 
 @auth.route('/logout')
