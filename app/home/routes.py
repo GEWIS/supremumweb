@@ -81,7 +81,7 @@ def infima_for_edition(volume_nr, edition_nr):
         return code_page(404, f'Supremum {volume_nr}.{edition_nr} does not (yet) exist.')
 
     # Retrieve infima
-    infima = Infimum.get_infima_with_supremum_id(supremum.id)
+    infima = Infimum.get_infima_with_supremum_id(supremum.id, False)
 
     return render('infima_edition.html', supremum=supremum,
                   infima=infima, user=current_user), 200
