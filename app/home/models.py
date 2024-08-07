@@ -153,8 +153,11 @@ class Infimum(CRUDMixin, db.Model):
         return filtered_results
 
     @classmethod
-    def get_infima_with_supremum_id(cls, id):
-        return cls.query.filter_by(supremum_id=id).all()
+    def get_infima_with_supremum_id(cls, id, filter_rejected=None):
+        query = cls.query.filter_by(supremum_id=id)
+        if filter_rejected is not None:
+            query = query.filter_by(rejected=filter_rejected)
+        return query.all()
 
     @classmethod
     def get_random_infimum(cls, depth=0):
