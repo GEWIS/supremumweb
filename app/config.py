@@ -18,13 +18,22 @@ class base_config(object):
     MYSQL_USER = os.environ.get('MYSQL_USER', 'gooduser')
     MYSQL_PASS = os.environ.get('MYSQL_PASS', 'goodpass')
     MYSQL_DB = os.environ.get('MYSQL_DB', 'goodbname')
-    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://%s:%s@%s:%s/%s' % (
+    MYSQL_SSL = os.environ.get('MYSQL_SSL', False)
+
+    base_uri = 'mysql+pymysql://%s:%s@%s:%s/%s' % (
         MYSQL_USER,
         MYSQL_PASS,
         MYSQL_HOST,
         MYSQL_PORT,
         MYSQL_DB
     )
+
+    if MYSQL_SSL:
+        # In Alpine the CA certificates are located in `/etc/ssl/certs/`.
+        SQLALCHEMY_DATABASE_URI = f"{base_uri}?ssl_ca=/etc/ssl/certs/&ssl_check_hostname=true"
+    else:
+        SQLALCHEMY_DATABASE_URI = base_uri
+
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
     # NGINX should take care of this.
