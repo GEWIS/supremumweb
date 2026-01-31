@@ -30,7 +30,7 @@ class base_config(object):
 
     if MYSQL_SSL:
         # In Alpine the CA certificates are located in `/etc/ssl/certs/`.
-        SQLALCHEMY_DATABASE_URI = f"{base_uri}?ssl_ca=/etc/ssl/certs/&ssl_check_hostname=true"
+        SQLALCHEMY_DATABASE_URI = f"{base_uri}?ssl_ca=/etc/ssl/certs/ca-certificates.crt&ssl_check_hostname=true"
     else:
         SQLALCHEMY_DATABASE_URI = base_uri
 
