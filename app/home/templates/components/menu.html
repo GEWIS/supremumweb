@@ -1,26 +1,34 @@
 <div id="menu">
-    <a href="{% block link %}/{% endblock %}" class="menu-logo">
-        <div class="gi gewis-s"></div>
-        {% block title %}
-        <h3 class="logo-text accomodate-shrink">upremum</h3>
-        {% endblock %}
-    </a>
     <div class="menu-buttons">
-    {% if user.is_authenticated %}
-        {% if user.is_admin %}
-            {% block cross_link %}
-                <a href="{{ url_for('admin.index')}}" class="login-btn btn-hover">
-                    <span><b>Admin</b></span>
-                </a>
+        <a href="{% block link %}/{% endblock %}" class="menu-logo">
+            <div class="gi gewis-s"></div>
+            {% block title %}
+            <h3 class="logo-text accomodate-shrink">upremum</h3>
             {% endblock %}
+        </a>
+        <a href="./supremum" class="menu-btn btn-hover">
+            <span><b>Supremum</b></span>
+        </a>
+        <a href="./infimum" class="menu-btn btn-hover">
+            <span><b>Infimum</b></span>
+        </a>
+    </div>
+    <div class="menu-buttons">
+        {% if user.is_authenticated %}
+            {% if user.is_admin %}
+                {% block cross_link %}
+                    <a href="{{ url_for('admin.index')}}" class="menu-btn btn-hover">
+                        <span><b>Admin</b></span>
+                    </a>
+                {% endblock %}
+            {% endif %}
+            <a href="{{ url_for('auth.logout') }}" class="menu-btn btn-hover">
+                <span><b>Logout</b></span>
+            </a>
+        {% else %}
+            <a href="{{ url_for('auth.login') }}" class="menu-btn btn-hover">
+                <span><b>Login</b></span>
+            </a>
         {% endif %}
-        <a href="{{ url_for('auth.logout') }}" class="login-btn btn-hover">
-            <span><b>Logout</b></span>
-        </a>
-    {% else %}
-        <a href="{{ url_for('auth.login') }}" class="login-btn btn-hover">
-            <span><b>Login</b></span>
-        </a>
-    {% endif %}
     </div>
 </div>

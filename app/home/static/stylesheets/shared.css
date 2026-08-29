@@ -44,6 +44,10 @@ body, html, div {
     .accomodate-shrink {
         display: none;
     }
+
+    .gi {
+        margin-right: 1rem;
+    }
 }
 
 a {
@@ -101,18 +105,24 @@ p, span, li {
 .logo-text {
     margin: 0;
     margin-left: 3px;
+    margin-right: 1rem;
 }
 
 .menu-buttons {
     display: flex;
+    height: 100%;
 }
 
-.login-btn {
+.menu-btn {
+    display: flex !important;
+    align-items: center;
     background-color: var(--GEWIS-red);
     border-radius: .5rem;
     color: var(--light-color);
 
-    padding: .5rem 1.5rem;
+    padding: 0rem 1rem;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
     margin-right: 1rem;
 }
 
