@@ -20,7 +20,7 @@ def login():
     if current_user.is_authenticated:
         return redirect(url_for('home.index'))
     app_id = current_app.config['GEWIS_API_APPID']
-    return redirect(urljoin('https://gewis.nl/token/', app_id))
+    return redirect(urljoin('https://gewis.nl/user/token/', app_id))
 
 @auth.route('/callback')
 def callback():
