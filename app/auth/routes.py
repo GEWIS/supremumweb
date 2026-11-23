@@ -32,30 +32,19 @@ def callback():
     if jwt_str is None:
         return code_page(401, "No login token was provided with this callback.")
 
-    # Validate token header
-    try:
-        header = jwt.get_unverified_header(jwt_str)
-    except jwt.exceptions.DecodeError:
-        return code_page(400, 'The provided login token has an invalid format')
-    if "typ" not in header:
-        return code_page(400, 'Your login token did does not specify its type')
-    if header["typ"] != 'JWT':
-        return code_page(400, f'Your login token type, {header["typ"]}, is not supported.')
-    if "alg" not in header:
-        return code_page(400, f'Your login token does not specify its HMAC algorithm.')
-    alg = header['alg']
-
-    # Decode token
+    # Decode token. GEWIS signs tokens for shared-secret apps with HS512; the algorithm is pinned rather than read
+    # from the (unverified) header. The header carries no `typ`, which is optional per RFC 7515.
     try:
         token = jwt.decode(
             jwt_str,
             key=current_app.config['GEWIS_API_KEY'],
-            algorithms=[alg]
+            algorithms=['HS512'],
+            options={'require': ['exp', 'sub']},
         )
     except jwt.exceptions.ExpiredSignatureError:
         return code_page(401, f'The signature on your login token has expired. Please log in again.')
-    except Exception as e:
-        return code_page(500, f'Something went wrong while logging you in: {str(e)}')
+    except jwt.exceptions.InvalidTokenError as e:
+        return code_page(401, f'Your login token is invalid: {str(e)}')
 
     # Verify token's expiration date
     expiration = datetime.fromtimestamp(token['exp'])
@@ -63,7 +52,8 @@ def callback():
         return code_page(400, f'Your login token as expired. Please log in again.')
 
     # Retrieve information from token
-    lidnr = token['lidnr']
+    # `sub` identifies the member; the `lidnr` claim is deprecated by GEWIS.
+    lidnr = int(token['sub'])
     user = User.get_by_id(lidnr)
     if user is None:
         user = User.create(id=lidnr, is_admin=False)
